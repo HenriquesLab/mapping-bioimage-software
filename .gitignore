@@ -1,0 +1,22 @@
+# Cached raw API responses (about 1 GB; regenerable)
+data/raw/
+
+# Titles and abstracts stay under their publishers' copyright and are never committed.
+# random_sample_2021_2025_ids.csv is the tracked record; rebuild the text locally with
+# release/refetch_identifiers.py.
+data/processed/random_sample_2021_2025.csv.gz
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+release/build/

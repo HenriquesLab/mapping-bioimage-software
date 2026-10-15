@@ -1,0 +1,16 @@
+metric,value
+papers,40
+agree_deepseek,28
+agree_glm,28
+consensus_papers,34
+agree_consensus,25
+human_separate,19
+human_inside_fiji,3
+human_other_pipeline,8
+human_unclear,3
+human_mention_only,7
+consensus_separate,21
+consensus_inside_fiji,2
+consensus_other_pipeline,4
+consensus_unclear,3
+consensus_mention_only,4

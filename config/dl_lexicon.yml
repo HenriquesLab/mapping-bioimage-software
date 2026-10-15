@@ -1,0 +1,60 @@
+# ---------------------------------------------------------------------------
+# Deep-learning lexicon for the per-paper DL / non-DL classifier.
+#
+# A paper mentioning a tool is flagged deep-learning if its title+abstract
+# matches any `include` term AND no `exclude_guard` term flips it back
+# (guards catch phrases like "without deep learning"). Matching is
+# case-insensitive on word boundaries unless a term sets case_sensitive;
+# multiword terms match as phrases.
+#
+# This list is versioned and printed verbatim in the Supplementary so the
+# classification is fully auditable and reproducible.
+# ---------------------------------------------------------------------------
+
+# v2 (2026-09): CNN, GAN, VGG and CARE matched case-sensitively.
+version: 2
+
+include:
+  - deep learning
+  - deep neural network
+  - convolutional neural network
+  - convolutional network
+  - neural network
+  - term: CNN
+    case_sensitive: true
+  - U-Net
+  - UNet
+  - transformer
+  - vision transformer
+  - self-supervised
+  - semantic segmentation
+  - instance segmentation
+  - generative adversarial
+  - term: GAN
+    case_sensitive: true
+  - diffusion model
+  - foundation model
+  - encoder-decoder
+  - ResNet
+  - term: VGG
+    case_sensitive: true
+  - autoencoder
+  - representation learning
+  - pretrained model
+  - pre-trained model
+  - segmentation model
+  - denoising network
+  - Noise2Noise
+  - Noise2Void
+  - term: CARE
+    case_sensitive: true
+  - content-aware restoration
+  - attention mechanism
+
+# If any of these appear, do not flag as DL even when an include term matches.
+exclude_guard:
+  - without deep learning
+  - non-deep-learning
+  - classical machine learning only
+  - no neural network
+  - compiled standalone application

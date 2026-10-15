@@ -1,0 +1,15 @@
+area,agreed_v2,in_area_v2,agreed_v1,in_area_v1,agreed_em,in_area_em,precision_v2,precision_v1,precision_em,round_used,precision,shown
+Cancer,23,15,23,15,0,0,0.6522,0.6522,,v2,0.6522,True
+Cardiovascular and renal,23,9,23,7,0,0,0.3913,0.3043,,v2,0.3913,False
+Clinical and pathology,17,11,23,13,0,0,0.6471,0.5652,,v2,0.6471,True
+Computational methods,19,17,23,17,0,0,0.8947,0.7391,,v2,0.8947,True
+Development and organoids,21,11,23,12,0,0,0.5238,0.5217,,v2,0.5238,True
+Electron microscopy,23,5,16,12,24,24,0.2174,0.75,1.0,em,1.0,True
+Immunology,24,15,23,12,0,0,0.625,0.5217,,v2,0.625,True
+Materials science,20,13,21,13,0,0,0.65,0.619,,v2,0.65,True
+Metabolic disease and liver,20,11,23,13,0,0,0.55,0.5652,,v2,0.55,True
+Microbiology and infection,23,15,21,12,0,0,0.6522,0.5714,,v2,0.6522,True
+Neuroscience,21,14,23,15,0,0,0.6667,0.6522,,v2,0.6667,True
+Organelles and cytoskeleton,20,15,18,13,0,0,0.75,0.7222,,v2,0.75,True
+Plant biology,23,18,24,18,0,0,0.7826,0.75,,v2,0.7826,True
+Single-cell and spatial omics,20,9,20,8,0,0,0.45,0.4,,v2,0.45,False

@@ -1,0 +1,31 @@
+tool_id,name,category,implies_dl,in_aggregate,scope,homepage
+jupyter,Jupyter notebooks,notebook,False,False,core,https://jupyter.org
+imagej,ImageJ / Fiji,general-platform,False,True,core,https://imagej.net
+napari,napari,general-platform,False,True,core,https://napari.org
+cellprofiler,CellProfiler,general-platform,False,True,core,https://cellprofiler.org
+qupath,QuPath,general-platform,False,True,core,https://qupath.github.io
+icy,Icy,general-platform,False,True,core,https://icy.bioimageanalysis.org
+ilastik,ilastik,general-platform,False,True,core,https://www.ilastik.org
+knime,KNIME,general-platform,False,True,core,https://www.knime.com
+cellpose,Cellpose,dl-model,True,True,core,https://www.cellpose.org
+stardist,StarDist,dl-model,True,True,core,https://github.com/stardist/stardist
+deepimagej,deepImageJ,dl-model,True,True,core,https://deepimagej.github.io
+zerocostdl4mic,ZeroCostDL4Mic/DL4MicEverywhere,dl-model,True,True,core,https://github.com/HenriquesLab/ZeroCostDL4Mic
+matlab,MATLAB,commercial,False,False,core,https://www.mathworks.com
+imaris,Imaris,commercial,False,True,core,https://imaris.oxinst.com
+arivis,arivis,commercial,False,True,core,https://www.arivis.com
+volocity,Volocity,commercial,False,True,counts,https://www.perkinelmer.com
+huygens,Huygens,commercial,False,True,counts,https://svi.nl
+amira,Amira/Avizo,commercial,False,True,counts,https://www.thermofisher.com/amira-avizo
+halo,HALO,commercial,False,True,counts,https://indicalab.com
+visiopharm,Visiopharm,commercial,False,True,counts,https://visiopharm.com
+dragonfly,Dragonfly,commercial,False,True,counts,https://www.theobjects.com/dragonfly
+aivia,Aivia,commercial,False,True,counts,https://www.aivia-software.com
+skimage,scikit-image,library,False,True,counts,https://scikit-image.org
+opencv,OpenCV,library,False,True,counts,https://opencv.org
+metamorph,MetaMorph,acquisition-suite,False,True,counts,https://www.moleculardevices.com
+nis,NIS-Elements,acquisition-suite,False,True,counts,https://www.microscope.healthcare.nikon.com
+zen,ZEN,acquisition-suite,False,True,counts,https://www.zeiss.com/microscopy
+axiovision,AxioVision,acquisition-suite,False,True,counts,https://www.zeiss.com/microscopy
+lasx,LAS X,acquisition-suite,False,True,counts,https://www.leica-microsystems.com
+cellsens,cellSens,acquisition-suite,False,True,counts,https://evidentscientific.com

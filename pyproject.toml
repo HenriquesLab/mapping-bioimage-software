@@ -1,0 +1,24 @@
+# Project metadata and test configuration. The package runs in place from this
+# directory (python -m census.<module>); it is not built or installed.
+# release/make_release.py reads [project] version as its default version.
+[project]
+name = "mapping-bioimage-software"
+version = "2026.10.20"
+description = "Data and code for Mapping bioimage-analysis software adoption in microscopy."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+keywords = [
+  "bioimage analysis",
+  "scientific software",
+  "ImageJ",
+  "QuPath",
+  "deep learning",
+  "bibliometrics",
+  "research software sustainability",
+]
+
+# Test configuration only.
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

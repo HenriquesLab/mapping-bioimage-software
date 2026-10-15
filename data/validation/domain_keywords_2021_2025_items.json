@@ -1,0 +1,145 @@
+{
+  "command": "domains",
+  "seed": "20261006-validation-redraw-v1",
+  "historical_draw_recovered": false,
+  "frame": "data/validation/frames/domain_keywords_2021_2025_frame.csv",
+  "frame_sha256": "54ba02f4fe7bd8bd78691536ebc7fb4dc35ab3606ba0d60e8734af05a4229038",
+  "drawing_code_sha256": "325ccc43c011aef676fac4eae25eec165bda40d0ccdbf4e14ede9283360e2a67",
+  "design": [
+    {
+      "stratum": "Cancer",
+      "population": 9016,
+      "sampled": 8,
+      "sampling_fraction": 0.0008873114463176575,
+      "seed": "20261006-validation-redraw-v1-domains-Cancer",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Cardiovascular and renal",
+      "population": 5205,
+      "sampled": 8,
+      "sampling_fraction": 0.001536983669548511,
+      "seed": "20261006-validation-redraw-v1-domains-Cardiovascular and renal",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Clinical and pathology",
+      "population": 11294,
+      "sampled": 8,
+      "sampling_fraction": 0.0007083407118824154,
+      "seed": "20261006-validation-redraw-v1-domains-Clinical and pathology",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Computational methods",
+      "population": 6560,
+      "sampled": 8,
+      "sampling_fraction": 0.0012195121951219512,
+      "seed": "20261006-validation-redraw-v1-domains-Computational methods",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Development and organoids",
+      "population": 6191,
+      "sampled": 8,
+      "sampling_fraction": 0.0012921983524471006,
+      "seed": "20261006-validation-redraw-v1-domains-Development and organoids",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Electron microscopy",
+      "population": 2336,
+      "sampled": 8,
+      "sampling_fraction": 0.003424657534246575,
+      "seed": "20261006-validation-redraw-v1-domains-Electron microscopy",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Immunology",
+      "population": 10468,
+      "sampled": 8,
+      "sampling_fraction": 0.0007642338555598013,
+      "seed": "20261006-validation-redraw-v1-domains-Immunology",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Materials science",
+      "population": 2495,
+      "sampled": 8,
+      "sampling_fraction": 0.0032064128256513026,
+      "seed": "20261006-validation-redraw-v1-domains-Materials science",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Metabolic disease and liver",
+      "population": 3466,
+      "sampled": 8,
+      "sampling_fraction": 0.002308136180034622,
+      "seed": "20261006-validation-redraw-v1-domains-Metabolic disease and liver",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Microbiology and infection",
+      "population": 7699,
+      "sampled": 8,
+      "sampling_fraction": 0.001039095986491752,
+      "seed": "20261006-validation-redraw-v1-domains-Microbiology and infection",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Neuroscience",
+      "population": 9766,
+      "sampled": 8,
+      "sampling_fraction": 0.0008191685439279131,
+      "seed": "20261006-validation-redraw-v1-domains-Neuroscience",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Organelles and cytoskeleton",
+      "population": 7926,
+      "sampled": 8,
+      "sampling_fraction": 0.0010093363613424174,
+      "seed": "20261006-validation-redraw-v1-domains-Organelles and cytoskeleton",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Plant biology",
+      "population": 1129,
+      "sampled": 8,
+      "sampling_fraction": 0.0070859167404783,
+      "seed": "20261006-validation-redraw-v1-domains-Plant biology",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "Single-cell and spatial omics",
+      "population": 4389,
+      "sampled": 8,
+      "sampling_fraction": 0.001822738664843928,
+      "seed": "20261006-validation-redraw-v1-domains-Single-cell and spatial omics",
+      "replacement": false,
+      "census": false
+    }
+  ],
+  "inputs": {
+    "corpus": "data/processed/random_sample_2021_2025.csv.gz",
+    "corpus_sha256": "627f601fd86add2746d50bd582f10f109b244b4d8d28e203e1eece82cefce32e",
+    "registry_sha256": "505087ef16eede71db18cd270ce21bdc428a7903eb2296be8812955a80b32e4f",
+    "frame_unit": "tool-year-epmc_id within stratum",
+    "patterns_sha256": "0cdbc53cd7d124547810c7e151fc83b9803b9e9221312052fcdf46605ea0d830",
+    "frame_sha256": "54ba02f4fe7bd8bd78691536ebc7fb4dc35ab3606ba0d60e8734af05a4229038"
+  },
+  "pooling": "No automatic pooling weights. Use frame N/n for stratum population inference; corpus tool-year weights are a separate stage."
+}

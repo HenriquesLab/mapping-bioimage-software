@@ -1,0 +1,107 @@
+{
+  "title": "mapping-bioimage-software: data and code for Mapping bioimage-analysis software adoption in microscopy",
+  "upload_type": "software",
+  "version": "2026.10.20",
+  "license": "cc-by-4.0",
+  "description": "Data and code for Mapping bioimage-analysis software adoption in microscopy. The registry contains 30 packages: 22 analysis packages, six microscope-control programs, and MATLAB and Jupyter notebooks as references outside all aggregates. The deep-learning series uses 13 core analysis packages. Jupyter notebooks retain their aliases, notebook category and core scope. Frozen validation designs and labels retain the original 14-package calibration sample. The archive holds processed counts, annotator-labelled validation sets, identifier-only sampling frames, configuration, code and provenance. Data sources: Europe PMC (search API and open-access full text; metadata derived from MEDLINE/PubMed carries the NLM notice that the data may not be current and that NLM does not endorse this work; full text was mined and never redistributed), OpenAlex (CC0), the GitHub REST API (public repository counts), pypistats.org (public PyPI download statistics), the image.sc forum (topic counts only, no posts), and Crossref and ORCID (bibliographic metadata, CC0). The archive contains no article titles, abstracts or full text; the only titles are the bibliographic titles of the tracked packages' own papers in data/validation/citations_package_papers.csv. Article text can be rebuilt from identifiers with release/refetch_identifiers.py through Europe PMC. The data are licensed under CC BY 4.0 (LICENSE-DATA) and the code under MIT (LICENSE); this record carries CC BY 4.0 for the data and states the MIT licence for the code. Funding named without a grant identifier: EMBO Installation Grant EMBO-2020-IG-4734; Chan Zuckerberg Initiative Imaging Scientist award (2020-225445); la Caixa Foundation CaixaResearch Health 2025 award (VirusAwareScopes, HR25-00453); Sigrid Juselius Foundation; Cancer Society of Finland; Solutions for Health strategic funding to Åbo Akademi University; Finnish Cancer Institute (K. Albin Johansson Professorship); the Kavli Foundation co-funds the EOSS Cycle 6 award.",
+  "doi": "10.5281/zenodo.23395935",
+  "creators": [
+    {
+      "name": "Shakespeare, Tayla",
+      "orcid": "0000-0002-4159-0460",
+      "affiliation": "Instituto de Tecnologia Química e Biológica António Xavier, Universidade Nova de Lisboa, Oeiras, Portugal"
+    },
+    {
+      "name": "Saraiva, Bruno M.",
+      "orcid": "0000-0002-9151-5477",
+      "affiliation": "Instituto de Tecnologia Química e Biológica António Xavier, Universidade Nova de Lisboa, Oeiras, Portugal"
+    },
+    {
+      "name": "Cunha, Inês",
+      "orcid": "0000-0002-1327-9018",
+      "affiliation": "Department of Biochemistry and Biophysics and Science for Life Laboratory, Stockholm University, Solna, Sweden"
+    },
+    {
+      "name": "Jacobs, Caron",
+      "orcid": "0000-0002-8072-4433",
+      "affiliation": "Advanced Microscopy and Imaging (AMI) Centre, University of Cape Town, Cape Town, South Africa; Department of Integrative Biomedical Sciences, Faculty of Health Sciences, University of Cape Town, Cape Town, South Africa"
+    },
+    {
+      "name": "Jacquemet, Guillaume",
+      "orcid": "0000-0002-9286-920X",
+      "affiliation": "Faculty of Science and Engineering, Cell Biology, Åbo Akademi University, Turku, Finland; Turku Bioscience Centre, University of Turku and Åbo Akademi University, Turku, Finland; InFLAMES Research Flagship Centre, University of Turku, Turku, Finland; Foundation for the Finnish Cancer Institute, Helsinki, Finland"
+    },
+    {
+      "name": "Henriques, Ricardo",
+      "orcid": "0000-0002-2043-5234",
+      "affiliation": "Instituto de Tecnologia Química e Biológica António Xavier, Universidade Nova de Lisboa, Oeiras, Portugal; Gulbenkian Institute for Molecular Medicine, Oeiras, Portugal"
+    }
+  ],
+  "keywords": [
+    "bioimage analysis",
+    "scientific software",
+    "ImageJ",
+    "QuPath",
+    "deep learning",
+    "bibliometrics",
+    "research software sustainability"
+  ],
+  "grants": [
+    {
+      "id": "10.13039/501100000780::101001332",
+      "title": "European Research Council SelfDriving4DSR, Horizon 2020 (grant agreement 101001332)"
+    },
+    {
+      "id": "10.13039/501100000780::101099654",
+      "title": "Horizon Europe RT-SuperES (grant agreement 101099654)"
+    },
+    {
+      "id": "10.13039/100010269::313383/Z/24/Z",
+      "title": "Wellcome Essential Open Source Software for Science Cycle 6 award (313383/Z/24/Z)"
+    },
+    {
+      "id": "10.13039/100014989::EOSS6-0000000260",
+      "title": "Chan Zuckerberg Initiative Essential Open Source Software for Science Cycle 6 award (EOSS6-0000000260)"
+    },
+    {
+      "id": "10.13039/100010269::313779/Z/24/Z",
+      "title": "Wellcome (313779/Z/24/Z)"
+    },
+    {
+      "id": "10.13039/501100002341::338537",
+      "title": "Research Council of Finland (338537)"
+    },
+    {
+      "id": "10.13039/501100002341::371287",
+      "title": "Research Council of Finland (371287)"
+    },
+    {
+      "id": "10.13039/501100002341::374180",
+      "title": "Research Council of Finland (374180)"
+    },
+    {
+      "id": "10.13039/501100002341::337530",
+      "title": "Research Council of Finland InFLAMES Flagship (decision 337530)"
+    },
+    {
+      "id": "10.13039/501100002341::337531",
+      "title": "Research Council of Finland InFLAMES Flagship (decision 337531)"
+    },
+    {
+      "id": "10.13039/501100002341::357910",
+      "title": "Research Council of Finland InFLAMES Flagship (decision 357910)"
+    },
+    {
+      "id": "10.13039/501100001871::10.54499/UID/04612/2025",
+      "title": "FCT MOSTMICRO-ITQB R&D Unit (UID/04612/2025)"
+    },
+    {
+      "id": "10.13039/501100001871::10.54499/UID/PRR/4612/2025",
+      "title": "FCT MOSTMICRO-ITQB R&D Unit (UID/PRR/4612/2025)"
+    },
+    {
+      "id": "10.13039/501100001871::10.54499/LA/P/0087/2020",
+      "title": "FCT LS4FUTURE Associated Laboratory (LA/P/0087/2020)"
+    }
+  ]
+}

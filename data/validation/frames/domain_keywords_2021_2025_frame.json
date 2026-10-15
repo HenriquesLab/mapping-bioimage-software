@@ -1,0 +1,8 @@
+{
+  "corpus": "data/processed/random_sample_2021_2025.csv.gz",
+  "corpus_sha256": "627f601fd86add2746d50bd582f10f109b244b4d8d28e203e1eece82cefce32e",
+  "registry_sha256": "505087ef16eede71db18cd270ce21bdc428a7903eb2296be8812955a80b32e4f",
+  "frame_unit": "tool-year-epmc_id within stratum",
+  "patterns_sha256": "0cdbc53cd7d124547810c7e151fc83b9803b9e9221312052fcdf46605ea0d830",
+  "frame_sha256": "54ba02f4fe7bd8bd78691536ebc7fb4dc35ab3606ba0d60e8734af05a4229038"
+}

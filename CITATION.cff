@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "Please cite this software and its archived data."
+type: software
+title: "mapping-bioimage-software: data and code for Mapping bioimage-analysis software adoption in microscopy"
+version: "2026.10.20"
+date-released: "2026-10-20"
+repository-code: "https://github.com/HenriquesLab/mapping-bioimage-software"
+doi: "10.5281/zenodo.23395935"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23395935"
+license:
+  - MIT
+  - CC-BY-4.0
+authors:
+  - given-names: Tayla
+    family-names: Shakespeare
+    orcid: "https://orcid.org/0000-0002-4159-0460"
+    affiliation: "Instituto de Tecnologia Química e Biológica António Xavier, Universidade Nova de Lisboa, Oeiras, Portugal"
+  - given-names: Bruno M.
+    family-names: Saraiva
+    orcid: "https://orcid.org/0000-0002-9151-5477"
+    affiliation: "Instituto de Tecnologia Química e Biológica António Xavier, Universidade Nova de Lisboa, Oeiras, Portugal"
+  - given-names: Inês
+    family-names: Cunha
+    orcid: "https://orcid.org/0000-0002-1327-9018"
+    affiliation: "Department of Biochemistry and Biophysics and Science for Life Laboratory, Stockholm University, Solna, Sweden"
+  - given-names: Caron
+    family-names: Jacobs
+    orcid: "https://orcid.org/0000-0002-8072-4433"
+    affiliation: "Advanced Microscopy and Imaging (AMI) Centre, University of Cape Town, Cape Town, South Africa; Department of Integrative Biomedical Sciences, Faculty of Health Sciences, University of Cape Town, Cape Town, South Africa"
+  - given-names: Guillaume
+    family-names: Jacquemet
+    orcid: "https://orcid.org/0000-0002-9286-920X"
+    affiliation: "Faculty of Science and Engineering, Cell Biology, Åbo Akademi University, Turku, Finland; Turku Bioscience Centre, University of Turku and Åbo Akademi University, Turku, Finland; InFLAMES Research Flagship Centre, University of Turku, Turku, Finland; Foundation for the Finnish Cancer Institute, Helsinki, Finland"
+  - given-names: Ricardo
+    family-names: Henriques
+    orcid: "https://orcid.org/0000-0002-2043-5234"
+    affiliation: "Instituto de Tecnologia Química e Biológica António Xavier, Universidade Nova de Lisboa, Oeiras, Portugal; Gulbenkian Institute for Molecular Medicine, Oeiras, Portugal"
+keywords:
+  - bioimage analysis
+  - scientific software
+  - ImageJ
+  - QuPath
+  - deep learning
+  - bibliometrics
+  - research software sustainability

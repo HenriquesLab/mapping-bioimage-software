@@ -1,0 +1,1 @@
+{"name": "alias_precision_2025", "command": "alias", "seed": "20261006-disjoint-replicates-v1", "replicate_sizes": [150, 150, 150], "anchor": "none: three fresh seeded draws", "note": "Replicates are disjoint. Census thirds keep every frame record."}

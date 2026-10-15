@@ -1,0 +1,16 @@
+{
+  "Neuroscience": "\\b(?:neurons?\\b|neuronal|neurodegen|neuroinflamm|neurodevelop|neurotransmi|brain|synap|axon|dendrit(?!ic cells?)|cerebral cortex|cortical neuron|cortical circuit|cortical layer|cortical development|hippocamp|astrocyt|microglia|glia\\b|glial|oligodendro|spinal cord|retina)",
+  "Cancer": "\\b(?:cancers?\\b|tumou?rs?\\b|tumou?ral|carcinoma|adenocarcinoma|metasta|oncogen|melanoma|glioblastoma|glioma|leuka?emi|lymphoma|sarcoma|neoplas|antitumou?r)",
+  "Immunology": "\\b(?:immune|immunity|immunolog|immunotherap|t[- ]cells?\\b|b[- ]cells?\\b|macrophag|lymphocyt|antigens?\\b|inflamma|cytokines?|neutrophil|dendritic cells?|monocyt|interleukin|interferon)",
+  "Microbiology and infection": "\\b(?:bacteri|virus|viral\\b|virion|infect|pathogens?\\b|pathogenic|sars-cov|covid|yeast|fungi|fungal|parasit|plasmodium|malaria|microbio|tubercul|mycobact|hiv\\b|influenza)",
+  "Development and organoids": "\\b(?:embryo|zebrafish|drosophila|developmental|morphogen|organogen|elegans|xenopus|gastrula|organoids?\\b)",
+  "Plant biology": "\\b(?:plants?\\b|arabidopsis|leaf\\b|leaves\\b|chloroplast|seedlings?\\b|photosynth|pollen|maize)",
+  "Organelles and cytoskeleton": "\\b(?:mitochond|actin\\b|f-actin|actomyosin|microtubul|cytoskelet|endosom|lysosom|autophag|golgi|endoplasmic reticulum|organelles?\\b|vesicles?\\b|centrosom|cilia\\b|cilium|nuclear envelope)",
+  "Clinical and pathology": "\\b(?:patients?\\b|clinical|biops|diagnos|prognos|cohorts?\\b|whole[- ]slide|histopatholog|pathologists?\\b|digital pathology)",
+  "Single-cell and spatial omics": "\\b(?:single[- ]cell (?:rna|sequencing|transcriptom|atlas|multi-?omic|proteom)|scrna|snrna|transcriptom|rna-seq|spatial(?:ly)? (?:resolved|transcriptom|proteom|omics)|merfish|seqfish|visium|xenium|imaging mass cytometry)",
+  "Cardiovascular and renal": "\\b(?:cardiac|cardio|heart\\b|vascular|endotheli|angiogen|atheroscl|blood vessels?|kidneys?\\b|renal\\b)",
+  "Metabolic disease and liver": "\\b(?:diabet|obes|adipo|insulin|hepat|liver\\b|steatosis)",
+  "Electron microscopy": "\\b(?:cryo-?et\\b|cryo-?electron|electron microscop|electron tomograph|fib-?sem|serial[- ]section|connectom|volume electron|volume em\\b)",
+  "Materials science": "\\b(?:nanoparticles?\\b|nanomaterial|hydrogels?\\b|polymers?\\b|polymeric|graphene|alloys?\\b|nanostruct|biomaterial)",
+  "Computational methods": "\\b(?:segmentation|deep learning|machine learning|neural networks?\\b|pipelines?\\b|open-source|software|algorithms?\\b|computational)"
+}

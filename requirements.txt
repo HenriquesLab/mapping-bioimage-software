@@ -1,0 +1,11 @@
+# Data acquisition + analysis for manuscript-BioImageAppsAnalysis
+# Matplotlib is pinned to the manuscript renderer version, 3.11.2.
+# Other package versions are minimums and may resolve to newer releases.
+# The release's ENVIRONMENT.txt records the direct-package versions used;
+# transitive dependencies are not recorded.
+requests>=2.31
+pandas>=2.0
+PyYAML>=6.0
+# Match the renderer used for the manuscript reference PNGs.
+matplotlib==3.11.2
+numpy>=1.24

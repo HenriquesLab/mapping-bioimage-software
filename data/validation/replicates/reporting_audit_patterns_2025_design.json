@@ -1,0 +1,1 @@
+{"name": "reporting_audit_patterns_2025", "command": "reporting_audit", "seed": "20261006-disjoint-replicates-v1", "replicate_sizes": [60, 60, 60], "anchor": "reporting-audit seeded sample", "note": "Replicates are disjoint. Census thirds keep every frame record."}

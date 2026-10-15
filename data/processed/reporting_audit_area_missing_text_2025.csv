@@ -1,0 +1,4 @@
+tool_id,pmcid,replicate,analysed
+cellpose,PMC11798837,2,False
+stardist,PMC12868673,3,False
+stardist,PMC12781401,3,False

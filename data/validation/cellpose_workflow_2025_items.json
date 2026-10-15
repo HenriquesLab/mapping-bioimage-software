@@ -1,0 +1,28 @@
+{
+  "command": "cellpose",
+  "seed": "20261006-validation-redraw-v1",
+  "historical_draw_recovered": false,
+  "frame": "data/validation/frames/cellpose_workflow_2025_frame.csv",
+  "frame_sha256": "88dd5c4e22de14234febb99fde5e2fe9924c8fc960e406d65eb4c9d226840efb",
+  "drawing_code_sha256": "325ccc43c011aef676fac4eae25eec165bda40d0ccdbf4e14ede9283360e2a67",
+  "design": [
+    {
+      "stratum": "cellpose",
+      "population": 405,
+      "sampled": 40,
+      "sampling_fraction": 0.09876543209876543,
+      "seed": "20261006-validation-redraw-v1-cellpose-cellpose",
+      "replacement": false,
+      "census": false
+    }
+  ],
+  "inputs": {
+    "queries": {
+      "cellpose": "\"Cellpose\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND (\"ImageJ2\" OR \"ImageJ\" OR \"Fiji\" OR \"FIJI\") AND OPEN_ACCESS:Y AND PUB_YEAR:2025"
+    },
+    "registry_sha256": "505087ef16eede71db18cd270ce21bdc428a7903eb2296be8812955a80b32e4f",
+    "frame_unit": "tool-pmcid within stratum",
+    "frame_sha256": "88dd5c4e22de14234febb99fde5e2fe9924c8fc960e406d65eb4c9d226840efb"
+  },
+  "pooling": "No automatic pooling weights. Use frame N/n for stratum population inference; corpus tool-year weights are a separate stage."
+}

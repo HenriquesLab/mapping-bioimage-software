@@ -1,0 +1,5 @@
+indicator,items,annotators,annotator_agreement_pct,kappa,consensus_items,consensus_positive,pattern_tp,pattern_fp,pattern_fn,precision_pct,recall_pct,pattern_vs_consensus_agreement_pct
+version,60,gemini vs syn,100.0,1.0,60,20,19,2,1,90.5,95.0,95.0
+function,60,gemini vs syn,91.7,0.8,55,16,13,3,3,81.2,81.2,89.1
+parameter,60,gemini vs syn,95.0,0.84,57,10,8,3,2,72.7,80.0,91.2
+code,60,gemini vs syn,93.3,0.86,56,22,20,2,2,90.9,90.9,92.9

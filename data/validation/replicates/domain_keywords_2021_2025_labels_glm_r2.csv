@@ -1,0 +1,112 @@
+item_id,label
+Cancer|cellprofiler|36404917,other_sense
+Cancer|imagej|37038210,in_area
+Cancer|aivia|40348760,other_sense
+Cancer|cellprofiler|40569674,in_area
+Cancer|qupath|41044210,in_area
+Cancer|visiopharm|39983725,in_area
+Cancer|qupath|37789267,in_area
+Cancer|visiopharm|33772332,in_area
+Cardiovascular and renal|cellprofiler|40320524,other_sense
+Cardiovascular and renal|amira|39222027,in_area
+Cardiovascular and renal|imaris|39178253,other_sense
+Cardiovascular and renal|imagej|38379085,other_sense
+Cardiovascular and renal|imagej|37182101,in_area
+Cardiovascular and renal|qupath|34253596,other_sense
+Cardiovascular and renal|imagej|35767918,in_area
+Cardiovascular and renal|volocity|38790986,other_sense
+Clinical and pathology|cellpose|38777608,in_area
+Clinical and pathology|imagej|35176122,in_area
+Clinical and pathology|volocity|39970536,other_sense
+Clinical and pathology|halo|38503922,in_area
+Clinical and pathology|qupath|39026018,in_area
+Clinical and pathology|imaris|38267903,in_area
+Clinical and pathology|imaris|34887420,other_sense
+Clinical and pathology|qupath|PPR1032368,in_area
+Computational methods|cellprofiler|34199932,in_area
+Computational methods|napari|39776608,in_area
+Computational methods|opencv|36240264,other_sense
+Computational methods|cellprofiler|37197415,in_area
+Computational methods|opencv|39689035,in_area
+Computational methods|napari|34760331,in_area
+Computational methods|opencv|34985444,in_area
+Computational methods|jupyter|37529286,in_area
+Development and organoids|qupath|36634039,other_sense
+Development and organoids|arivis|41309607,in_area
+Development and organoids|aivia|39374387,other_sense
+Development and organoids|imaris|40956303,in_area
+Development and organoids|imagej|37713629,other_sense
+Development and organoids|qupath|40885740,in_area
+Development and organoids|volocity|34423780,in_area
+Development and organoids|cellpose|40422198,other_sense
+Electron microscopy|imaris|33463726,in_area
+Electron microscopy|visiopharm|PPR372615,in_area
+Electron microscopy|imagej|34983554,in_area
+Electron microscopy|jupyter|36646682,in_area
+Electron microscopy|huygens|38744280,in_area
+Electron microscopy|icy|40963824,in_area
+Electron microscopy|amira|33326005,in_area
+Electron microscopy|skimage|34360570,in_area
+Immunology|imagej|37338641,in_area
+Immunology|icy|40360465,other_sense
+Immunology|ilastik|35149753,in_area
+Immunology|cellprofiler|39138287,in_area
+Immunology|halo|33527196,in_area
+Immunology|volocity|35350439,other_sense
+Immunology|qupath|PPR695586,in_area
+Immunology|cellprofiler|34526379,in_area
+Materials science|amira|41041282,in_area
+Materials science|imagej|38374159,in_area
+Materials science|cellprofiler|36791204,other_sense
+Materials science|imagej|40385493,other_sense
+Materials science|jupyter|34373596,other_sense
+Materials science|dragonfly|40006147,in_area
+Materials science|qupath|41287757,in_area
+Materials science|amira|40514411,other_sense
+Metabolic disease and liver|imagej|40500705,other_sense
+Metabolic disease and liver|jupyter|39159974,in_area
+Metabolic disease and liver|halo|38665693,other_sense
+Metabolic disease and liver|cellprofiler|35563567,in_area
+Metabolic disease and liver|amira|38242053,other_sense
+Metabolic disease and liver|visiopharm|41597293,in_area
+Metabolic disease and liver|imaris|37870400,in_area
+Metabolic disease and liver|imaris|39872500,in_area
+Microbiology and infection|ilastik|34914922,in_area
+Microbiology and infection|ilastik|41196727,in_area
+Microbiology and infection|cellprofiler|37595558,other_sense
+Microbiology and infection|icy|37875225,in_area
+Microbiology and infection|opencv|40817601,other_sense
+Microbiology and infection|volocity|36509824,in_area
+Microbiology and infection|imaris|35451371,other_sense
+Microbiology and infection|jupyter|37670843,in_area
+Neuroscience|ilastik|35739970,other_sense
+Neuroscience|arivis|39402596,in_area
+Neuroscience|skimage|39979268,in_area
+Neuroscience|huygens|38713825,in_area
+Neuroscience|cellprofiler|38605423,other_sense
+Neuroscience|halo|40070795,in_area
+Neuroscience|imaris|35442742,in_area
+Neuroscience|imagej|40104021,in_area
+Organelles and cytoskeleton|skimage|36598405,other_sense
+Organelles and cytoskeleton|ilastik|33557383,in_area
+Organelles and cytoskeleton|imagej|36048889,other_sense
+Organelles and cytoskeleton|halo|37179348,other_sense
+Organelles and cytoskeleton|stardist|39970220,in_area
+Organelles and cytoskeleton|halo|40810224,other_sense
+Organelles and cytoskeleton|cellprofiler|37407594,other_sense
+Plant biology|opencv|39105186,in_area
+Plant biology|imagej|PPR981838,in_area
+Plant biology|imagej|34299450,other_sense
+Plant biology|imagej|35890376,other_sense
+Plant biology|opencv|39915584,in_area
+Plant biology|volocity|36840219,in_area
+Plant biology|icy|36789163,in_area
+Plant biology|ilastik|40634687,in_area
+Single-cell and spatial omics|huygens|33742105,in_area
+Single-cell and spatial omics|huygens|PPR753226,in_area
+Single-cell and spatial omics|qupath|41094672,other_sense
+Single-cell and spatial omics|amira|40369603,other_sense
+Single-cell and spatial omics|skimage|PPR514603,in_area
+Single-cell and spatial omics|imaris|34680356,other_sense
+Single-cell and spatial omics|ilastik|35550039,other_sense
+Single-cell and spatial omics|stardist|36517593,other_sense

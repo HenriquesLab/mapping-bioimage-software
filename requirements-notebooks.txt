@@ -1,0 +1,9 @@
+# Optional dependencies for executing the figure walkthroughs.
+# Install after requirements.txt: python -m pip install -r requirements-notebooks.txt
+# Matplotlib is pinned to the manuscript renderer version, 3.11.2.
+# Other package versions are minimums and may resolve to newer releases.
+# The release's ENVIRONMENT.txt records the direct-package versions used;
+# transitive dependencies are not recorded.
+jupyter>=1.1
+nbconvert>=7.16
+ipykernel>=6.29

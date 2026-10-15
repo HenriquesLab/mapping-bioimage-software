@@ -1,0 +1,45 @@
+# Cellpose-ImageJ workflow annotation - Round 1 manual review
+# methods_or_fulltext_details: Text from Methods section (or entire full-text if no Methods section, as annotators see it)
+# external_context_details: Additional context from other sections (Discussion,Limitations, Availability) or external sources (GitHub repos, referenced papers)
+# detail_location: in_methods where the annotator marked that the details came from the Methods section; blank otherwise
+pmcid,label,methods_or_fulltext_details,detail_location,external_context_details
+PMC12385590,separate_fiji_measure,analysed using Cellpose software then measured in ImageJ/FIJI,,none
+PMC12386268,inside_fiji,fine-tuned a pre-trained Cellpose model and integrated with Trackmate-Fiji,,Model fine-tuning details not provided anywhere in text but Trackmate-Cellpose documentation suggests done in Cellpose GUI
+PMC12538810,separate_elsewhere,images processed in Cellpose (platform not defined but likely python directly) and analysed in MATLAB. Fiji used for separate workflows,,none
+PMC12765013,separate_elsewhere,Cellpose used for segmentation and MATLAB used for automated analyses but not explicit on platform used to run Cellpose. ImageJ used for manual measurements from intensity profiles - indicating raw images not cellpose masks,,full-text reveals that manual measurements used to compare against automated measurements in MATLAB
+PMC11999873,separate_fiji_other,FIJI used for preprocessing before cellpose segmentation and Trackmate tracking run from python module,,Github for module reveals segmentation linked to Trackmate using Trackmate-Cellpose FIJI extension but ran from command line
+PMC12748898,other_pipeline,Cellpose segmentation performed within Vizgen Post-processing Tool and FIJI used for preprocessing in separate dataset,,none
+PMC12188662,separate_fiji_other,"Cellpose model training, inference and analysis done in notebook and FIJI used for preprocessing",,none
+PMC12389235,separate_fiji_measure,FIJI used to measure cellpose masks,,none
+PMC12731859,separate_fiji_measure,combination of FIJI and Cellpose used for measurements suggesting Cellpose run externally but not explicit where,,details on protocol reference non-open-access paper so unclear on how this was actually done
+PMC12780075,other_pipeline,use cellpose plugin in AIVIA 11.0 software. FIJI used for image processing,,full-text provides no indication that imageJ-processed images were fed into cellpose segmentation but also not explicit.
+PMC12664722,other_pipeline,FIJI used for wound-healing assay measurements. Cellpose (GUI) used to quantify invasion of cells through membrane suggesting different pipeline,in_methods,interpretation strengthened after full-text review
+PMC12277315,mention_only,review paper mentioning open-source tools with cellpose functionality and descirbe a paper that denoises in FIJI and segments via Cellpose in Python,,none
+PMC12451177,mention_only,imageJ listed in resources but only mentioned in text as possibility over Imaris for measurements. Cellpose segmentation done in GUI,,none
+PMC12377714,unclear,FIJI trackmate was applied to Cellpose segmentation masks although not clear on how cellpose was run but likely separate to FIJI because explicit about Trackmate plugin,in_methods,no further detail in full-text review
+PMC12309693,separate_fiji_other,FIJI-preprocessed images fed into cellpose for segmentation and fiji used to add missing masks - not expolicit on how cellpose was run,,none
+PMC12568631,separate_fiji_measure,cellpose to segment ROIs and FIJI for image processing and analysis,,doesnt indicate where cellpose was run even in full_text
+PMC12515399,other_pipeline,Cellpose segmentation and analysis done in python pipiline using Suite2p. FIJI used for preprocessing of images fed into QuPath for further analysis,,none
+PMC12919655,mention_only,cellpose not mentioned in methods,,mentioned as alternative to their methods in limitations
+PMC12315956,other_pipeline,custom GUI to run cellpose and analysis. FIJI used separately for visualisations and would healing quantification,,none
+PMC12186675,other_pipeline,FIJI used for visualisations and cellpose done with python package and GUI,,none
+PMC12134253,other_pipeline,used either Cellpose or Labkit in FIJI to segment and fiji OR Python used to convert TIFF masks to 8-bit binary but not explicitly said which used for cellpose masks and Imaris/Python used mainly for cellpose mask processing. Not explicit where cellpose was run,,none
+PMC12463392,inside_fiji,custom FIJI plugin runs analysis pipeline but not explicit how cellpose is run,,Review of linked github reveals cellpose is launched in python via the FIJI plugin
+PMC12690940,separate_fiji_other,FIJI used for pre-processing of images before cellpose segmentation. Cellpose training not explicit but inference ran from Jupyter notebook - not explicit about where analysis done,,none
+PMC12709731,separate_fiji_other,FIJI used for part of the preprocessing before cellpose segmentation. not clear where cellpose was run,,none
+PMC12732855,unclear,cellpose and FIJI used in same workflow for measurements but not explicit how cellpose is actually run,,none
+PMC11972330,separate_fiji_measure,Cellpose ran in python and FIJI used for mask measurements,,none
+PMC12426593,separate_fiji_other,FIJI preprocessing then Cellpose segmentation then analysis in python - coordinated through python module,,linked github details that Cellpose run in python env but not explicit about how data transferred from FIJI
+PMC12426892,mention_only,Cellpose not mentioned in methods,,listed in Key Resources but not mentined anywhere else in the paper. Reference a previous pipeline published that combined cellpose and IJ labelling but not discussed in paper
+PMC12610205,mention_only,Cellpose not mentioned in methods,,in discussion mention that custom FIJI plugin described supports the integration of cellpose but no evidence cellpose was run at all
+PMC13191458,mention_only,Review paper mentioning FIJI and Cellpose in image analysis workflows,,none
+PMC11885816,separate_elsewhere,Use FIJI and QuPATH for preprocessing but different dataset used for benchmarking with Cellpose and unclear if FIJI post-processing done on cellpose masks too,,Results section implies Cellpose masks not post-processed in FIJI pipeline and full_text not explicit about where cellpose was run but images look similar to Cellpose GUI
+PMC12151886,unclear,FIJI to measure Cellpose masks but details on where cellpose run not provided,,full_text reveals no deep learning reference
+PMC11695946,separate_fiji_other,"FIJI used to preprocess videos for import into Napari for further processing before cellpose segmentation and analysis. Although not explicit about where Cellpose is run, implied that it was run outside of software in Python and unlikely to be from within FIJI",,none
+PMC12348881,separate_fiji_other,FIJI for preprocessing before Cellpose training (Python) and segmentation (probably Cellpose GUI although not explicit),,nowhere in full_text revealing platform used to run cellpose
+PMC12086338,mention_only,Use FIJI for segmentation but mention Cellpose as a more accurate method,,none
+PMC12512697,separate_fiji_measure,cellpose-SAM algorithm used for segmentation (most likely directly ran through Python module) and ROIs measured in FIJI,,none
+PMC12381922,separate_fiji_measure,cellpose masks imported into FIJI for measurements - cellpose likely run externally but not explicit about platform used,,none
+PMC12967522,separate_fiji_other,FIJI used for manual segmentations within Cellpose masks for training of DeMemSeg model,,none
+PMC12052403,inside_fiji,Mention the use of Trackmate with cell segmentation,,Results section confirms that they use Trackmate-Cellpose FIJI plugin for segmentation and tracking
+PMC12391391,other_pipeline,FIJI used for signal quantification in western blots and cellpose segmentation used in separate pipeline,in_methods,git repo linked not accessible

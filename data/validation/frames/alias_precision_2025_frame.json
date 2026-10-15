@@ -1,0 +1,22 @@
+{
+  "queries": {
+    "zen": "(\"ZEN software\" OR \"ZEN black\" OR \"Zeiss ZEN\" OR \"ZEN blue\" OR \"ZEN lite\" OR \"ZEN pro\" OR \"ZEN 2\" OR \"ZEN 3\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "lasx": "(\"Leica Application Suite\" OR \"LAS AF\" OR \"LAS X\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "amira": "(\"Amira\" OR \"Avizo\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "huygens": "(\"Scientific Volume Imaging\" OR \"Huygens deconvolution\" OR \"Huygens Professional\" OR \"Huygens Essential\" OR \"Huygens software\" OR \"SVI Huygens\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "dragonfly": "(\"Object Research Systems\" OR \"Dragonfly software\" OR \"Comet Dragonfly\" OR \"ORS Dragonfly\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "aivia": "\"Aivia\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "halo": "(\"HALO image analysis\" OR \"HALO software\" OR \"Indica Labs\" OR \"HALO AI\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "metamorph": "\"MetaMorph\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "volocity": "\"Volocity\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "cellsens": "\"cellSens\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "nis": "(\"NIS-Elements\" OR \"NIS Elements\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "skimage": "(\"scikit-image\" OR \"skimage\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "opencv": "\"OpenCV\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "visiopharm": "\"Visiopharm\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "axiovision": "\"AxioVision\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025"
+  },
+  "registry_sha256": "505087ef16eede71db18cd270ce21bdc428a7903eb2296be8812955a80b32e4f",
+  "frame_unit": "tool-pmcid within stratum",
+  "frame_sha256": "e809d37c11f1d1f104db50e6169e54e8a916a21d8f1814045d352a4d6e81e5c9"
+}

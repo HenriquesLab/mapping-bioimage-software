@@ -1,0 +1,67 @@
+# ---------------------------------------------------------------------------
+# Deep-learning lexicon for the per-paper DL / non-DL classifier.
+#
+# A paper mentioning a tool is flagged deep-learning if its title+abstract
+# matches any `include` term AND no `exclude_guard` term flips it back
+# (guards catch phrases like "without deep learning"). Matching is
+# case-insensitive on word boundaries; multiword terms match as phrases.
+#
+# This list is versioned and printed verbatim in the Supplementary so the
+# classification is fully auditable and reproducible.
+# ---------------------------------------------------------------------------
+
+version: 1
+
+include:
+  - deep learning
+  - deep-learning
+  - deep learning-based
+  - deep neural network
+  - deep neural-network
+  - convolutional neural network
+  - Convolutional Neural Network
+  - Convolutional Neural Networks
+  - Convolutional Neural Networks-Based
+  - Convolutional Neuronal Network
+  - Convolutional Neuronal networks
+  - convolutional neural-network
+  - convolutional network
+  - neural network-assisted
+  - Recurrent Neural Networks
+  - Recurrent Neural Network
+  - R-CNN
+  - CNN-based
+  - U-Net
+  - UNet
+  - transformer
+  - vision transformer
+  - vision-transformer
+  - self-supervised
+  - semantic segmentation
+  - instance segmentation
+  - generative adversarial
+  - GAN-based
+  - generative-adversarial-network-based
+  - diffusion model
+  - foundation model
+  - encoder-decoder
+  - ResNet
+  - VGG
+  - autoencoder
+  - representation learning
+  - pretrained model
+  - pre-trained model
+  - segmentation model
+  - segmentation-model
+  - denoising network
+  - denoising-network
+  - Noise2Noise
+  - Noise2Void
+  - content-aware restoration
+  - attention mechanism
+
+# If any of these appear, do not flag as DL even when an include term matches.
+exclude_guard:
+  - without deep learning
+  - non-deep-learning
+  - classical machine learning only

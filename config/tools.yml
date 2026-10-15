@@ -1,0 +1,371 @@
+# ---------------------------------------------------------------------------
+# Tool registry for the bioimage-analysis adoption study.
+#
+# Single source of truth. Adding a tool = one block here; no code changes.
+# Every downstream source module (OpenAlex, Europe PMC, GitHub, PyPI, image.sc)
+# reads the identifiers it needs from each entry and ignores the rest.
+#
+# Fields
+#   id            slug used as the join key across all datasets
+#   name          human-readable display label
+#   category      notebook | general-platform | dl-model | commercial |
+#                 library | acquisition-suite
+#   implies_dl    whether the tool is intrinsically a deep-learning tool
+#                 (used only for the per-tool DL view; the paper's headline
+#                 DL split is computed per-paper by classify_dl.py)
+#   in_aggregate  whether to include the tool in field-wide aggregate figures
+#                 (default true). Set false for general-compute anchors whose
+#                 counts are dominated by non-bioimage use (e.g. MATLAB), so
+#                 they do not distort composition or DL-share aggregates. Such
+#                 tools are still tracked individually and in triangulation.
+#   aliases       phrases OR-ed together in literature queries
+#   scope         core (default): counted, and its papers read for the
+#                 deep-learning and research-area analyses; counts: counted
+#                 only (yearly matches, reach and concentration)
+#   github        list of "owner/repo" for developer-adoption metrics
+#   pypi          list of PyPI package names for download signals
+#   imagesc_tags  forum.image.sc tag slugs for community-support signals
+#   homepage      canonical URL (documentation only)
+#   caveat        known measurement hazard, surfaced in the Supplementary
+# ---------------------------------------------------------------------------
+
+settings:
+  year_start: 2010
+  year_end: 2025
+  # AND-ed onto every tool query and used alone as the reach denominator.
+  # HAS_FT:Y keeps records with indexed full text: tools are matched in full
+  # text, so abstract-only records could enter the denominator but never the
+  # numerator, and their share falls over time as open access grows.
+  context_query: "(microscopy OR microscope) AND HAS_FT:Y"
+  # wildcard_aliases: true searches single-word aliases with a trailing wildcard
+  # (QuPath*). The census uses exact names (false); the citation analysis and the
+  # SI wildcard sensitivity table always use the wildcard. Why the wildcard: Europe
+  # PMC's index fuses a name with a citation number that follows it ("QuPath63")
+  # and the wildcard also catches versions such as Cellpose3. Aliases that are
+  # ordinary words, names or places stay exact; phrases are always exact.
+  # Avizo and cellSens added after the 2025 wildcard check matched personal names
+  # (Avizohar, Avizor) and other words (CellSensor, cellSense).
+  exact_aliases: ["Fiji", "FIJI", "MetaMorph", "Amira", "Avizo", "MATLAB", "cellSens"]
+  wildcard_aliases: false
+
+tools:
+  # ---- Notebooks / general scientific compute ----------------------------
+  - id: jupyter
+    name: Jupyter notebooks
+    in_aggregate: false
+    category: notebook
+    implies_dl: false
+    aliases: ["Jupyter", "Jupyter notebook", "IPython notebook"]
+    github: ["jupyter/notebook", "jupyterlab/jupyterlab"]
+    pypi: ["notebook", "jupyterlab"]
+    imagesc_tags: ["jupyter"]
+    homepage: "https://jupyter.org"
+    caveat: >-
+      Notebooks run other packages within them. Like MATLAB, they are a
+      reference outside the analysis and field-wide aggregates.
+
+  # ---- General image-analysis platforms ----------------------------------
+  - id: imagej
+    name: ImageJ / Fiji
+    category: general-platform
+    implies_dl: false
+    aliases: ["ImageJ", "ImageJ2", "Fiji", "FIJI"]
+    dl_sample_cap: 1000
+    github: ["imagej/ImageJ", "fiji/fiji", "imagej/imagej2"]
+    pypi: ["pyimagej"]
+    imagesc_tags: ["imagej", "fiji"]
+    homepage: "https://imagej.net"
+    caveat: >-
+      "Fiji" also denotes the country; the context clause mitigates but does
+      not remove this. ImageJ and Fiji are merged into one ecosystem.
+
+  - id: napari
+    name: napari
+    category: general-platform
+    implies_dl: false
+    aliases: ["napari"]
+    github: ["napari/napari"]
+    pypi: ["napari"]
+    imagesc_tags: ["napari"]
+    homepage: "https://napari.org"
+    caveat: "Released 2019; near-zero counts before then are expected."
+
+  - id: cellprofiler
+    name: CellProfiler
+    category: general-platform
+    implies_dl: false
+    aliases: ["CellProfiler"]
+    github: ["CellProfiler/CellProfiler"]
+    pypi: ["cellprofiler"]
+    imagesc_tags: ["cellprofiler"]
+    homepage: "https://cellprofiler.org"
+
+  - id: qupath
+    name: QuPath
+    category: general-platform
+    implies_dl: false
+    aliases: ["QuPath"]
+    github: ["qupath/qupath"]
+    pypi: []
+    imagesc_tags: ["qupath"]
+    homepage: "https://qupath.github.io"
+
+  - id: icy
+    name: Icy
+    category: general-platform
+    implies_dl: false
+    aliases: ["Icy bioimage", "Icy software", "de Chaumont Icy"]
+    github: []
+    pypi: []
+    imagesc_tags: ["icy"]
+    homepage: "https://icy.bioimageanalysis.org"
+    caveat: >-
+      "Icy" is a highly ambiguous common word; queries are restricted to
+      disambiguating phrases and the context clause. Counts are conservative.
+
+  - id: ilastik
+    name: ilastik
+    category: general-platform
+    implies_dl: false
+    aliases: ["ilastik"]
+    github: ["ilastik/ilastik"]
+    pypi: []
+    imagesc_tags: ["ilastik"]
+    homepage: "https://www.ilastik.org"
+
+  - id: knime
+    name: KNIME
+    category: general-platform
+    implies_dl: false
+    aliases: ["KNIME"]
+    github: ["knime/knime-core"]
+    pypi: []
+    imagesc_tags: ["knime"]
+    homepage: "https://www.knime.com"
+    caveat: >-
+      KNIME is a general data-analytics platform used well beyond imaging;
+      the context clause restricts to imaging-adjacent literature.
+
+  # ---- Deep-learning models / frameworks for bioimaging ------------------
+  - id: cellpose
+    name: Cellpose
+    category: dl-model
+    implies_dl: true
+    aliases: ["Cellpose"]
+    github: ["MouseLand/cellpose"]
+    pypi: ["cellpose"]
+    imagesc_tags: ["cellpose"]
+    homepage: "https://www.cellpose.org"
+
+  - id: stardist
+    name: StarDist
+    category: dl-model
+    implies_dl: true
+    aliases: ["StarDist"]
+    github: ["stardist/stardist"]
+    pypi: ["stardist"]
+    imagesc_tags: ["stardist"]
+    homepage: "https://github.com/stardist/stardist"
+
+  - id: deepimagej
+    name: deepImageJ
+    category: dl-model
+    implies_dl: true
+    aliases: ["deepImageJ"]
+    github: ["deepimagej/deepimagej-plugin"]
+    pypi: []
+    imagesc_tags: ["deepimagej"]
+    homepage: "https://deepimagej.github.io"
+
+  - id: zerocostdl4mic
+    name: ZeroCostDL4Mic/DL4MicEverywhere
+    category: dl-model
+    implies_dl: true
+    aliases: ["ZeroCostDL4Mic", "ZeroCost DL4Mic", "DL4Mic"]
+    github: ["HenriquesLab/ZeroCostDL4Mic"]
+    pypi: []
+    imagesc_tags: ["zerocostdl4mic"]
+    homepage: "https://github.com/HenriquesLab/ZeroCostDL4Mic"
+
+  # ---- MATLAB / commercial anchors ---------------------------------------
+  - id: matlab
+    name: MATLAB
+    category: commercial
+    implies_dl: false
+    aliases: ["MATLAB"]
+    github: []
+    pypi: []
+    imagesc_tags: ["matlab"]
+    homepage: "https://www.mathworks.com"
+    in_aggregate: false
+    caveat: >-
+      MATLAB is used across virtually all quantitative science; even with the
+      context clause it is an ecosystem-wide anchor, not a bioimage-specific
+      count. Excluded from field-wide aggregates (DL share, category mix) so it
+      does not dominate them; still tracked individually and in triangulation.
+
+  - id: imaris
+    name: Imaris
+    category: commercial
+    implies_dl: false
+    aliases: ["Imaris"]
+    dl_sample_cap: 1000
+    github: []
+    pypi: []
+    imagesc_tags: ["imaris"]
+    homepage: "https://imaris.oxinst.com"
+
+  - id: arivis
+    name: arivis
+    category: commercial
+    implies_dl: false
+    aliases: ["arivis"]
+    github: []
+    pypi: []
+    imagesc_tags: ["arivis"]
+    homepage: "https://www.arivis.com"
+
+  # ---- Added for coverage: commercial analysis, libraries, vendor suites ----
+  # These enter the yearly counts, reach and concentration (scope: counts);
+  # their papers are not read for the deep-learning or research-area analyses.
+  # Aliases were checked against ten random 2025 full-text matches each.
+  - id: volocity
+    name: Volocity
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Volocity"]
+    homepage: "https://www.perkinelmer.com"
+
+  - id: huygens
+    name: Huygens
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Huygens Professional", "Huygens Essential", "Huygens software",
+              "SVI Huygens", "Scientific Volume Imaging", "Huygens deconvolution"]
+    homepage: "https://svi.nl"
+    caveat: >-
+      The bare word Huygens also names an optical principle, so only product
+      phrases and the vendor name are queried.
+
+  - id: amira
+    name: Amira/Avizo
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Amira", "Avizo"]
+    homepage: "https://www.thermofisher.com/amira-avizo"
+    caveat: >-
+      Amira is also a personal name; one of ten checked matches was an author.
+
+  - id: halo
+    name: HALO
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Indica Labs", "HALO image analysis", "HALO software", "HALO AI"]
+    homepage: "https://indicalab.com"
+    caveat: >-
+      The bare word halo is common, so only product phrases and the vendor
+      name are queried; counts are a lower bound.
+
+  - id: visiopharm
+    name: Visiopharm
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Visiopharm"]
+    homepage: "https://visiopharm.com"
+
+  - id: dragonfly
+    name: Dragonfly
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Dragonfly software", "ORS Dragonfly", "Object Research Systems",
+              "Comet Dragonfly"]
+    homepage: "https://www.theobjects.com/dragonfly"
+    caveat: >-
+      Dragonfly also names an Andor confocal microscope and an insect, so only
+      product phrases and the vendor name are queried; counts are a lower bound.
+
+  - id: aivia
+    name: Aivia
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Aivia"]
+    homepage: "https://www.aivia-software.com"
+
+  - id: skimage
+    name: scikit-image
+    category: library
+    scope: counts
+    implies_dl: false
+    aliases: ["scikit-image", "skimage"]
+    homepage: "https://scikit-image.org"
+
+  - id: opencv
+    name: OpenCV
+    category: library
+    scope: counts
+    implies_dl: false
+    aliases: ["OpenCV"]
+    homepage: "https://opencv.org"
+
+  # Microscope-control suites that also analyse images. Many matches describe
+  # acquisition only, so they are reported separately from the analysis tools.
+  - id: metamorph
+    name: MetaMorph
+    category: acquisition-suite
+    scope: counts
+    implies_dl: false
+    aliases: ["MetaMorph"]
+    homepage: "https://www.moleculardevices.com"
+
+  - id: nis
+    name: NIS-Elements
+    category: acquisition-suite
+    scope: counts
+    implies_dl: false
+    aliases: ["NIS-Elements", "NIS Elements"]
+    homepage: "https://www.microscope.healthcare.nikon.com"
+
+  - id: zen
+    name: ZEN
+    category: acquisition-suite
+    scope: counts
+    implies_dl: false
+    aliases: ["ZEN blue", "ZEN black", "ZEN software", "Zeiss ZEN", "ZEN lite",
+              "ZEN pro", "ZEN 2", "ZEN 3"]
+    homepage: "https://www.zeiss.com/microscopy"
+    caveat: >-
+      The bare word zen is common, so only product phrases are queried;
+      counts are a lower bound.
+
+  - id: axiovision
+    name: AxioVision
+    category: acquisition-suite
+    scope: counts
+    implies_dl: false
+    aliases: ["AxioVision"]
+    homepage: "https://www.zeiss.com/microscopy"
+    caveat: >-
+      Two of ten checked matches used the name for a Zeiss microscope.
+
+  - id: lasx
+    name: LAS X
+    category: acquisition-suite
+    scope: counts
+    implies_dl: false
+    aliases: ["LAS X", "LAS AF", "Leica Application Suite"]
+    homepage: "https://www.leica-microsystems.com"
+
+  - id: cellsens
+    name: cellSens
+    category: acquisition-suite
+    scope: counts
+    implies_dl: false
+    aliases: ["cellSens"]
+    homepage: "https://evidentscientific.com"

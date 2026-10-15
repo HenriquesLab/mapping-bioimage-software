@@ -1,0 +1,7 @@
+set,replicate,items,agreement_pct,kappa,agreed,n_separate,n_other_pipeline,n_mention_only,n_unclear,n_inside_fiji,n_in_area,n_other_sense
+cellpose_workflow_2025,1,40,85.0,0.76,34,21.0,4.0,4.0,3.0,2.0,0.0,0.0
+cellpose_workflow_2025,2,40,92.5,0.89,37,20.0,4.0,5.0,5.0,3.0,0.0,0.0
+cellpose_workflow_2025,3,40,92.5,0.84,37,27.0,2.0,4.0,4.0,0.0,0.0,0.0
+domain_keywords_2021_2025,1,110,91.8,0.84,101,0.0,0.0,0.0,0.0,0.0,56.0,45.0
+domain_keywords_2021_2025,2,111,89.2,0.76,99,0.0,0.0,0.0,0.0,0.0,67.0,32.0
+domain_keywords_2021_2025,3,111,87.4,0.74,97,0.0,0.0,0.0,0.0,0.0,55.0,42.0

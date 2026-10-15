@@ -1,0 +1,168 @@
+{
+  "command": "alias",
+  "seed": "20261006-validation-redraw-v1",
+  "historical_draw_recovered": false,
+  "frame": "data/validation/frames/alias_precision_2025_frame.csv",
+  "frame_sha256": "e809d37c11f1d1f104db50e6169e54e8a916a21d8f1814045d352a4d6e81e5c9",
+  "drawing_code_sha256": "325ccc43c011aef676fac4eae25eec165bda40d0ccdbf4e14ede9283360e2a67",
+  "design": [
+    {
+      "stratum": "aivia",
+      "population": 61,
+      "sampled": 10,
+      "sampling_fraction": 0.16393442622950818,
+      "seed": "20261006-validation-redraw-v1-alias-aivia",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "amira",
+      "population": 769,
+      "sampled": 10,
+      "sampling_fraction": 0.013003901170351105,
+      "seed": "20261006-validation-redraw-v1-alias-amira",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "axiovision",
+      "population": 633,
+      "sampled": 10,
+      "sampling_fraction": 0.01579778830963665,
+      "seed": "20261006-validation-redraw-v1-alias-axiovision",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "cellsens",
+      "population": 1208,
+      "sampled": 10,
+      "sampling_fraction": 0.008278145695364239,
+      "seed": "20261006-validation-redraw-v1-alias-cellsens",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "dragonfly",
+      "population": 107,
+      "sampled": 10,
+      "sampling_fraction": 0.09345794392523364,
+      "seed": "20261006-validation-redraw-v1-alias-dragonfly",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "halo",
+      "population": 366,
+      "sampled": 10,
+      "sampling_fraction": 0.0273224043715847,
+      "seed": "20261006-validation-redraw-v1-alias-halo",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "huygens",
+      "population": 313,
+      "sampled": 10,
+      "sampling_fraction": 0.03194888178913738,
+      "seed": "20261006-validation-redraw-v1-alias-huygens",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "lasx",
+      "population": 2437,
+      "sampled": 10,
+      "sampling_fraction": 0.004103405826836274,
+      "seed": "20261006-validation-redraw-v1-alias-lasx",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "metamorph",
+      "population": 585,
+      "sampled": 10,
+      "sampling_fraction": 0.017094017094017096,
+      "seed": "20261006-validation-redraw-v1-alias-metamorph",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "nis",
+      "population": 2733,
+      "sampled": 10,
+      "sampling_fraction": 0.003658982802780827,
+      "seed": "20261006-validation-redraw-v1-alias-nis",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "opencv",
+      "population": 433,
+      "sampled": 10,
+      "sampling_fraction": 0.023094688221709007,
+      "seed": "20261006-validation-redraw-v1-alias-opencv",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "skimage",
+      "population": 357,
+      "sampled": 10,
+      "sampling_fraction": 0.028011204481792718,
+      "seed": "20261006-validation-redraw-v1-alias-skimage",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "visiopharm",
+      "population": 182,
+      "sampled": 10,
+      "sampling_fraction": 0.054945054945054944,
+      "seed": "20261006-validation-redraw-v1-alias-visiopharm",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "volocity",
+      "population": 225,
+      "sampled": 10,
+      "sampling_fraction": 0.044444444444444446,
+      "seed": "20261006-validation-redraw-v1-alias-volocity",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "zen",
+      "population": 3326,
+      "sampled": 10,
+      "sampling_fraction": 0.003006614552014432,
+      "seed": "20261006-validation-redraw-v1-alias-zen",
+      "replacement": false,
+      "census": false
+    }
+  ],
+  "inputs": {
+    "queries": {
+      "zen": "(\"ZEN software\" OR \"ZEN black\" OR \"Zeiss ZEN\" OR \"ZEN blue\" OR \"ZEN lite\" OR \"ZEN pro\" OR \"ZEN 2\" OR \"ZEN 3\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "lasx": "(\"Leica Application Suite\" OR \"LAS AF\" OR \"LAS X\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "amira": "(\"Amira\" OR \"Avizo\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "huygens": "(\"Scientific Volume Imaging\" OR \"Huygens deconvolution\" OR \"Huygens Professional\" OR \"Huygens Essential\" OR \"Huygens software\" OR \"SVI Huygens\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "dragonfly": "(\"Object Research Systems\" OR \"Dragonfly software\" OR \"Comet Dragonfly\" OR \"ORS Dragonfly\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "aivia": "\"Aivia\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "halo": "(\"HALO image analysis\" OR \"HALO software\" OR \"Indica Labs\" OR \"HALO AI\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "metamorph": "\"MetaMorph\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "volocity": "\"Volocity\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "cellsens": "\"cellSens\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "nis": "(\"NIS-Elements\" OR \"NIS Elements\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "skimage": "(\"scikit-image\" OR \"skimage\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "opencv": "\"OpenCV\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "visiopharm": "\"Visiopharm\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "axiovision": "\"AxioVision\" AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025"
+    },
+    "registry_sha256": "505087ef16eede71db18cd270ce21bdc428a7903eb2296be8812955a80b32e4f",
+    "frame_unit": "tool-pmcid within stratum",
+    "frame_sha256": "e809d37c11f1d1f104db50e6169e54e8a916a21d8f1814045d352a4d6e81e5c9"
+  },
+  "pooling": "No automatic pooling weights. Use frame N/n for stratum population inference; corpus tool-year weights are a separate stage."
+}

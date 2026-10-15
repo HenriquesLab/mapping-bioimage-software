@@ -1,0 +1,16 @@
+metric,r1,r2,r3,pooled
+alias_labelled,149,150,150,449
+alias_agreed,145,148,147,440
+alias_software,139,135,140,414
+acq_agreed,58,53,51,162
+acq_acquisition,28,17,23,68
+acq_analysis,29,34,27,90
+acq_unclear,1,2,1,4
+lex_labelled,199,199,200,598
+lex_pos_agreed,79,78,71,228
+lex_pos_dl,76,72,67,215
+lex_neg_agreed,113,111,118,342
+lex_neg_dl,2,0,2,4
+dom_labelled,110,111,111,332
+dom_agreed,101,99,97,297
+dom_in_area,56,67,55,178

@@ -1,0 +1,28 @@
+# ---------------------------------------------------------------------------
+# MeSH descriptor mapping for the Figure 5 research-area keywords.
+#
+# Every pattern anchors both ends of a full MeSH descriptor name and matches
+# case-insensitively: qualifiers, titles and abstracts never enter a label.
+# The mapping is frozen. It was written before any agreement was examined, so
+# it cannot be tuned to the outcome. Broad descriptors (Proteomics, Diagnosis,
+# Polymers) and organism names deliberately mirror parts of the keyword
+# vocabulary, which the caveats in the check record.
+#
+# The key set must match census.figures.domains.DOMAINS.
+# ---------------------------------------------------------------------------
+
+areas:
+  Neuroscience: '^(?:Neurons|Brain(?:,.*)?|Synapses|Axons|Dendrites|Nervous System.*|Neurodegenerative Diseases|Neurodevelopmental Disorders|Neurotransmitters|Hippocampus|Cerebral Cortex|Astrocytes|Microglia|Neuroglia|Oligodendroglia|Spinal Cord|Retina(?:,.*)?)$'
+  Cancer: '^(?:Neoplasms.*|.* Neoplasms|Tumor.*|Carcinoma.*|Adenocarcinoma.*|Lymphoma.*|Leukemia.*|Melanoma.*|Glioma.*|Glioblastoma.*|Sarcoma.*|Neoplasm Metastasis|Oncogenes|Oncogenesis|Antineoplastic Agents)$'
+  Immunology: '^(?:Immun.*|T-Lymphocytes.*|B-Lymphocytes.*|Macrophages.*|Cytokines.*|Inflammation.*|Lymphocytes.*|Antigens.*|Neutrophils.*|Dendritic Cells|Monocytes|Interleukins.*|Interferons.*)$'
+  Microbiology and infection: '^(?:Bacteri.*|.* Bacteria|Virus.*|Viruses|.* Viruses|.*virus.*|Viral.*|Fungi|Fungal.*|Mycoses|Infections|.* Infections|Infection|Parasites|Parasitic Diseases|.* Parasites|Yeasts|Saccharomyces.*|Candida.*|Plasmodium.*|Malaria.*|Mycobacterium.*|Tuberculosis.*|HIV.*|Influenza.*|COVID-19|SARS-CoV-2|Microbiota|Microbiome.*|Escherichia.*|Staphylococcus.*|Pseudomonas.*|Bacillus.*|Salmonella.*|Microbiology)$'
+  Development and organoids: '^(?:Embryo.*|Morphogenesis|Organogenesis|Gastrulation|Organoids|Zebrafish.*|Drosophila.*|Caenorhabditis elegans|Xenopus.*|Developmental Biology|Cell Differentiation)$'
+  Plant biology: '^(?:Plants.*|.* Plants|Plant .*|Arabidopsis.*|Chloroplasts.*|Photosynthesis|Pollen|Zea mays|Seedlings|Seeds|Oryza.*|Nicotiana.*|Solanum.*|Triticum.*)$'
+  Organelles and cytoskeleton: '^(?:Mitochondria.*|Actins|Actin Cytoskeleton|Actomyosin|Microtubules|Cytoskeleton.*|Lysosomes.*|Autophagy|Golgi Apparatus|Endoplasmic Reticulum.*|Endosomes.*|Organelles|Cytoplasmic Vesicles.*|Extracellular Vesicles.*|Secretory Vesicles|Centrosome.*|Cilia.*|Nuclear Envelope)$'
+  Clinical and pathology: '^(?:Patients|Biopsy.*|Prognosis|Diagnosis.*|.* Diagnosis|Pathology.*|.* Pathology|Diagnostic Imaging|Early Diagnosis|Differential Diagnosis|Cohort Studies|Retrospective Studies|Prospective Studies|Clinical Trials as Topic|Treatment Outcome|Disease Progression|Survival Analysis|Histological Techniques|Pathologists|Digital Pathology)$'
+  Single-cell and spatial omics: '^(?:Single-Cell Analysis|Transcriptome|Transcriptomics|Sequence Analysis, RNA|RNA-Seq|High-Throughput Nucleotide Sequencing|Spatial Transcriptomics|Spatially Resolved Transcriptomics|Proteomics|Multiomics|Gene Expression Profiling|In Situ Hybridization, Fluorescence)$'
+  Cardiovascular and renal: '^(?:Cardiovascular.*|Heart.*|Myocard.*|Cardiac.*|Cardiomyopath.*|Blood Vessels.*|Vascular.*|Endothelium.*|Endothelial Cells|Neovascularization.*|Angiogenesis.*|Atherosclerosis.*|Kidney.*|Renal.*|Nephrons|Glomerul.*)$'
+  Metabolic disease and liver: '^(?:Diabetes.*|Diabetic.*|Obesity.*|Adipose.*|Adipocytes.*|Insulin.*|Liver.*|Hepat.*|Fatty Liver.*|Non-alcoholic Fatty Liver Disease|Steatohepatitis)$'
+  Electron microscopy: '^(?:Microscopy, Electron.*|Cryoelectron Microscopy|Electron Microscope Tomography|Tomography, Electron|Cryoelectron Tomography|Connectome)$'
+  Materials science: '^(?:Nanoparticles.*|Nanomaterials.*|Hydrogels.*|Polymers.*|Graphite|Graphene|Alloys.*|Nanostructures.*|Biocompatible Materials|Biomaterials|Materials Science|Tissue Scaffolds)$'
+  Computational methods: '^(?:Software.*|Algorithms|Image Processing, Computer-Assisted|Deep Learning|Machine Learning|Neural Networks, Computer|Artificial Intelligence|Pattern Recognition, Automated|Computer Simulation|Computational Biology|Computers|Computer-Assisted.*)$'

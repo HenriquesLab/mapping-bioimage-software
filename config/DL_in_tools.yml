@@ -1,0 +1,32 @@
+# ---------------------------------------------------------------------------
+# Deep-learning-within-tool Europe PMC query registry.
+#
+# Entries combine tool aliases/context with deep-learning terms from a lexicon.
+# The builder applies the Europe PMC RA/non-review filter in europepmc_RA.py.
+# ---------------------------------------------------------------------------
+
+settings:
+  year_start: 2010
+  year_end: 2025
+  # Same clause as tools.yml, so the term query and the counts cover the same records.
+  context_query: "(microscopy OR microscope) AND HAS_FT:Y"
+  default_dl_lexicon: dl_in_tools_lexicon.yml
+
+tools:
+  - id: imagej
+    name: ImageJ / Fiji
+    aliases: ["ImageJ", "ImageJ2", "Fiji", "FIJI"]
+    needs_context: true
+    dl_lexicon: dl_in_tools_lexicon.yml
+
+  - id: napari
+    name: napari
+    aliases: ["napari"]
+    needs_context: true
+    dl_lexicon: dl_in_tools_lexicon.yml
+
+  - id: jupyter
+    name: Jupyter notebooks
+    aliases: ["Jupyter", "Jupyter notebook", "IPython notebook"]
+    needs_context: true
+    dl_lexicon: dl_in_tools_lexicon.yml

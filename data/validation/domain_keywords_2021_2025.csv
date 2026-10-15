@@ -1,0 +1,113 @@
+area,epmc_id,tool_id,match,label
+Neuroscience,39235147,cellprofiler,Astrocyt,in_area
+Neuroscience,39521775,jupyter,brain,in_area
+Neuroscience,33737457,imaris,Neurons,in_area
+Neuroscience,34310246,cellprofiler,brain,in_area
+Neuroscience,38627481,qupath,brain,other_sense
+Neuroscience,40399675,cellprofiler,neurons,in_area
+Neuroscience,33246331,imaris,brain,in_area
+Neuroscience,37009452,qupath,microglia,in_area
+Cancer,40047645,cellprofiler,Metasta,in_area
+Cancer,36325888,imaris,leukemi,in_area
+Cancer,40070022,imagej,cancer,in_area
+Cancer,39939778,cellpose,cancer,in_area
+Cancer,34709000,cellprofiler,tumor,in_area
+Cancer,38360876,qupath,cancer,in_area
+Cancer,37621174,qupath,neoplas,in_area
+Cancer,34857954,ilastik,cancers,other_sense
+Immunology,35727133,cellpose,Immune,in_area
+Immunology,35628603,imagej,cytokines,other_sense
+Immunology,39165839,qupath,immune,in_area
+Immunology,PPR501758,ilastik,neutrophil,in_area
+Immunology,40845099,imaris,immunity,in_area
+Immunology,34795650,imagej,Inflamma,in_area
+Immunology,41417894,cellpose,immune,in_area
+Immunology,38807149,imagej,inflamma,in_area
+Microbiology and infection,40369583,qupath,COVID,in_area
+Microbiology and infection,34756963,imagej,bacteri,in_area
+Microbiology and infection,PPR1056942,cellpose,microbio,in_area
+Microbiology and infection,34379448,cellprofiler,yeast,other_sense
+Microbiology and infection,PPR946287,imagej,viral,in_area
+Microbiology and infection,41118208,imaris,COVID,in_area
+Microbiology and infection,33707211,cellprofiler,viral,in_area
+Microbiology and infection,PPR1037218,imaris,bacteri,in_area
+Development and organoids,33394034,imagej,embryo,in_area
+Development and organoids,37830547,arivis,Drosophila,other_sense
+Development and organoids,34723957,cellprofiler,morphogen,in_area
+Development and organoids,41423448,imaris,Drosophila,in_area
+Development and organoids,39309510,imaris,zebrafish,other_sense
+Development and organoids,41110099,qupath,organoids,in_area
+Development and organoids,39633049,arivis,organoids,in_area
+Development and organoids,PPR547714,cellprofiler,organoids,in_area
+Plant biology,36998678,jupyter,photosynth,in_area
+Plant biology,36616135,cellprofiler,Pollen,in_area
+Plant biology,33788834,jupyter,plant,other_sense
+Plant biology,37821917,imagej,plants,other_sense
+Plant biology,36235851,cellprofiler,plants,other_sense
+Plant biology,34943044,imagej,plant,other_sense
+Plant biology,40858112,arivis,Arabidopsis,in_area
+Plant biology,PPR775333,cellpose,Chloroplast,in_area
+Organelles and cytoskeleton,35505273,ilastik,mitochond,in_area
+Organelles and cytoskeleton,39455585,imagej,vesicles,other_sense
+Organelles and cytoskeleton,33741723,imagej,Vesicles,other_sense
+Organelles and cytoskeleton,33159962,imaris,mitochond,in_area
+Organelles and cytoskeleton,38426101,qupath,mitochond,other_sense
+Organelles and cytoskeleton,38766542,imaris,actin,other_sense
+Organelles and cytoskeleton,35313689,imaris,mitochond,in_area
+Organelles and cytoskeleton,36657391,napari,mitochond,in_area
+Clinical and pathology,34110385,qupath,clinical,in_area
+Clinical and pathology,34012783,qupath,histopatholog,in_area
+Clinical and pathology,39558146,cellprofiler,cohorts,in_area
+Clinical and pathology,33500254,cellprofiler,patients,in_area
+Clinical and pathology,39232200,imagej,patients,other_sense
+Clinical and pathology,38835033,imagej,diagnos,in_area
+Clinical and pathology,37159335,arivis,Patients,other_sense
+Clinical and pathology,41034452,arivis,patients,in_area
+Single-cell and spatial omics,39304345,qupath,single-cell sequencing,in_area
+Single-cell and spatial omics,39437149,ilastik,spatially resolved,in_area
+Single-cell and spatial omics,34152269,imaris,transcriptom,other_sense
+Single-cell and spatial omics,41438071,qupath,spatial transcriptom,in_area
+Single-cell and spatial omics,35216682,imagej,transcriptom,other_sense
+Single-cell and spatial omics,39487129,jupyter,single-cell transcriptom,in_area
+Single-cell and spatial omics,37997621,imaris,single-cell RNA,in_area
+Single-cell and spatial omics,39636121,imaris,transcriptom,other_sense
+Cardiovascular and renal,38884806,ilastik,blood vessels,in_area
+Cardiovascular and renal,40608494,qupath,kidney,in_area
+Cardiovascular and renal,40911671,cellprofiler,cardio,in_area
+Cardiovascular and renal,38755186,imaris,cardiac,in_area
+Cardiovascular and renal,34361027,arivis,Angiogen,in_area
+Cardiovascular and renal,38511208,imaris,vascular,other_sense
+Cardiovascular and renal,35783597,imagej,Vascular,in_area
+Cardiovascular and renal,36140216,imagej,endotheli,other_sense
+Metabolic disease and liver,35387261,imagej,hepat,in_area
+Metabolic disease and liver,39404844,cellprofiler,diabet,in_area
+Metabolic disease and liver,38861187,imagej,hepat,in_area
+Metabolic disease and liver,40183632,cellprofiler,liver,other_sense
+Metabolic disease and liver,40968635,cellprofiler,adipo,other_sense
+Metabolic disease and liver,37860774,imaris,adipo,other_sense
+Metabolic disease and liver,36346018,cellpose,adipo,in_area
+Metabolic disease and liver,35183795,jupyter,obes,in_area
+Electron microscopy,38506714,imaris,FIBSEM,in_area
+Electron microscopy,PPR1230379,ilastik,cryo-electron,in_area
+Electron microscopy,35879991,imagej,electron microscop,in_area
+Electron microscopy,41413911,imagej,electron microscop,in_area
+Electron microscopy,34874579,imaris,electron microscop,in_area
+Electron microscopy,39705039,imagej,electron microscop,in_area
+Electron microscopy,37751685,ilastik,electron microscop,in_area
+Electron microscopy,35147267,imaris,electron microscop,in_area
+Materials science,39188381,cellpose,hydrogel,in_area
+Materials science,33748086,qupath,Hydrogel,in_area
+Materials science,36607820,jupyter,polymer,other_sense
+Materials science,37536347,imaris,Hydrogel,in_area
+Materials science,35664065,imagej,nanoparticles,in_area
+Materials science,34702818,ilastik,polymers,other_sense
+Materials science,39591050,imagej,nanoparticles,in_area
+Materials science,40238848,jupyter,polymers,in_area
+Computational methods,36566327,imaris,segmentation,other_sense
+Computational methods,38089005,qupath,machine learning,in_area
+Computational methods,39870865,ilastik,deep learning,in_area
+Computational methods,34226561,imaris,computational,in_area
+Computational methods,37784122,qupath,algorithms,in_area
+Computational methods,PPR1105501,napari,open-source,in_area
+Computational methods,36976115,jupyter,Deep Learning,in_area
+Computational methods,38334404,deepimagej,Machine learning,in_area

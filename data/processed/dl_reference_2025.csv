@@ -1,0 +1,14 @@
+method,kind,year,papers
+U-Net,deep-learning,2025,1129
+YOLO,deep-learning,2025,313
+Segment Anything,deep-learning,2025,155
+nnU-Net,deep-learning,2025,88
+DeepCell,deep-learning,2025,71
+Omnipose,deep-learning,2025,53
+Cellpose-SAM,deep-learning,2025,17
+Segment Anything for Microscopy,deep-learning,2025,15
+DINOv2,deep-learning,2025,42
+Cell-DINO,deep-learning,2025,1
+TrackMate,other,2025,506
+Trainable Weka Segmentation,other,2025,132
+Squidpy,other,2025,80

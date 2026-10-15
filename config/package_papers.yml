@@ -1,0 +1,39 @@
+# Each package's own papers: the papers its developers ask users to cite.
+# Used to count papers that cite a package through Europe PMC's resolved
+# citation links (CITES:<id>_<source>), so plugin papers named after a host do
+# not count. A paper absent from Europe PMC cannot be counted this way.
+imagej:
+  - 10.1038/nmeth.2089          # Schneider 2012, NIH Image to ImageJ
+  - 10.1038/nmeth.2019          # Schindelin 2012, Fiji
+  - 10.1186/s12859-017-1934-z   # Rueden 2017, ImageJ2
+qupath:
+  - 10.1038/s41598-017-17204-5  # Bankhead 2017
+cellprofiler:
+  - 10.1186/gb-2006-7-10-r100   # Carpenter 2006
+  - 10.1371/journal.pbio.2005970  # McQuin 2018, CellProfiler 3.0
+  - 10.1186/s12859-021-04344-9  # Stirling 2021, CellProfiler 4
+ilastik:
+  - 10.1038/s41592-019-0582-9   # Berg 2019
+napari:
+  - 10.5281/zenodo.3555620      # napari contributors, software record
+icy:
+  - 10.1038/nmeth.2075          # de Chaumont 2012
+knime:
+  - 10.1145/1656274.1656280     # Berthold 2009
+cellpose:
+  - 10.1038/s41592-020-01018-x  # Stringer 2021
+  - 10.1038/s41592-022-01663-4  # Pachitariu 2022, Cellpose 2.0
+  - 10.1038/s41592-025-02595-5  # Stringer 2025, Cellpose3
+stardist:
+  - 10.1007/978-3-030-00934-2_30  # Schmidt 2018, MICCAI
+  - 10.1109/WACV45572.2020.9093435  # Weigert 2020, WACV
+deepimagej:
+  - 10.1038/s41592-021-01262-9  # Gomez-de-Mariscal 2021
+zerocostdl4mic:
+  - 10.1038/s41467-021-22518-0  # von Chamier 2021
+  - 10.1038/s41592-024-02295-6  # Hidalgo-Cenalmor 2024, DL4MicEverywhere
+jupyter:
+  - 10.3233/978-1-61499-649-1-87  # Kluyver 2016
+skimage:
+  - 10.7717/peerj.453           # van der Walt 2014
+opencv: []                       # Bradski 2000, Dr Dobb's Journal, not indexed

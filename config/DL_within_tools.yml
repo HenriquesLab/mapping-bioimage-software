@@ -1,0 +1,104 @@
+# ---------------------------------------------------------------------------
+# Title/abstract-only deep-learning-within-tool Europe PMC query registry.
+#
+# The builder applies the Europe PMC RA/non-review filter in europepmc_RA.py.
+# ---------------------------------------------------------------------------
+
+settings:
+  year_start: 2010
+  year_end: 2025
+  context_query: "microscopy OR microscope"
+  protocol_method_filter: >-
+    PUB_TYPE:"Methods" OR PUB_TYPE:"Protocol" OR TITLE:"protocol" OR
+    TITLE:"method" OR TITLE:"methods" OR TITLE:"workflow"
+  default_dl_lexicon: dl_within_tools_lexicon.yml
+
+tools:
+  - id: imagej
+    name: ImageJ / Fiji
+    aliases:
+      - "Fiji"
+      - "ImageJ"
+      - "FIJI"
+      - "fiji"
+      - "imagej"
+      - "imageJ"
+      - "ImageJ2"
+    full_text_aliases:
+      - "stardist plugin"
+      - "stardist fiji plugin"
+      - "stardist imagej plugin"
+      - "cellpose plugin"
+      - "cellpose imagej plugin"
+      - "cellpose fiji plugin"
+      - "deep learning within imagej"
+      - "deep learning within fiji"
+      - "trackmate-Cellpose plugin"
+      - "StarDist2D plugin"
+      - "plugin for model inference"
+      - "plugin for stardist"
+      - "open-source plugin for imagej"
+      - "open-source plugin for fiji"
+      - "plugin made available"
+      - "made available as a plugin"
+      - "made available as a fiji"
+      - "made available as an imagej"
+      - "accessible as an ImageJ plugin"
+      - "accessible as a fiji plugin"
+      - "user-friendly ImageJ/Fiji plugin"
+      - "implantoMetrics"
+      - "SAMJ"
+      - "extension imagej plugin"
+    abstract_methods_results_aliases:
+      - "DeepIJ"
+      - "DeepImageJ"
+      - "U-Net plugin in ImageJ"
+      - "U-Net plugin in Fiji"
+    introduction_exclude_terms:
+      - "available as an ImageJ plugin"
+    full_text_exclude_terms:
+      - "processing plug-in for ImageJ"
+    needs_context: true
+    dl_lexicon: dl_within_tools_lexicon.yml
+
+  - id: napari
+    name: napari
+    aliases: ["napari"]
+    full_text_aliases:
+      - "plugin for the image viewer napari"
+      - "plugin for napari"
+      - "incorporated into napari as a plugin"
+      - "napari plug-in"
+      - "Napari-cellfinder"
+      - "cellfinder-napari"
+      - "Stardist-Napari"
+      - "U-Net Assistant"
+      - "misic-napari"
+      - "napari-PHILOW"
+      - "AxonDeepSeg"
+      - "Napari-BacSeg"
+      - "BacSeg Napari"
+    full_text_exclude_terms:
+      - "processing plug-in for napari"
+    introduction_exclude_terms:
+      - "available as a napari plugin"
+    needs_context: false
+    dl_lexicon: dl_within_tools_lexicon.yml
+
+  - id: jupyter
+    name: Jupyter notebooks
+    aliases: ["Jupyter", "Jupyter notebook", "IPython notebook"]
+    full_text_exclude_terms:
+      - "Jupyter notebooks for data analysis"
+      - "further processed in Jupyter Notebook"
+      - "based on the Jupyter Notebook platform"
+      - "preprocessing Jupyter notebook"
+      - "figures were made using Matplotlib and Jupyter"
+      - "figures were made using Jupyter"
+      - "analysis using Microsoft Excel and Jupyter"
+      - "analysis using Jupyter"
+      - "do not possess a jupyter notebook"
+    full_text_override_terms:
+      - "training notebook"
+    needs_context: true
+    dl_lexicon: dl_within_tools_lexicon.yml

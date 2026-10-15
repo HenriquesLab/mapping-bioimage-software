@@ -1,0 +1,1 @@
+{"name": "stardist_workflow_2025", "command": "workflow", "seed": "20261014-workflow-hosts-v1-stardist", "population": 200, "replicate_sizes": [40, 40, 40], "census": false, "note": "Same design as cellpose_workflow_2025. Replicates are disjoint."}
