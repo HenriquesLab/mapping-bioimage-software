@@ -1,0 +1,54 @@
+{
+  "own_papers": {
+    "imagej": [
+      "22743772_MED",
+      "22930834_MED",
+      "29187165_MED"
+    ],
+    "qupath": [
+      "29203879_MED"
+    ],
+    "cellprofiler": [
+      "17076895_MED",
+      "29969450_MED",
+      "34507520_MED"
+    ],
+    "ilastik": [
+      "31570887_MED"
+    ],
+    "napari": [],
+    "icy": [
+      "22743774_MED"
+    ],
+    "knime": [],
+    "cellpose": [
+      "33318659_MED",
+      "36344832_MED",
+      "39939718_MED"
+    ],
+    "stardist": [],
+    "deepimagej": [
+      "34594030_MED"
+    ],
+    "zerocostdl4mic": [
+      "33859193_MED",
+      "38760611_MED"
+    ],
+    "jupyter": [],
+    "skimage": [
+      "25024921_MED"
+    ],
+    "opencv": []
+  },
+  "first_years": {
+    "imagej": 2012,
+    "qupath": 2017,
+    "cellprofiler": 2006,
+    "ilastik": 2019,
+    "icy": 2012,
+    "cellpose": 2021,
+    "deepimagej": 2021,
+    "zerocostdl4mic": 2021,
+    "skimage": 2014
+  }
+}

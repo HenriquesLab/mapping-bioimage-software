@@ -18,13 +18,14 @@ import matplotlib.pyplot as plt  # noqa: E402
 TOOLS = ["imagej", "imaris", "qupath", "cellprofiler", "cellpose", "stardist", "napari", "arivis"]
 
 
-def build_figure():
+def build_figure(terms=None):
     fs.set_style()
     tools = fs.load("tools.csv").set_index("tool_id")
-    d = dm.load_corpus()
+    d = dm.load_corpus() if terms is None else None
     fig, axes = plt.subplots(2, 4, figsize=(7.1, 4.4))
     for k, (ax, t) in enumerate(zip(axes.flat, TOOLS)):
-        x = dm.enriched_terms(d, t).iloc[::-1]
+        x = (dm.enriched_terms(d, t) if terms is None
+             else terms.loc[terms["tool_id"] == t]).iloc[::-1]
         y = np.arange(len(x))
         colour = fs.licence_colour(tools.loc[t, "category"])
         ax.hlines(y, x["base_pct"], x["tool_pct"], color="#cccccc", lw=1.2)

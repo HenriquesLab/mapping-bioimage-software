@@ -50,22 +50,22 @@ def union(tab) -> pd.DataFrame:
     return out
 
 
-def yearly() -> pd.DataFrame:
+def yearly(first_years=None) -> pd.DataFrame:
     """Named, not cited share of the papers naming or citing a package, by year,
     from the year after its first own paper; years with fewer than MIN_NAMED
     naming papers are dropped."""
     from census.build.build_citations import first_paper_year
-    first = first_paper_year()
+    first = first_paper_year() if first_years is None else first_years
     y = _yearly()
     y = y[y.named >= MIN_NAMED].copy()
     y = y[y.year > y.tool_id.map(first)]
     y['share'] = 100 * y.named_not_cited / (y.named + y.cited_not_named)
     return y
 
-def change(start: int = 2020, end: int = 2025) -> pd.DataFrame:
+def change(start: int = 2020, end: int = 2025, first_years=None) -> pd.DataFrame:
     """Named, not cited share in the first eligible year from `start` and in `end`, per package."""
     rows = []
-    for tid, d in yearly().groupby('tool_id'):
+    for tid, d in yearly(first_years=first_years).groupby('tool_id'):
         d = d.set_index('year').share
         first = [yr for yr in d.index if start <= yr < end]
         if end in d.index and first:
@@ -73,7 +73,7 @@ def change(start: int = 2020, end: int = 2025) -> pd.DataFrame:
     return pd.DataFrame(rows).set_index('tool_id')
 
 
-def build_figure():
+def build_figure(first_years=None):
     fs.set_style()
     u = union(table()).sort_values('no_pct', ascending=False)  # rows ordered by the named, not cited share
     fig = plt.figure(figsize=(7.1, 4.4))
@@ -101,7 +101,7 @@ def build_figure():
               handlelength=1.2, columnspacing=1.0, borderaxespad=0.2)
     fs.panel_label(ax, 'a', x=-0.33, y=1.1)
     # (b) change in the named, not cited share, 2020 (or first eligible year) to 2025, rows as in panel a
-    ch = change()
+    ch = change(first_years=first_years)
     bx = fig.add_subplot(gs[1], sharey=ax)
     for yi, tid in zip(rows, u.index):
         if tid not in ch.index:

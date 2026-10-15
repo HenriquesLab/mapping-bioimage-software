@@ -160,10 +160,26 @@ def test_note_exception_does_not_cover_arbitrary_files(tmp_path):
     assert scan_file(path, Path(path.name)) == ['probe.json: note (long prose)']
 
 
+def test_article_text_guard_checks_untracked_notebook_data(tmp_path, monkeypatch):
+    monkeypatch.setitem(globals(), 'ROOT', tmp_path)
+    monkeypatch.setattr(subprocess, 'check_output', lambda *args, **kwargs: b'')
+    data = tmp_path / 'notebooks/data'
+    data.mkdir(parents=True)
+    path = data / 'probe.csv'
+    path.write_text('count\n12\n')
+    test_tracked_data_contains_no_article_text()
+    path.write_text('title\n' + PROSE + '\n')
+    with pytest.raises(AssertionError, match='notebooks/data/probe.csv: title'):
+        test_tracked_data_contains_no_article_text()
+
+
 def test_tracked_data_contains_no_article_text():
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')
+    # Include new notebook inputs before staging them for the public release.
+    notebook_data = [p.relative_to(ROOT).as_posix()
+                     for p in (ROOT / 'notebooks/data').rglob('*') if p.is_file()]
     findings = []
-    for name in tracked:
+    for name in sorted(set(tracked + notebook_data)):
         if name.endswith(('.csv', '.csv.gz', '.json')):
             findings.extend(scan_file(ROOT / name, Path(name)))
     assert not findings, '\n'.join(findings)

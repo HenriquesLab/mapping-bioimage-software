@@ -67,7 +67,8 @@ def test_standalone_output_and_explicit_save(tmp_path, monkeypatch):
 
 def test_notebooks_use_the_single_publication_renderer():
     notebooks = sorted((Path(__file__).resolve().parents[1] / "notebooks").glob("*.ipynb"))
-    assert len(notebooks) == len(MODULES)
+    figure_notebooks = [p for p in notebooks if p.stem != "SupplementaryTables"]
+    assert len(figure_notebooks) == len(MODULES)
     for path in notebooks:
         notebook = json.loads(path.read_text(encoding='utf-8'))
         assert notebook['metadata']['kernelspec']['name'] == "bioimage-figures"
