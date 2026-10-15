@@ -1,6 +1,6 @@
-"""Figure 5: how deep learning reaches microscopy papers.
+"""Figure 6: how deep learning reaches microscopy papers.
 
-(a) Summed dedicated-tool matches per 1,000 core analysis-tool matches.
+(a) Summed dedicated-method matches per 1,000 core analysis-package matches.
 (b) Title/abstract lexicon-positive shares, with sampling intervals for
 sampled tools; classification uncertainty remains. (c) Host co-mentions.
 (d) How Cellpose, StarDist and ilastik were run in three disjoint random samples of
@@ -48,7 +48,7 @@ def build_figure():
                              gridspec_kw={"width_ratios": [1, 1.1], "hspace": 0.62, "wspace": 0.62})
     (ax_a, ax_b), (ax_c, ax_d) = axes
 
-    # a: papers naming a deep-learning tool, per 1,000 core-tool papers
+    # a: papers naming a deep-learning method, per 1,000 core-package papers
     lit = fs.europepmc_yearly().pivot(index="year", columns="tool_id", values="count")
     named = 10.0 * fs.named_dl_share().sum(axis=1).loc[2015:]
     two = lit.loc[YEAR, ["cellpose", "stardist"]].sum() / lit.loc[YEAR, fs.NAMED_DL].sum()
@@ -66,7 +66,7 @@ def build_figure():
     fs.format_year_ticks(ax_a, max_ticks=5)
     _style(ax_a)
 
-    # b: deep-learning vocabulary in each core tool's abstracts, 2025
+    # b: deep-learning vocabulary in each core package's abstracts, 2025
     est = fs.load("dl_estimates.csv")
     est = est[(est["year"] == YEAR) & est["tool_id"].isin(fs.analysis_tools())]
     base = lit.loc[YEAR]

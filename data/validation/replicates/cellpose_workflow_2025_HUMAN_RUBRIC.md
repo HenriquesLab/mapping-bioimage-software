@@ -20,7 +20,7 @@ How did this paper run Cellpose, and how did Cellpose relate to Fiji/ImageJ in t
 | `separate_elsewhere` | Cellpose ran on its own; its output was analysed in Python, CellProfiler or another program, and Fiji's role is not stated | ran on its own |
 | `other_pipeline` | Cellpose ran inside another program or pipeline (for example napari, QuPath, a vendor or spatial-omics pipeline) | inside other software |
 | `unclear` | The paper uses Cellpose but the text does not say how it was run or how it related to Fiji; give the reason in `note` | combination not stated |
-| `mention_only` | Cellpose is named without being used (review, comparison, list of compatible tools) | named only |
+| `mention_only` | Cellpose is named without being used (review, comparison, list of compatible packages) | named only |
 
 ## Notes column
 

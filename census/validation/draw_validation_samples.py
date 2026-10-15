@@ -69,7 +69,7 @@ def validate_frame(frame: pd.DataFrame, command: str) -> None:
         raise ValueError(f'{command}: frame has invalid tool, year or identifier fields')
 
 def corpus_frame(corpus: pd.DataFrame, command: str) -> pd.DataFrame:
-    """Tool-paper units, not deduplicated papers. Area strata may overlap."""
+    """Package-paper units, not deduplicated papers. Area strata may overlap."""
     reg = load_registry()
     tools = ([t.id for t in reg.core_tools if t.in_aggregate] if command == 'lexicon'
              else [t.id for t in reg.tools if t.in_aggregate and t.category != 'acquisition-suite'])

@@ -30,7 +30,12 @@ Outputs (no article text, only identifiers, flags and MeSH-derived labels):
   data/raw/mesh/                                  frozen sample and design record
   data/raw/europepmc_mesh/                        Europe PMC response cache
 
-Run from scripts/:
+MeSH descriptor names are content supplied by the U.S. National Library of
+Medicine, courtesy of the U.S. National Library of Medicine. The per-area
+matching expressions in config/mesh_areas.yml are the authors' own mappings
+onto those names.
+
+Run from the pipeline root:
     python -m census.validation.mesh_check              # prepare, fetch, report
     python -m census.validation.mesh_check --offline    # cached responses only
     python -m census.validation.mesh_check --prepare    # redraw the sample only

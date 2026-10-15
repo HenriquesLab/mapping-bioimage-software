@@ -1,4 +1,4 @@
-"""Load and validate the tool registry (config/tools.yml)."""
+"""Load and validate the package registry (config/tools.yml)."""
 
 from __future__ import annotations
 
@@ -63,8 +63,8 @@ class Registry:
 
     @property
     def core_tools(self) -> list[Tool]:
-        """Tools whose papers are read for the deep-learning and research-area
-        analyses; tools with scope 'counts' enter only the yearly counts."""
+        """Packages whose papers are read for the deep-learning and research-area
+        analyses; packages with scope 'counts' enter only the yearly counts."""
         return [t for t in self.tools if t.scope == "core"]
 
     def by_id(self, tool_id: str) -> Tool:

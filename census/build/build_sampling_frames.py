@@ -113,7 +113,7 @@ def build(dest: Path = ROOT) -> dict:
     from census._registry import build_boolean_query, load_registry
     reg = load_registry()
     _, estimates = read_csv(ROOT / 'data/processed/dl_estimates.csv')
-    # All registry tool-years includes zero-result censuses as well as actual samples.
+    # Every registry package-year, including zero-result censuses and samples.
     tool_years = {(t.id, y) for t in reg.tools for y in reg.years}
     tool_years.update((r['tool_id'], int(r['year'])) for r in estimates + corpus_rows)
     cache = ROOT / 'data/raw/europepmc'

@@ -1,6 +1,14 @@
 # ---------------------------------------------------------------------------
 # MeSH descriptor mapping for the Figure 5 research-area keywords.
 #
+# Descriptor names are content supplied by the U.S. National Library of
+# Medicine, used here courtesy of the U.S. National Library of Medicine under
+# the NLM terms of use for MeSH
+# (https://www.nlm.nih.gov/databases/download/terms_and_conditions_mesh.html).
+# Only the short descriptor names appear, never the MeSH record itself. The
+# matching expressions around those names are the authors' own mappings, not
+# part of MeSH.
+#
 # Every pattern anchors both ends of a full MeSH descriptor name and matches
 # case-insensitively: qualifiers, titles and abstracts never enter a label.
 # The mapping is frozen. It was written before any agreement was examined, so

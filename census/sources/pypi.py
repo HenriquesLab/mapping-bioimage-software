@@ -1,11 +1,12 @@
-"""PyPI source: recent download volume per tool (snapshot signal).
+"""PyPI source: recent download volume per package (snapshot signal).
 
-Uses the pypistats.org API `/recent` endpoint, which exposes last-day, last-week
-and last-month download totals per package. This is a recent-adoption snapshot,
-not a multi-year trend: PyPI does not publish long-run historical download
-counts for free (that needs the public BigQuery `pypi` dataset). We therefore
-treat PyPI as a convergent, present-day signal alongside GitHub, and keep the
-yearly trends to OpenAlex + Europe PMC.
+Uses the pypistats.org service (https://pypistats.org) through its `/recent`
+endpoint, which exposes last-day, last-week and last-month download totals per
+package. pypistats republishes PyPI download statistics under CC BY 4.0. This
+is a recent-adoption snapshot, not a multi-year trend: PyPI does not publish
+long-run historical download counts for free (that needs the public BigQuery
+`pypi` dataset). We therefore treat PyPI as a present-day signal alongside
+GitHub, and keep the yearly trends to OpenAlex + Europe PMC.
 
 Run standalone:
     python -m census.sources.pypi --tool napari

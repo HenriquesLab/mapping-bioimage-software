@@ -1,9 +1,9 @@
 """Random-sample abstract corpus for the research-area analysis.
 
-Reuses the simple random samples drawn for the deep-learning estimate (same
-seed and per-tool cap, so the records come from the cache) for 2021-2025,
-the window in which every main registry tool exists. Writes one row per
-sampled paper, with the tool-year population so estimates can be weighted.
+Reuses the samples drawn for the deep-learning estimate (same seed and
+per-package cap, so the records come from the cache) for 2021-2025, the window
+in which every main registry package exists. Writes one row per sampled paper,
+with the package-year population so estimates can be weighted.
 
     python -m census.build.random_corpus
 """

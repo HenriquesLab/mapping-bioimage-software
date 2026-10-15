@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
-# Tool registry for the bioimage-analysis adoption study.
+# Package registry for the bioimage-analysis adoption study.
 #
-# Single source of truth. Adding a tool = one block here; no code changes.
+# Single source of truth. Adding a package = one block here; no code changes.
 # Every downstream source module (OpenAlex, Europe PMC, GitHub, PyPI, image.sc)
 # reads the identifiers it needs from each entry and ignores the rest.
 #
@@ -10,14 +10,14 @@
 #   name          human-readable display label
 #   category      notebook | general-platform | dl-model | commercial |
 #                 library | acquisition-suite
-#   implies_dl    whether the tool is intrinsically a deep-learning tool
-#                 (used only for the per-tool DL view; the paper's headline
+#   implies_dl    whether the package is intrinsically a deep-learning method
+#                 (used only for the per-package DL view; the paper's headline
 #                 DL split is computed per-paper by classify_dl.py)
-#   in_aggregate  whether to include the tool in field-wide aggregate figures
+#   in_aggregate  whether to include the package in field-wide aggregate figures
 #                 (default true). Set false for general-compute anchors whose
 #                 counts are dominated by non-bioimage use (e.g. MATLAB), so
 #                 they do not distort composition or DL-share aggregates. Such
-#                 tools are still tracked individually and in triangulation.
+#                 packages are still tracked individually and in triangulation.
 #   aliases       phrases OR-ed together in literature queries
 #   scope         core (default): counted, and its papers read for the
 #                 deep-learning and research-area analyses; counts: counted
@@ -32,8 +32,8 @@
 settings:
   year_start: 2010
   year_end: 2025
-  # AND-ed onto every tool query and used alone as the reach denominator.
-  # HAS_FT:Y keeps records with indexed full text: tools are matched in full
+  # AND-ed onto every package query and used alone as the reach denominator.
+  # HAS_FT:Y keeps records with indexed full text: packages are matched in full
   # text, so abstract-only records could enter the denominator but never the
   # numerator, and their share falls over time as open access grows.
   context_query: "(microscopy OR microscope) AND HAS_FT:Y"
@@ -315,7 +315,7 @@ tools:
     homepage: "https://opencv.org"
 
   # Microscope-control suites that also analyse images. Many matches describe
-  # acquisition only, so they are reported separately from the analysis tools.
+  # acquisition only, so they are reported separately from the analysis packages.
   - id: metamorph
     name: MetaMorph
     category: acquisition-suite

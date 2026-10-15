@@ -30,7 +30,7 @@ def has_full_text_indicator():
         return 'full_text' in next(csv.reader(stream))
 
 
-@unittest.skipUnless(has_full_text_indicator(), 'Citation full_text indicator is omitted from the sanitised release')
+@unittest.skipUnless(has_full_text_indicator(), 'Citation validation CSV data/validation/citations_cited_not_named_2025.csv or its full_text flag is not shipped')  # noqa: E501
 class QueryErrorsTableTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -41,7 +41,7 @@ class QueryErrorsTableTests(unittest.TestCase):
         self.assertEqual(len(self.rows), 30)  # one per registry package
 
 
-@unittest.skipUnless(has_full_text_indicator(), 'Citation full_text indicator is omitted from the sanitised release')
+@unittest.skipUnless(has_full_text_indicator(), 'Citation validation CSV data/validation/citations_cited_not_named_2025.csv or its full_text flag is not shipped')  # noqa: E501
 class NoToolWordTests(unittest.TestCase):
     def test_no_cell_says_tool(self):
         for body in (si.wildcard(), si.queryerrors()):

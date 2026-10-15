@@ -1,8 +1,11 @@
 # ---------------------------------------------------------------------------
-# Deep-learning lexicon for title/abstract-only DL-within-tool queries.
+# Deep-learning lexicon for the strict DL-within-package queries.
 #
-# Used by census/build/build_dataset_dl_within_tools.py. Both tool aliases and these
-# DL terms are searched only in Europe PMC TITLE/ABSTRACT fields.
+# Used by census/build/build_dataset_dl_within_tools.py. Only this deep-learning
+# clause is restricted to the Europe PMC TITLE and ABSTRACT fields. Package
+# aliases are searched without a field scope, and the per-package options in
+# config/DL_within_tools.yml add their own field scopes (TITLE,
+# ABSTRACT/METHODS/RESULTS, INTRO and full-text exclusions).
 # ---------------------------------------------------------------------------
 
 version: 1

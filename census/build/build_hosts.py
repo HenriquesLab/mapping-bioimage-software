@@ -1,10 +1,11 @@
-"""Host-platform co-mentions of the deep-learning tools (Figure 5).
+"""Host-platform co-mentions of the deep-learning packages (Figure 6).
 
 For Cellpose and StarDist in each year from 2020, counts the microscopy papers
-that name the tool, those that also name a host platform (ImageJ/Fiji, QuPath,
-napari), and, among the ImageJ/Fiji co-mentions, those that also name (a) any
-plugin or deepImageJ, and (b) the specific deep-learning plugin by phrase (for
-example "StarDist plugin") or deepImageJ. All counts are complete Europe PMC hit counts (no sampling).
+that name the method, those that also name a host platform (ImageJ/Fiji,
+QuPath, napari), and, among the ImageJ/Fiji co-mentions, those that also name
+(a) any plugin or deepImageJ, and (b) the specific deep-learning plugin by
+phrase (for example "StarDist plugin") or deepImageJ. All counts are complete
+Europe PMC hit counts (no sampling).
 Co-mention shows that a paper names both tools; it does not show that one ran
 inside the other, and a missing plugin term does not show that no plugin was
 used, because authors rarely name the plugin they ran.

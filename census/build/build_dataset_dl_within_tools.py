@@ -1,7 +1,7 @@
-"""Build yearly Europe PMC counts for strict DL-within-tool matching.
+"""Build yearly Europe PMC counts for strict DL-within-package matching.
 
 Query requirements per paper:
-1. any configured tool alias (full text),
+1. any configured package alias (full text),
 2. context_query term(s) when needs_context is true for the tool,
 3. either any configured full_text_alias for that tool, or none of the
    configured full_text_exclude_terms for that tool. Optional title_aliases are

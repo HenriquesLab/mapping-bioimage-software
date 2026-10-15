@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Deep-learning lexicon for the per-paper DL / non-DL classifier.
 #
-# A paper mentioning a tool is flagged deep-learning if its title+abstract
+# A paper mentioning a package is flagged deep-learning if its title+abstract
 # matches any `include` term AND no `exclude_guard` term flips it back
 # (guards catch phrases like "without deep learning"). Matching is
 # case-insensitive on word boundaries unless a term sets case_sensitive;

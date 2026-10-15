@@ -1,6 +1,6 @@
-"""Supplementary Figure 1: every tool's trajectory, as reach.
+"""Supplementary Figure 1: every package's trajectory, as reach.
 
-Each panel divides the tool's yearly matches by every full-text microscopy
+Each panel divides the package's yearly matches by every full-text microscopy
 paper that year, so literature growth cancels and the lines are comparable in kind. The
 vertical scales differ by three orders of magnitude, so each panel prints its
 own maximum.

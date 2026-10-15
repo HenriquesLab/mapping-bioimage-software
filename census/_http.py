@@ -1,8 +1,8 @@
 """Shared HTTP helpers: polite headers, retries, and an on-disk JSON cache.
 
 The cache makes the whole pipeline reproducible and API-friendly: a second run
-reads cached responses instead of hammering OpenAlex / Europe PMC / GitHub.
-Cache files live under scripts/data/raw/<source>/ keyed by a hash of the URL.
+reads cached responses instead of repeating live OpenAlex / Europe PMC / GitHub
+requests. Cache files live under data/raw/<source>/ keyed by a hash of the URL.
 """
 
 from __future__ import annotations

@@ -1,12 +1,11 @@
-"""Figure 2: the tool landscape, ranked.
+"""Figure 2: the package landscape, ranked.
 
-Row per registry tool in one shared order, following the layout bibliometrics
+Row per registry package in one shared order, following the layout bibliometrics
 papers use: the counts printed as a column, then each metric on its own axis.
-The right column gives each tool's growth since 2020, the first year in which
-the deep-learning tools and napari appear, so the tools driving the change are
-visible next to the tools carrying the volume. Each fold change is printed with
-its 2020 count, because a large fold change from a handful of papers is
-fragile.
+The right column gives each package's growth since 2020, the first year in which
+the deep-learning methods and napari appear, so the packages driving the change
+are visible next to the packages carrying the volume. Each fold change is
+printed with its 2020 count, because a fold change from few papers is fragile.
 """
 
 from __future__ import annotations

@@ -1,10 +1,10 @@
-"""Robustness check: how many of each tool's matches fall in the Methods section.
+"""Robustness check: how many of each package's matches fall in the Methods section.
 
-Europe PMC indexes full-text sections separately (METHODS:, REF:), so a tool
+Europe PMC indexes full-text sections separately (METHODS:, REF:), so a package
 named in Methods is more likely to have been run than one named only in the
 introduction, discussion or references. Writes methods_section_2025.csv with,
-for every tool, its 2025 matches, those naming it in Methods, and those naming
-it in the reference list but not in Methods.
+for every package, its 2025 matches, those naming it in Methods, and those
+naming it in the reference list but not in Methods.
 """
 
 from __future__ import annotations

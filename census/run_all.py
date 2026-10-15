@@ -95,7 +95,7 @@ def main() -> None:
     build_dataset.main()
 
     if not args.lit_only:
-        # Second deep-learning estimator and the random corpus for Figure 4.
+        # Second deep-learning estimator and the random corpus for Figure 5.
         for step in ("census.build.build_dataset_dl_in_tools", "census.build.random_corpus",
                      "census.build.build_hosts", "census.build.build_methods_check",
                      "census.build.build_sensitivity"):

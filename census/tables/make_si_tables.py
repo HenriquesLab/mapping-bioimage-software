@@ -4,8 +4,9 @@ The reporting-audit and validation tables read pooled inputs. After collecting
 and committing the labels, run `python -m census.run_all --pool`.
 
 Each table sits between named markers in MANUSCRIPT/02_SUPPLEMENTARY_INFO.md.
+Writes go to that external manuscript file, not to this repository.
 
-Run from scripts/:
+Run from the pipeline root:
     python -m census.tables.make_si_tables
 """
 
@@ -82,7 +83,7 @@ def literature() -> str:
     return _md(pd.DataFrame(rows))
 
 
-# GitHub figures come from the repositories listed in tools.yml; say so where a package has several names.
+# GitHub counts come from the repositories listed in tools.yml; say so where a package has several names.
 REPO_NOTE = {"zerocostdl4mic": " (ZeroCostDL4Mic repository)"}
 
 

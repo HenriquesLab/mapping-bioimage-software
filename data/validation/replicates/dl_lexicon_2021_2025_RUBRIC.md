@@ -10,9 +10,9 @@ Does the title and abstract report a deep-learning method?
 
 ## Inputs
 
-The annotation bundle gives the identifier, the tool and the text.
+The annotation bundle gives the identifier, the package and the text.
 For abstract-based sets that is the title and abstract; for full-text sets it is the
-Methods mention windows and a full-text excerpt around the tool name. No pattern or
+Methods mention windows and a full-text excerpt around the named package. No pattern or
 classifier result is shown.
 
 ## Provenance

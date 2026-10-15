@@ -8,6 +8,15 @@ description = "Data and code for Mapping bioimage-analysis software adoption in 
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
+authors = [
+  { name = "Tayla Shakespeare" },
+  { name = "Bruno M. Saraiva" },
+  { name = "Inês Cunha" },
+  { name = "Caron Jacobs" },
+  { name = "Guillaume Jacquemet" },
+  { name = "Ricardo Henriques", email = "r.henriques@itqb.unl.pt" },
+]
+urls = { Homepage = "https://github.com/HenriquesLab/mapping-bioimage-software", Issues = "https://github.com/HenriquesLab/mapping-bioimage-software/issues" }
 keywords = [
   "bioimage analysis",
   "scientific software",

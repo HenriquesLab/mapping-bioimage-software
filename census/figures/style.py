@@ -30,7 +30,7 @@ def default_output_dir() -> Path:
 
 FIG_DIR = default_output_dir()
 
-# Colour-blind-safe palette (Okabe-Ito), assigned per tool where relevant.
+# Colour-blind-safe palette (Okabe-Ito), assigned per package where relevant.
 PALETTE = {
     "imagej": "#0072B2",
     "napari": "#009E73",
@@ -143,16 +143,16 @@ def format_year_ticks(ax, max_ticks: int | None = None) -> None:
 
 
 def europepmc_yearly() -> pd.DataFrame:
-    """Europe PMC yearly tool-paper matches for every registry tool."""
+    """Europe PMC yearly package-paper matches for every registry package."""
     lit = load("literature_yearly.csv")
     return lit[lit["source"] == "europepmc"][["tool_id", "year", "count"]].reset_index(drop=True)
 
 
 def dl_in_tool_yearly() -> pd.DataFrame:
-    """Strict estimator: papers naming the tool AND a deep-learning term in full text.
+    """Strict estimator: papers naming the package AND a deep-learning term in full text.
 
     Covers imagej, napari and jupyter only. Read as a lower bound on the share of
-    a tool's papers that use deep learning; the lexicon fraction is the upper bound.
+    a package's papers that use deep learning; the lexicon fraction is the upper bound.
     """
     df = load("dl_in_tools_yearly.csv")
     if "query_kind" in df:
@@ -161,9 +161,9 @@ def dl_in_tool_yearly() -> pd.DataFrame:
 
 
 def dl_in_tool_share() -> pd.DataFrame:
-    """Second estimator as a percent: DL-term papers over the matching tool base.
+    """Second estimator as a percent: DL-term papers over the matching package base.
 
-    Both counts use the same tool clause and the same research-article filter,
+    Both counts use the same package clause and the same research-article filter,
     so reviews and preprints drop out of numerator and denominator alike.
     """
     df = load("dl_in_tools_yearly.csv")
@@ -186,8 +186,8 @@ def corpus() -> pd.Series:
 def reach(tool_ids) -> pd.Series:
     """Percent of all microscopy papers naming any of ``tool_ids`` (summed).
 
-    Summing several tools double-counts papers naming more than one, so a
-    multi-tool series is an upper bound.
+    Summing several packages double-counts papers naming more than one, so a
+    multi-package series is an upper bound.
     """
     df = europepmc_yearly()
     num = df[df["tool_id"].isin(list(tool_ids))].groupby("year")["count"].sum()
@@ -195,13 +195,13 @@ def reach(tool_ids) -> pd.Series:
 
 
 def dedicated_total() -> pd.Series:
-    """Yearly matches summed over the core tools, the deep-learning denominator."""
+    """Yearly matches summed over the core packages, the deep-learning denominator."""
     df = europepmc_yearly()
     return df[df["tool_id"].isin(core_tools())].groupby("year")["count"].sum()
 
 
 def named_dl_share() -> pd.DataFrame:
-    """Each named deep-learning tool's share of dedicated-tool matches, percent."""
+    """Each named deep-learning method's share of dedicated-method matches, percent."""
     df = europepmc_yearly()
     wide = df[df["tool_id"].isin(NAMED_DL)].pivot(index="year", columns="tool_id", values="count")
     return 100.0 * wide[NAMED_DL].div(dedicated_total(), axis=0)
@@ -232,13 +232,13 @@ def pct(v: float) -> str:
 
 
 def aggregate_tools() -> list[str]:
-    """Registry tools counted in field aggregates (MATLAB and Jupyter notebooks are references)."""
+    """Registry packages counted in field aggregates (MATLAB and Jupyter notebooks are references)."""
     tools = load("tools.csv")
     return tools.loc[tools["in_aggregate"].astype(str).str.lower() == "true", "tool_id"].tolist()
 
 
 def core_tools() -> list[str]:
-    """The 13 core analysis tools chosen at the start of the study (registry
+    """The 13 core analysis packages chosen at the start of the study (registry
     scope 'core'), the denominator of the named deep-learning series."""
     tools = load("tools.csv").set_index("tool_id")
     scope = tools["scope"] if "scope" in tools else pd.Series("core", index=tools.index)
@@ -246,16 +246,16 @@ def core_tools() -> list[str]:
 
 
 def analysis_tools() -> list[str]:
-    """Aggregate tools without the microscope-control programs, whose mentions
+    """Aggregate packages without the microscope-control programs, whose mentions
     often describe image acquisition only."""
     cat = load("tools.csv").set_index("tool_id")["category"]
     return [t for t in aggregate_tools() if cat.get(t) != "acquisition-suite"]
 
 
 def share_of_total(group: str = "analysis") -> pd.DataFrame:
-    """Per-tool share of yearly tool-paper matches, in percent.
+    """Per-package share of yearly package-paper matches, in percent.
 
-    group 'analysis' divides by the analysis tools; 'all' adds the
+    group 'analysis' divides by the analysis packages; 'all' adds the
     microscope-control programs. MATLAB and Jupyter notebooks enter neither.
     """
     ids = analysis_tools() if group == "analysis" else aggregate_tools()

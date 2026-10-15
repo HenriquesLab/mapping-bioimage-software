@@ -1,4 +1,4 @@
-"""Figure 3: reach and concentration.
+"""Figure 4: reach and concentration.
 
 Panel a gives the share of full-text microscopy papers mentioning ImageJ/Fiji,
 any of the 22 analysis packages, any of the other 21, and any microscope-control
@@ -47,7 +47,7 @@ def build_figure():
     ax_a.set_ylabel("Full-text microscopy papers\nmentioning the software (%)", fontsize=7)
     ax_a.set_title(f"{fs.pct(r_any.iloc[-1])} of microscopy papers mention\nan analysis package ({TO})", loc="left", fontsize=7.6)
 
-    # b: concentration, ImageJ/Fiji share of tool mentions
+    # b: concentration, ImageJ/Fiji share of package mentions
     shares = {}
     for group, ls, lab in [("analysis", "-", f"{len(analysis)} analysis packages"),
                            ("all", "--", "including microscope-control\nsoftware (ZEN, NIS-Elements, LAS X...)")]:

@@ -1,7 +1,7 @@
-"""GitHub source: developer-adoption snapshot per tool.
+"""GitHub source: developer-adoption snapshot per package.
 
 For each repo listed in the registry we capture stars, forks, watchers, open
-issues, and creation/last-push dates. Summed per tool, stars are a proxy for
+issues, and creation/last-push dates. Summed per package, stars are a proxy for
 developer-side adoption that complements the literature signals.
 
 Authentication: uses $GITHUB_TOKEN if set, else falls back to `gh auth token`.

@@ -1,7 +1,11 @@
 # ---------------------------------------------------------------------------
-# Title/abstract-only deep-learning-within-tool Europe PMC query registry.
+# Strict deep-learning-within-package Europe PMC query registry.
 #
-# The builder applies the Europe PMC RA/non-review filter in europepmc_RA.py.
+# Read by census/build/build_dataset_dl_within_tools.py, which applies the
+# Europe PMC research-article, non-review filter from europepmc_RA.py. Package
+# aliases and the context clause are searched in the full text; only the
+# deep-learning clause (config/dl_within_tools_lexicon.yml) is limited to
+# TITLE and ABSTRACT. Per-package fields narrow the rest.
 # ---------------------------------------------------------------------------
 
 settings:

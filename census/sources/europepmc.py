@@ -1,11 +1,13 @@
-"""Europe PMC source: full-text-aware yearly mention counts per tool.
+"""Europe PMC source: full-text-aware yearly mention counts per package.
 
 Europe PMC (https://europepmc.org) searches the full text of the open-access
-subset in addition to titles/abstracts for all records. Tools are usually named
-in the Methods section, so this is the strongest "actually used" literature
-signal and the direct answer to OpenAlex's abstract-only blind spot.
+subset in addition to titles/abstracts for all records. Packages are usually
+named in the Methods section, so a full-text mention is the strongest available
+literature signal and the direct answer to OpenAlex's abstract-only blind spot.
+A mention shows that a paper names the package; it does not establish that the
+authors ran it.
 
-One lightweight request per (tool, year) returns just the hitCount.
+One lightweight request per (package, year) returns just the hitCount.
 
 Run standalone:
     python -m census.sources.europepmc --tool cellpose
@@ -125,9 +127,9 @@ def _fetch_records(pairs: list[tuple[str, str]], batch: int = 100) -> list[dict]
     return out
 
 
-# Tool-years with up to this many matches are read in full (a census), so
-# their deep-learning share carries no sampling error. Larger tool-years are
-# sampled at the tool's cap.
+# Package-years with up to this many matches are read in full (a census), so
+# their deep-learning share carries no sampling error. Larger package-years are
+# sampled at the package's cap.
 CENSUS_MAX = 2000
 
 
@@ -135,7 +137,7 @@ def random_sample_works(tool: Tool, reg, year: int, max_records: int = 200,
                         seed: int = 20260929,
                         census_max: int = CENSUS_MAX,
                         replicate: int | None = None) -> tuple[list[dict], int]:
-    """Census or simple random sample of works with abstracts for one tool-year.
+    """Census or simple random sample of works with abstracts for one package-year.
 
     Draws from the complete id list of the tool-year, so every matching paper
     has the same chance of selection whatever Europe PMC's ranking. Tool-years
@@ -178,7 +180,7 @@ def corpus_yearly(reg) -> list[dict]:
     """Yearly count of every microscopy paper, the denominator for reach.
 
     Uses the same context clause the tool queries carry, so a tool's count
-    divided by this count is the share of microscopy papers naming the tool.
+    divided by this count is the share of microscopy papers naming the package.
     """
     rows = []
     for year in reg.years:

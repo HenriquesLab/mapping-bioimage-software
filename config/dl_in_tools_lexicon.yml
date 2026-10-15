@@ -1,13 +1,17 @@
 # ---------------------------------------------------------------------------
-# Deep-learning lexicon for the per-paper DL / non-DL classifier.
+# Deep-learning lexicon for the strict DL-within-package Europe PMC queries.
 #
-# A paper mentioning a tool is flagged deep-learning if its title+abstract
-# matches any `include` term AND no `exclude_guard` term flips it back
-# (guards catch phrases like "without deep learning"). Matching is
-# case-insensitive on word boundaries; multiword terms match as phrases.
+# Read by census/build/build_dataset_dl_in_tools.py, which ORs the terms into
+# TITLE and ABSTRACT clauses beside each package's aliases. It is not the
+# lexicon of the per-paper classifier, which reads config/dl_lexicon.yml.
+#
+# A package's paper is flagged deep-learning when the query matches any
+# `include` term and no `exclude_guard` term (the guards catch phrases such as
+# "without deep learning"). Matching is case-insensitive on word boundaries;
+# multiword terms match as phrases.
 #
 # This list is versioned and printed verbatim in the Supplementary so the
-# classification is fully auditable and reproducible.
+# queries are fully auditable and reproducible.
 # ---------------------------------------------------------------------------
 
 version: 1

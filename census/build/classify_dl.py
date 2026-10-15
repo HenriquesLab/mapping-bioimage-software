@@ -1,18 +1,23 @@
-"""Transparent deep-learning classifier for tool-mentioning papers.
+"""Transparent deep-learning classifier for package-mentioning papers.
 
 A paper (title + abstract, optionally venue) is labelled deep-learning if it
 matches any `include` term from config/dl_lexicon.yml and no `exclude_guard`
 term. Matching is case-insensitive on word boundaries unless a term is marked
-case-sensitive (CNN, GAN, VGG, CARE); multiword terms match as phrases. The lexicon is versioned and printed verbatim in the Supplementary, so
-the labelling is fully auditable.
+case-sensitive (CNN, GAN, VGG, CARE); multiword terms match as phrases. The
+lexicon is versioned and printed verbatim in the Supplementary, so the
+labelling is fully auditable.
 
-We do not label every matching work (millions for ImageJ). Instead we sample a
-simple random sample of up to 200 works per tool-year from Europe PMC (which returns abstracts and
-has no per-request credit budget), measure the DL fraction, and apply that
-fraction to the yearly totals in census.build.build_dataset. This yields a per-year
-DL / non-DL split that is reproducible and cheap.
+We do not label every matching work (millions for ImageJ/Fiji). The pipeline
+reads a census of up to 2,000 works per package-year (CENSUS_MAX in
+census.sources.europepmc) from Europe
+PMC, which returns abstracts and has no per-request credit budget. Above that
+threshold it draws a seeded simple random sample at the package's cap:
+`dl_sample_cap` in config/tools.yml, 200 by default and 1,000 for ImageJ/Fiji
+and Imaris. `estimate_tool_fractions` measures the DL fraction in that sample
+and `census.build.build_dataset` applies it to the yearly totals, giving a
+per-year DL / non-DL split that is reproducible and cheap.
 
-Run standalone (estimate DL fraction from an OpenAlex sample):
+Run standalone (the same census-or-sample estimator, at the `--cap` size):
     python -m census.build.classify_dl --tool cellpose --year 2024
 """
 
@@ -83,7 +88,11 @@ def dl_fraction(works: list[dict]) -> tuple[int, int, float]:
 
 
 def estimate_tool_fractions(reg, sample_cap: int = 200) -> list[dict]:
-    """DL fraction per tool-year, estimated from Europe PMC samples."""
+    """DL fraction per package-year, from a Europe PMC census or random sample.
+
+    sample_cap is the fallback cap; `dl_sample_cap` in config/tools.yml
+    overrides it per package.
+    """
     from census.sources import europepmc
 
     from concurrent.futures import ThreadPoolExecutor
@@ -92,8 +101,8 @@ def estimate_tool_fractions(reg, sample_cap: int = 200) -> list[dict]:
         works, population = europepmc.random_sample_works(
             tool, reg, year, max_records=cap)
         n_dl, n_total, frac = dl_fraction(works)
-        # A census has no sampling error for that tool-year, so its interval
-        # collapses to the point; Wilson intervals apply to sampled tool-years.
+        # A census has no sampling error for that package-year, so its interval
+        # collapses to the point; Wilson intervals apply to sampled package-years.
         census = n_total >= population
         lo, hi = (frac, frac) if census else wilson(n_dl, n_total)
         return {
@@ -109,7 +118,7 @@ def estimate_tool_fractions(reg, sample_cap: int = 200) -> list[dict]:
             "lexicon_version": lexicon_version(),
         }
 
-    # Per-tool sample caps (tools.yml: dl_sample_cap). ImageJ/Fiji carries most
+    # Per-package sample caps (tools.yml: dl_sample_cap). ImageJ/Fiji carries most
     # of the field-level weight, so a larger sample narrows the field interval.
     import yaml
     from census._paths import TOOLS_YML
@@ -119,7 +128,7 @@ def estimate_tool_fractions(reg, sample_cap: int = 200) -> list[dict]:
     def one_capped(tool, year) -> dict:
         return one(tool, year, caps.get(tool.id, sample_cap))
 
-    jobs = [(t, y) for t in reg.tools for y in reg.years]  # every tool's papers are read
+    jobs = [(t, y) for t in reg.tools for y in reg.years]  # every package's papers are read
     with ThreadPoolExecutor(max_workers=6) as ex:
         rows = list(ex.map(lambda ty: one_capped(*ty), jobs))
     return rows
@@ -151,7 +160,7 @@ if __name__ == "__main__":
     from census.sources import europepmc
 
     # Same estimator as the pipeline: census up to CENSUS_MAX matches, simple
-    # random sample above it. (sample_works takes the first records in
+    # random sample above it. (europepmc.sample_works takes the first records in
     # relevance order and biases the share upwards; do not use it here.)
     works, population = europepmc.random_sample_works(
         reg.by_id(args.tool), reg, args.year, max_records=args.cap)

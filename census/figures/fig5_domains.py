@@ -1,10 +1,10 @@
-"""Figure 4: exploratory research-vocabulary associations.
+"""Figure 5: exploratory research-vocabulary associations.
 
 Coloured circles mark contrasts meeting a fold-change threshold and a pointwise
 bootstrap criterion, without multiplicity adjustment; their size shows the
 weighted share of 2021-2025 papers naming the software that mention the area.
 Pairs without a clear difference are small grey dots. Shared papers can
-contribute to several tools; keywords do not identify the task performed.
+contribute to several packages; keywords do not identify the task performed.
 """
 
 from __future__ import annotations

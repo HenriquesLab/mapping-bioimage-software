@@ -1,4 +1,4 @@
-"""Supplementary Figure 3: three adoption signals, same tools, same order.
+"""Supplementary Figure 3: three adoption signals, same packages, same order.
 
 Each source keeps its own units and its own axis. Placing them side by side on a
 shared row order shows how far a claim of wide use depends on which signal is
@@ -16,7 +16,7 @@ from . import style as fs
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.ticker import FuncFormatter, LogLocator  # noqa: E402
 
-# Every registry tool with a public GitHub repository (Icy, KNIME and the
+# Every registry package with a public GitHub repository (Icy, KNIME and the
 # commercial suites have none, so two of the three signals would be empty).
 TOOLS = ["imagej", "qupath", "cellprofiler", "ilastik", "napari",
          "cellpose", "stardist", "zerocostdl4mic", "deepimagej"]

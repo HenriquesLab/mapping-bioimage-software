@@ -1,8 +1,8 @@
-"""image.sc source: community-support activity per tool (snapshot signal).
+"""image.sc source: community-support activity per package (snapshot signal).
 
 forum.image.sc is the central support forum for the bioimage-analysis
 community, running Discourse. Its `/tags.json` endpoint lists every tag with a
-topic count; we map each tool's registry tags to those counts as a
+topic count; we map each package's registry tags to those counts as a
 community-engagement snapshot.
 
 Like GitHub/PyPI this is point-in-time, not a yearly trend.
@@ -11,7 +11,7 @@ IMPORTANT: the forum applies Discourse crawler protection and returns HTTP 403
 ("Crawler is not allowed!") to non-browser clients, including this script. The
 module therefore FAILS SOFT: on a block it returns no rows and prints guidance.
 To collect this signal, fetch `/tags.json` through the browser bridge (opencli)
-and drop the JSON at scripts/data/raw/imagesc/tags.json; this module will then
+and drop the JSON at data/raw/imagesc/tags.json; this module will then
 read the cached file. Yearly trends never depend on this source.
 
 Run standalone:
@@ -54,7 +54,7 @@ def tag_counts() -> dict[str, int]:
             print(
                 "[imagesc] blocked by Discourse crawler protection; skipping.\n"
                 "          Drop a browser-fetched tags.json at "
-                "scripts/data/raw/imagesc/tags.json to enable this signal."
+                "data/raw/imagesc/tags.json to enable this signal."
             )
             return {}
     counts: dict[str, int] = {}

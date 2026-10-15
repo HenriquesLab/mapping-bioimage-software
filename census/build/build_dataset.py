@@ -1,15 +1,42 @@
 """Collect every source and write the tidy CSVs the figures consume.
 
-Outputs (scripts/data/processed/, committed to the repo so figures reproduce
-without re-hitting any API):
+Outputs go to data/processed/, committed to the repo so figures reproduce
+without re-hitting any API. Every file keys packages on `tool_id`, the slug in
+config/tools.yml, and joins to tools.csv.
 
-  tools.csv               tool_id, name, category, implies_dl, homepage
-  literature_yearly.csv   source, tool_id, year, count      (OpenAlex + EuropePMC)
-  dl_estimates.csv        tool_id, year, n_sampled, n_dl, dl_fraction, lexicon_version
-  dl_split_yearly.csv     tool_id, year, base_count, dl_fraction, count_dl, count_nondl
-  dl_field_yearly.csv     year, count_dl, count_nondl, dl_share, dl_share_lo/hi (field-wide)
-  corpus_yearly.csv       year, microscopy_papers                (reach denominator)
-  adoption_snapshot.csv   tool_id, github_stars/forks, pypi_downloads_30d, imagesc_topics
+  tools.csv              One row per registry package.
+                         tool_id, name, category, implies_dl, in_aggregate,
+                         scope, homepage. No missing values.
+  literature_yearly.csv  One row per source, package and year (2010-2025).
+                         source (openalex or europepmc), tool_id, year, count
+                         (papers matching the package query). A year with no
+                         match carries count 0; both sources hold all 16 years.
+  corpus_yearly.csv      One row per year: year, microscopy_papers. The reach
+                         denominator, the configured context query alone.
+                         2010 is 42,806 papers and 2025 is 177,358.
+  dl_estimates.csv       One row per package and year: tool_id, year,
+                         population (matching papers), n_sampled (papers read),
+                         n_dl (deep-learning matches), dl_fraction (n_dl /
+                         n_sampled, 4 dp), ci_lo and ci_hi (95% Wilson interval,
+                         equal to dl_fraction for a census), sampling (census or
+                         simple-random), lexicon_version. n_sampled is 0 in
+                         years with no matches, where every rate reads 0.
+  dl_split_yearly.csv    One row per package and year: tool_id, year,
+                         base_count (the Europe PMC count), dl_fraction,
+                         count_dl and count_nondl (rounded base_count split).
+                         count_dl + count_nondl equals base_count.
+  dl_field_yearly.csv    One row per year over the 13 core packages: year,
+                         count_dl, count_nondl, dl_share, dl_share_lo and
+                         dl_share_hi (share and its 95% interval, 0-1).
+  adoption_snapshot.csv  One row per package: tool_id, category, github_stars,
+                         github_forks, earliest_repo (ISO date),
+                         pypi_downloads_30d, imagesc_topics. All three signals
+                         are point-in-time totals, so they carry no year column,
+                         and 15 packages appear whatever their coverage. A
+                         package with no tracked repository, PyPI package or
+                         forum tag leaves the column blank rather than zero, so
+                         a blank means "not measured" and never "measured as
+                         none".
 
 Run:
     python -m census.build.build_dataset                 # full build (uses cached API pulls)
@@ -86,9 +113,9 @@ def build_dl(reg, lit: pd.DataFrame, sample_cap: int) -> None:
     split.to_csv(PROCESSED_DIR / "dl_split_yearly.csv", index=False)
 
     # Field-wide aggregate excludes reference environments (MATLAB and Jupyter notebooks) so
-    # they do not dominate the DL share; they remain in per-tool views.
-    # The field series stays defined over the core tools, as the 13 core
-    # analysis tools of Figure 5a, although every tool's papers are read.
+    # they do not dominate the DL share; they remain in per-package views.
+    # The field series stays defined over the core packages, as the 13 core
+    # analysis packages of Figure 6a, although every package's papers are read.
     aggregate_ids = {t.id for t in reg.core_tools if t.in_aggregate}
     field_src = split[split["tool_id"].isin(aggregate_ids)]
     field = (
@@ -97,10 +124,10 @@ def build_dl(reg, lit: pd.DataFrame, sample_cap: int) -> None:
     total = field["count_dl"] + field["count_nondl"]
     field["dl_share"] = (field["count_dl"] / total.replace(0, pd.NA)).fillna(0).round(4)
 
-    # 95% interval for the field share. Each tool-year fraction is a simple
+    # 95% interval for the field share. Each package-year fraction is a simple
     # random sample; the field share is a count-weighted sum of them, so its
     # variance is the weighted sum of binomial variances with a finite-
-    # population correction (zero where the tool-year was taken whole).
+    # population correction (zero where the package-year was taken whole).
     v = est.merge(base, on=["tool_id", "year"], how="left")
     v = v[v["tool_id"].isin(aggregate_ids)].copy()
     n, N, p = v["n_sampled"], v["population"], v["dl_fraction"]

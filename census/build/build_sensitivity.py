@@ -2,16 +2,17 @@
 
 Writes two CSVs:
 
-  methods_microscopy_yearly.csv  For every tool and year, full-text matches whose
-                                 Methods section names both the tool and microscopy
+  methods_microscopy_yearly.csv  For every package and year, full-text matches whose
+                                 Methods section names both the package and microscopy
                                  (METHODS field), with the matching denominator of
                                  papers whose Methods section names microscopy. This
-                                 keeps papers that used the tool for microscopy
+                                 keeps papers that used the package for microscopy
                                  analysis and drops papers that name it only for
                                  other work, such as gel quantification.
   dl_reference_2025.csv          2025 full-text microscopy papers naming deep-learning
-                                 methods and other tools outside the registry, as a scale reference
-                                 for the four dedicated deep-learning tools tracked.
+                                 methods and other packages outside the registry, as
+                                 a scale reference for the four dedicated
+                                 deep-learning methods tracked.
 
 Run with --reference-only to refresh dl_reference_2025.csv alone.
 """
@@ -41,7 +42,7 @@ REFERENCE = {
     "DINOv2": '"DINOv2"',
     "Cell-DINO": '("Cell-DINO" OR "CellDINO")',
 }
-# Tools outside the registry that are not deep-learning methods, for scale.
+# Packages outside the registry that are not deep-learning methods, for scale.
 OTHER = {
     "TrackMate": '"TrackMate"',
     "Trainable Weka Segmentation": '"Trainable Weka Segmentation"',

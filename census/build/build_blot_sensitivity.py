@@ -1,15 +1,16 @@
-"""Blot-mention sensitivity for all registry tools, 2010–2025.
+"""Blot-mention sensitivity for every registry package, 2010–2025.
 
 Run with the pipeline's Python environment. Writes
- data/processed/blot_sensitivity_yearly.csv, one row per scope/year/tool.
+ data/processed/blot_sensitivity_yearly.csv, one row per scope/year/package.
 The full_text scope uses the registry query unchanged. The methods scope
-(2025 only) requires tool, microscopy and blot terms in METHODS sections.
+(2025 only) requires package, microscopy and blot terms in METHODS sections.
 All requests use Europe PMC's _hit_count -> _http.get_json disk cache.
 
 Reach without blots retains the original microscopy denominator, matching
 the historical sensitivity. A separate column uses the blot-free denominator.
-Analysis shares sum tool-paper matches, not deduplicated papers, and exclude
-acquisition suites and tools marked in_aggregate: false (MATLAB and Jupyter notebooks).
+Analysis shares sum package-paper matches, not deduplicated papers, and exclude
+acquisition suites and packages marked in_aggregate: false (MATLAB and Jupyter
+notebooks).
 """
 from __future__ import annotations
 
@@ -30,7 +31,7 @@ METHODS_MICRO = '(METHODS:"microscopy" OR METHODS:"microscope") AND HAS_FT:Y'
 
 
 def build_queries(reg) -> dict:
-    """Count all and blot-positive subsets of each tool and its corpus."""
+    """Count all and blot-positive subsets of each package and its corpus."""
     jobs = {}
     for scope, years in (('full_text', YEARS), ('methods', [2025])):
         prefix = 'METHODS:' if scope == 'methods' else ''
@@ -52,7 +53,7 @@ def build_queries(reg) -> dict:
 
 
 def summarize(reg, counts: dict) -> pd.DataFrame:
-    """Subtract blot subsets from every tool before forming analysis shares."""
+    """Subtract blot subsets from every package before forming analysis shares."""
     reg.by_id('imagej')
     analysis = [t.id for t in reg.tools if t.in_aggregate and t.category != 'acquisition-suite']
     if 'imagej' not in analysis:

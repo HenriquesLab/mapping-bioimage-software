@@ -131,7 +131,7 @@ def abstract_design(tool, reg, year, cap, seed=SEED):
             raise ValueError(f'incompatible saved design: {dest}')
         return data
     raw = europepmc._id_list(f'{build_boolean_query(tool, reg.context_query)} AND PUB_YEAR:{year}')
-    # A handful of tool-years return one record twice; keep first occurrence so
+    # A few package-years return one record twice; keep first occurrence so
     # the frame has unique units. Replicate 1 is still drawn from the raw list,
     # matching the committed historical draw.
     pairs = list(dict.fromkeys(raw))
@@ -605,10 +605,10 @@ def _bundle_item(command, item):
 
 RUBRIC_HEADER = {
     'cellpose': ('How was Cellpose used in this paper?', 'Cellpose workflow sample'),
-    'alias': ('Does the tool name refer to the named software, and was it used for image acquisition or analysis?', 'Alias precision sample'),
+    'alias': ('Does the matched name refer to the named software package, and was it used for image acquisition or analysis?', 'Alias precision sample'),
     'lexicon': ('Does the title and abstract report a deep-learning method?', 'Deep-learning lexicon sample'),
     'domains': ('Does the matched keyword indicate the research area in this title and abstract?', 'Research-area keyword sample'),
-    'reporting_audit': ('Does the paper report each of the four indicators (version, function, parameter, code) for this tool?', 'Reporting-audit pattern sample'),
+    'reporting_audit': ('Does the paper report each of the four indicators (version, function, parameter, code) for this package?', 'Reporting-audit pattern sample'),
 }
 
 
@@ -631,9 +631,9 @@ def _write_rubric(name, command):
         allowed = ['0', '1']
     lines = [f'# Rubric: {title}', '', '## Labelling question', '', question, '',
              '## Allowed labels', '', ', '.join(f'`{a}`' for a in allowed), '',
-             '## Inputs', '', 'The annotation bundle gives the identifier, the tool and the text.',
+             '## Inputs', '', 'The annotation bundle gives the identifier, the package and the text.',
              'For abstract-based sets that is the title and abstract; for full-text sets it is the',
-             'Methods mention windows and a full-text excerpt around the tool name. No pattern or',
+             'Methods mention windows and a full-text excerpt around the named package. No pattern or',
              'classifier result is shown.', '',
              '## Provenance', '', 'Reconstructed from the existing label files, `data/validation/README.md`',
              'and the manuscript Methods sections (Validation samples; Host-platform co-mentions and',

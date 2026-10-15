@@ -1,7 +1,9 @@
 # ---------------------------------------------------------------------------
-# Deep-learning-within-tool Europe PMC query registry.
+# Deep-learning-within-package Europe PMC query registry.
 #
-# Entries combine tool aliases/context with deep-learning terms from a lexicon.
+# Entries combine package aliases and context with deep-learning terms from a lexicon.
+# Package aliases are searched without a field scope; only the deep-learning terms
+# are restricted to TITLE and ABSTRACT (census/build/build_dataset_dl_in_tools.py).
 # The builder applies the Europe PMC RA/non-review filter in europepmc_RA.py.
 # ---------------------------------------------------------------------------
 

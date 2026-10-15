@@ -1,12 +1,14 @@
-"""Build yearly Europe PMC counts for deep-learning use within core tools.
+"""Build yearly Europe PMC counts for deep-learning use within core packages.
 
-This is a parallel builder for explicit DL-within-tool search queries. It reads
-scripts/config/DL_in_tools.yml, combines each tool's aliases/context with the
-configured deep-learning lexicon include terms, and counts yearly Europe PMC RA
-hits through sources/europepmc_RA.py.
+This is a parallel builder for explicit DL-within-package search queries. It
+reads config/DL_in_tools.yml, combines each package's aliases and context with
+the configured deep-learning lexicon include terms, and counts yearly Europe
+PMC research-article hits through sources/europepmc_RA.py. Package aliases are
+searched without a field scope; only the deep-learning clause is restricted to
+TITLE and ABSTRACT. The lexicon is config/dl_in_tools_lexicon.yml.
 
 Output:
-  scripts/data/processed/dl_in_tools_yearly.csv
+  data/processed/dl_in_tools_yearly.csv
 """
 
 from __future__ import annotations
@@ -128,7 +130,7 @@ def collect_yearly(config: DLInToolsConfig) -> list[dict]:
             lexicon_cache[tool.dl_lexicon] = load_lexicon_terms(tool.dl_lexicon)
         terms, exclude_terms, version = lexicon_cache[tool.dl_lexicon]
         query = build_tool_query(tool, config.context_query, terms, exclude_terms)
-        # The matching denominator: the same tool clause under the same
+        # The matching denominator: the same package clause under the same
         # research-article filter, without the deep-learning terms, so the
         # ratio compares like with like.
         base = build_tool_query(tool, config.context_query, [], None)

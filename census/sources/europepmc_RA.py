@@ -1,11 +1,14 @@
-"""Europe PMC source: full-text-aware yearly mention counts per tool.
+"""Europe PMC source: full-text-aware yearly mention counts per package.
 
+This variant adds the research-article, non-review filter held in
+RA_NON_REVIEW_FILTER, which the strict within-tool query builders apply.
 Europe PMC (https://europepmc.org) searches the full text of the open-access
-subset in addition to titles/abstracts for all records. Tools are usually named
-in the Methods section, so this is the strongest "actually used" literature
-signal and the direct answer to OpenAlex's abstract-only blind spot.
+subset in addition to titles/abstracts for all records, so a full-text mention
+is the strongest available literature signal and the direct answer to
+OpenAlex's abstract-only blind spot. A mention shows that a paper names the
+package; it does not establish that the authors ran it.
 
-One lightweight request per (tool, year) returns just the hitCount.
+One lightweight request per (package, year) returns just the hitCount.
 
 Run standalone:
     python -m census.sources.europepmc --tool cellpose
@@ -53,7 +56,7 @@ def yearly_query_counts(query: str, years: list[int]) -> dict[int, int]:
 
 
 def sample_works(tool: Tool, reg, year: int, max_records: int = 200) -> list[dict]:
-    """Capped sample of works with abstracts for one tool-year (for DL split).
+    """Capped sample of works with abstracts for one package-year (for the DL split).
 
     Uses resultType=core to obtain abstractText. Europe PMC has no per-request
     credit budget, so this is the budget-free sampling path for census.build.classify_dl.

@@ -1,13 +1,13 @@
-"""Reporting audit: how completely 2025 Methods sections describe each tool's use.
+"""Reporting audit: how completely 2025 Methods sections describe each package's use.
 
-For six tools, a seeded random sample of open-access 2025 microscopy papers that
-name the tool in their Methods section (Europe PMC METHODS field). For each
-paper, the full-text XML is read, citation markers are removed, the Methods
-sections are located, and every sentence naming the tool is taken together with
-the sentence that follows it (the mention window). Fixed text patterns then
-record four indicators:
+For six packages, a seeded random sample of open-access 2025 microscopy papers
+that name the package in their Methods section (Europe PMC METHODS field). For
+each paper, the full-text XML is read, citation markers are removed, the
+Methods sections are located, and every sentence naming the package is taken
+together with the sentence that follows it (the mention window). Fixed text
+patterns then record four indicators:
 
-  version    a software version next to the tool name ("Fiji 2.14.0",
+  version    a software version next to the package name ("Fiji 2.14.0",
              "QuPath v0.5.1", "ImageJ 1.54f", "Cellpose version 3")
   function   a named plugin, command, module or model ("Analyze Particles",
              "IdentifyPrimaryObjects", "cyto3", "2D_versatile_fluo")
@@ -181,7 +181,7 @@ def alias_re(aliases: list[str]) -> re.Pattern:
 
 
 def mention_windows(blocks: list[str], areg: re.Pattern) -> list[str]:
-    """Each sentence naming the tool, joined to the sentence after it."""
+    """Each sentence naming the package, joined to the sentence after it."""
     wins = []
     for b in blocks:
         ss = sentences(b)
@@ -198,7 +198,7 @@ def mention_windows(blocks: list[str], areg: re.Pattern) -> list[str]:
 _UNIT = (r"(?:\u00b5m|\u03bcm|um|nm|mm|cm|%|px|pixels?|min|mins|h|hr|hrs|s|ms|sec|"
          r"x|\u00d7|mg|ml|mL|\u00b5l|\u03bcl|M|mM|\u00b5M|\u03bcM|nM|kDa|Hz|days?|weeks?|"
          r"cells?|images?|frames?|fields?|samples?|replicates?|slices?|\u00b0C?)")
-# version token straight after the tool name: "Fiji 2.14.0", "QuPath (v0.5.1)",
+# version token straight after the package name: "Fiji 2.14.0", "QuPath (v0.5.1)",
 # "Cellpose 3", "cellpose==3.1", "Fiji (ImageJ 1.54f)"
 _VER_AFTER = re.compile(
     rf"^[\s(\[,=:/-]*(?:(?:ImageJ2?|Fiji)\s*)?(?:version|ver\.?|release|v\.?)?\s*"

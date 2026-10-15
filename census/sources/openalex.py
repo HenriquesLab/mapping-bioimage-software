@@ -1,12 +1,18 @@
-"""OpenAlex source: yearly literature counts + abstract samples per tool.
+"""OpenAlex source: yearly literature counts per package, plus an abstract sampler.
 
 OpenAlex (https://openalex.org) indexes ~250M scholarly works with titles and
-abstracts (as an inverted index). We use two capabilities:
+abstracts (as an inverted index). Two capabilities back this module:
 
   1. group_by=publication_year  -> one request yields the full yearly count
-     curve for a tool's boolean query (breadth signal).
-  2. paged works with abstracts  -> a capped sample per tool-year that
-     census.build.classify_dl labels DL / non-DL (the per-paper DL split).
+     curve for a package's boolean query (breadth signal).
+  2. paged works with abstracts  -> a capped sample per package-year, in
+     publication-date order.
+
+yearly_counts is the active path for the annual counts in
+census.build.build_dataset. sample_works is a separate access path that the
+pipeline does not call: the deep-learning estimate samples through Europe PMC
+(census.sources.europepmc.random_sample_works), because this module returns the
+first records in publication-date order rather than a simple random sample.
 
 Run standalone:
     python -m census.sources.openalex --tool napari
@@ -35,7 +41,7 @@ def _base_filter(query: str, year_start: int, year_end: int) -> str:
 
 
 def yearly_counts(tool: Tool, reg) -> dict[int, int]:
-    """Return {year: work_count} for a tool across the configured range."""
+    """Return {year: work_count} for a package across the configured range."""
     query = build_boolean_query(tool, reg.text_context, wildcard=False)
     params = {
         "filter": _base_filter(query, reg.year_start, reg.year_end),
@@ -66,10 +72,10 @@ def _reconstruct_abstract(inv: dict | None) -> str:
 
 
 def sample_works(tool: Tool, reg, year: int, max_records: int = 200) -> list[dict]:
-    """Capped sample of works (title, abstract, venue) for one tool-year.
+    """Capped sample of works (title, abstract, venue) for one package-year.
 
-    Used only to estimate the DL fraction. Sorted by publication date for a
-    stable, non-relevance-biased sample; capped for tractability.
+    Sorted by publication date and capped for tractability. Not used by the
+    deep-learning estimate; see the module docstring.
     """
     query = build_boolean_query(tool, reg.text_context, wildcard=False)
     filt = (

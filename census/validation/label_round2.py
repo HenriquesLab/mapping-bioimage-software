@@ -176,7 +176,7 @@ def score():
 
 
 def pooled_cellpose():
-    """Agreed second-round Cellpose labels per replicate and pooled, for Figure 5d and the text."""
+    """Agreed second-round Cellpose labels per replicate and pooled, for Figure 6d and the text."""
     cats = ['separate', 'inside_fiji', 'other_pipeline', 'unclear', 'mention_only']
     rows = {c: {} for c in cats + ['agreed', 'labelled']}
     for rep in (1, 2, 3):
