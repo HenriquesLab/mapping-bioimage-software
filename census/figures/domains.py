@@ -20,7 +20,11 @@ from collections import Counter
 
 import numpy as np
 import pandas as pd
-# scikit-learn's English stop words, copied so the figure scripts do not depend on it.
+# English stop words copied from scikit-learn 1.8.0 (sklearn/feature_extraction/_stop_words.py),
+# so the figure scripts do not depend on scikit-learn.
+# Authors: The scikit-learn developers
+# SPDX-License-Identifier: BSD-3-Clause
+# The list is taken from the Glasgow Information Retrieval Group; see THIRD_PARTY_NOTICES.md.
 ENGLISH_STOP_WORDS = frozenset("""
     a about above across after afterwards again against all almost alone along already
     also although always am among amongst amoungst amount an and another any anyhow
