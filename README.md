@@ -188,7 +188,7 @@ The repository and archive contain identifiers and derived data, with no source-
 
 Each source is queried through its public API, and the counts are recorded at collection time.
 
-**Europe PMC.** The search API supplies annual mention counts and the open-access full text supplies the sampled abstracts and Methods sections. Records derived from MEDLINE/PubMed carry the NLM notice that the data may not be current and that NLM does not endorse this work. Full text was mined for the analysis and never redistributed.
+**Europe PMC.** The search API supplies annual mention counts and the open-access full text supplies the sampled abstracts and Methods sections. Records derived from MEDLINE/PubMed carry the NLM notice that the data may not be current and that NLM does not endorse this work. Full text was mined for the analysis and never redistributed. Courtesy of the U.S. National Library of Medicine.
 
 **OpenAlex.** Annual counts for the same package names, available under CC0.
 
