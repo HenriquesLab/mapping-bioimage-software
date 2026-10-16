@@ -143,6 +143,8 @@ After reviewing and committing the label CSVs, run `python -m census.run_all --p
 | `data/processed/dl_estimates.csv` | Annual deep-learning share and sample counts by package | `tool_id`, `year`, `population`, `n_sampled`, `n_dl`, `dl_fraction` |
 | `data/processed/domain_enrichment.csv` | Research-area keyword frequencies in package abstracts | `tool_id`, `domain`, `share`, `baseline`, `ratio` |
 | `data/processed/mentions_citations_yearly.csv` | Annual mentions, citations and uncited counts | `tool_id`, `year`, `named`, `cited`, `both`, `named_not_cited` |
+| `data/processed/drake_2021_2025.csv` | Pooled downloads, citations and ratios for 2021–2025, plus ImageJ/Fiji's 2020 report | `tool_id`, `downloads`, `citations`, `c_measured`, `estimable` |
+| `data/processed/drake_yearly.csv` | Annual downloads, citations and downloads per citing paper for QuPath, Cellpose and StarDist | `tool_id`, `year`, `downloads`, `citations`, `downloads_per_citing_paper` |
 | `data/processed/methods_section_2025.csv` | Reporting audit counts in 2025 Methods sections | `tool_id`, `n_all`, `n_methods`, `share_methods` |
 | `data/processed/reach_any_yearly.csv` | Combined annual reach across tracked packages | `year`, `group`, `papers` |
 
@@ -208,6 +210,8 @@ Each source is queried through its public API, and the counts are recorded at co
 **GitHub REST API.** Public repository counts, stars and forks, collected on 1 September 2026. GitHub's Acceptable Use Policies allow research use of public, non-personal information when the resulting publications are open access; the paper is released open access on bioRxiv.
 
 **pypistats.org.** Thirty-day PyPI download totals, collected on 1 September 2026. pypistats.org derives them from the Python Software Foundation's PyPI download dataset on Google BigQuery (`bigquery-public-data.pypi`), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). The archive keeps only one 30-day total per package.
+
+**Users-and-downloads analysis.** We collected annual PyPI downloads on 16 October 2026 from the public ClickHouse mirror of the Python Software Foundation's PyPI BigQuery dataset (CC BY 4.0: https://creativecommons.org/licenses/by/4.0/). GitHub totals sum release-asset downloads by release year. OpenAlex provides yearly citations under CC0. The image.sc discussion reports 500,000 Fiji downloads in 2020 (https://forum.image.sc/t/51313).
 
 **MeSH.** The MeSH check (`census/validation/mesh_check.py`) compares research-area keywords with Medical Subject Headings from MEDLINE records retrieved through Europe PMC on 15 October 2026, indexed with the 2026 MeSH vocabulary. `config/mesh_areas.yml` names MeSH descriptors, which are NLM content used under NLM's terms; the processed files keep identifiers and match flags only. Courtesy of the U.S. National Library of Medicine.
 

@@ -42,6 +42,16 @@ def test_every_publication_output_has_a_mapped_walkthrough():
     assert len(notebooks()) == 10
 
 
+def test_drake_walkthrough_uses_processed_inputs_and_table_check():
+    text = sources(notebooks()['SupplementaryTables'])
+    assert '## drake' in text
+    assert '`data/processed/drake_2021_2025.csv`' in text
+    assert '`data/processed/drake_yearly.csv`' in text
+    assert 'census.validation.drake' in text
+    assert "tables.TABLES['drake']()" in text
+    assert "check_table('drake'" in text
+
+
 def test_walkthroughs_document_inputs_rebuilding_and_checks():
     for name, nb in notebooks().items():
         assert nb['cells'][0]['cell_type'] == 'markdown', name

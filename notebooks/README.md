@@ -1,6 +1,6 @@
 # Reproduce the paper figures and tables
 
-These ten notebooks render every panel of the nine publication figures and build all 14 supplementary tables from committed data. They run offline in a standalone clone and in the manuscript repository's `scripts/` checkout. They do not need article text or raw API caches. The main text contains no tables.
+These ten notebooks render every panel of the nine publication figures and build all 15 supplementary tables from committed data. They run offline in a standalone clone and in the manuscript repository's `scripts/` checkout. They do not need article text or raw API caches. The main text contains no tables.
 
 ## Coverage map
 
@@ -31,6 +31,7 @@ Figure targets use the manuscript PNG stem. Each figure notebook ends with **Ren
 | queryerrors | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | queryerrors |
 | citations | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | citations |
 | preprints | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | preprints |
+| drake | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | drake |
 
 The manuscript working folder also contains two historical PNGs which the current paper does not reference. They are outside the publication targets. The corresponding notebooks identify them under **Historical variant**:
 

@@ -33,8 +33,8 @@ def test_c_measured_matches_citation_link_union(drake):
 
 
 def test_csv_has_no_unexpected_text_columns(drake):
-    text_columns = set(drake.select_dtypes(exclude="number").columns)
-    assert text_columns <= {"tool_id", "download_record", "reason", "estimable"}
+    text_columns = set(drake.select_dtypes(include="object").columns)
+    assert text_columns == {"tool_id", "download_record", "reason"}
 
 
 def test_si_table_formats_estimable_and_unestimable_rows():
