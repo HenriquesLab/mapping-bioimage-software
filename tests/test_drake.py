@@ -35,3 +35,26 @@ def test_c_measured_matches_citation_link_union(drake):
 def test_csv_has_no_unexpected_text_columns(drake):
     text_columns = set(drake.select_dtypes(exclude="number").columns)
     assert text_columns <= {"tool_id", "download_record", "reason", "estimable"}
+
+
+def test_si_table_formats_estimable_and_unestimable_rows():
+    from census.tables import make_si_tables
+
+    table = make_si_tables.TABLES["drake"]()
+    rows = table.splitlines()
+    assert rows[:6] == [
+        "| Package | Download record | Downloads | Citations | C | Downloads per citing paper | Per paper mentioning or citing |",
+        "|---|---|---|---|---|---|---|",
+        "| QuPath | GitHub installers | 868,872 | 6,647 | 1.91 | 130.7 | 68.3 |",
+        "| Cellpose | PyPI | 1,356,570 | 4,497 | 1.21 | 301.7 | 249.8 |",
+        "| StarDist | PyPI | 507,840 | 1,603 | 1.35 | 316.8 | 235.5 |",
+        "| ImageJ/Fiji | reported (image.sc, 2020) | 500,000 | 12,951 | 7.30 | 38.6 | 5.3 |",
+    ]
+    assert rows[6:] == [
+        "| CellProfiler | installers mostly downloaded from cellprofiler.org, which publishes no counts | – | – | – | – | – |",
+        "| ilastik | installers downloaded from ilastik.org, which publishes no counts | – | – | – | – | – |",
+        "| napari | cited mainly through a software record | – | – | – | – | – |",
+        "| scikit-image | installed mostly as a dependency of other packages | – | – | – | – | – |",
+        "| OpenCV | installed mostly as a dependency of other packages | – | – | – | – | – |",
+        "| Jupyter notebooks | installed mostly as a dependency of other packages | – | – | – | – | – |",
+    ]

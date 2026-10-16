@@ -426,11 +426,36 @@ def preprints() -> str:
     return _md(pd.DataFrame(rows))
 
 
+def drake() -> str:
+    """Downloads, citations and the Drake-equation ratios for selected packages."""
+    data = pd.read_csv(PROCESSED_DIR / "drake_2021_2025.csv")
+    names = pd.read_csv(PROCESSED_DIR / "tools.csv").set_index("tool_id")["name"]
+    columns = ["Package", "Download record", "Downloads", "Citations", "C",
+               "Downloads per citing paper", "Per paper mentioning or citing"]
+    rows = []
+    for r in data.itertuples(index=False):
+        package = names[r.tool_id].replace(" / ", "/").replace(
+            "ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"
+        )
+        if r.estimable:
+            record = r.download_record
+            values = [
+                _n(r.downloads), _n(r.citations), f"{r.c_measured:.2f}",
+                f"{r.downloads_per_citing_paper:.1f}",
+                f"{r.downloads_per_mention_or_citation:.1f}",
+            ]
+        else:
+            record = r.reason
+            values = ["–"] * 5
+        rows.append(dict(zip(columns, [package, record, *values])))
+    return _md(pd.DataFrame(rows, columns=columns))
+
+
 TABLES = {"registry": registry, "methods_micro": methods_micro, "literature": literature, "adoption": adoption,
           "deep_learning": deep_learning, "methods_section": methods_section,
           "validation": validation, "reporting": reporting, "audit_area": audit_area, "mesh": mesh,
           "wildcard": wildcard, "queryerrors": queryerrors, "citations": citations,
-          "preprints": preprints}
+          "preprints": preprints, "drake": drake}
 
 
 def main() -> None:
