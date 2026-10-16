@@ -1,3 +1,5 @@
+<p align="center"><img src="logo/mapping-bioimage-software-logo.svg" alt="mapping-bioimage-software logo" width="220"></p>
+
 # mapping-bioimage-software
 
 ## Purpose and scope
