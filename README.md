@@ -205,11 +205,11 @@ Each source is queried through its public API, and the counts are recorded at co
 
 **OpenAlex.** Annual counts for the same package names, available under CC0.
 
-**GitHub REST API.** Public repository counts, stars and forks.
+**GitHub REST API.** Public repository counts, stars and forks, collected on 1 September 2026. GitHub's Acceptable Use Policies allow research use of public, non-personal information when the resulting publications are open access; the paper is released open access on bioRxiv.
 
-**pypistats.org.** Public PyPI download statistics, which pypistats.org derives from the Python Software Foundation's public PyPI download data.
+**pypistats.org.** Thirty-day PyPI download totals, collected on 1 September 2026. pypistats.org derives them from the Python Software Foundation's PyPI download dataset on Google BigQuery (`bigquery-public-data.pypi`), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). The archive keeps only one 30-day total per package.
 
-**MeSH.** The MeSH check (`census/validation/mesh_check.py`) compares research-area keywords with Medical Subject Headings from MEDLINE records. `config/mesh_areas.yml` names MeSH descriptors, which are NLM content used under NLM's terms; the processed files keep identifiers and match flags only. Courtesy of the U.S. National Library of Medicine.
+**MeSH.** The MeSH check (`census/validation/mesh_check.py`) compares research-area keywords with Medical Subject Headings from MEDLINE records retrieved through Europe PMC on 15 October 2026, indexed with the 2026 MeSH vocabulary. `config/mesh_areas.yml` names MeSH descriptors, which are NLM content used under NLM's terms; the processed files keep identifiers and match flags only. Courtesy of the U.S. National Library of Medicine.
 
 **image.sc forum.** Topic counts only; the pipeline collects no posts.
 

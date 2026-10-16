@@ -5,7 +5,8 @@
 # Medicine, used here courtesy of the U.S. National Library of Medicine under
 # the NLM terms of use for MeSH
 # (https://www.nlm.nih.gov/databases/download/terms_and_conditions_mesh.html).
-# Only the short descriptor names appear, never the MeSH record itself. The
+# MeSH version: 2026 vocabulary, as indexed in MEDLINE records retrieved on
+# 15 October 2026. Only the short descriptor names appear, never the MeSH record itself. The
 # matching expressions around those names are the authors' own mappings, not
 # part of MeSH.
 #
