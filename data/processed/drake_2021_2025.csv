@@ -1,0 +1,11 @@
+tool_id,download_record,downloads_pypi,downloads_github,downloads,citations,c_measured,downloads_per_citing_paper,downloads_per_mention_or_citation,estimable,reason
+qupath,GitHub installers,0,868872,868872,6647,1.9136975455265242,130.71641341958778,68.30568065740148,True,
+cellpose,PyPI,1356570,0,1356570,4497,1.2075919335705814,301.6611074049366,249.80384434416655,True,
+stardist,PyPI,507840,0,507840,1603,1.3451428571428572,316.8059887710543,235.51847083659513,True,
+imagej,"reported (image.sc, 2020)",0,0,500000,12951,7.300067671047477,38.607057370087254,5.2885889706482105,True,downloads and year from the image.sc discussion
+cellprofiler,"installers mostly downloaded from cellprofiler.org, which publishes no counts",39540,32881,72421,4949,2.0008274720728174,,,False,"installers mostly downloaded from cellprofiler.org, which publishes no counts"
+ilastik,"installers downloaded from ilastik.org, which publishes no counts",0,0,0,2715,1.4412017167381974,,,False,"installers downloaded from ilastik.org, which publishes no counts"
+napari,cited mainly through a software record,5823519,29046,5852565,313,1.6827133479212253,,,False,cited mainly through a software record
+skimage,installed mostly as a dependency of other packages,602862801,0,602862801,4506,1.9295261239368164,,,False,installed mostly as a dependency of other packages
+opencv,installed mostly as a dependency of other packages,673560623,0,673560623,0,3.356060606060606,,,False,installed mostly as a dependency of other packages
+jupyter,installed mostly as a dependency of other packages,2181379722,0,2181379722,2034,6.833333333333333,,,False,installed mostly as a dependency of other packages
