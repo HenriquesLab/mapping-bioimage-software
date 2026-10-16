@@ -133,6 +133,17 @@ After reviewing and committing the label CSVs, run `python -m census.run_all --p
 | `data/processed/domain_precision_2025.csv` | `census.validation.label_round2:area_precision` | Figure 4 area selection using the 50% rule and its caption; Figure 1 area labels |
 | `data/processed/replicates/deviation_summary.csv` | `census.validation.replicates:summarise` | Spread between replicates; internal check, quoted nowhere in the manuscript |
 
+## Key processed datasets
+
+| Dataset | Contents | Key columns |
+| --- | --- | --- |
+| `data/processed/adoption_snapshot.csv` | Cross-sectional adoption metrics across packages | `tool_id`, `category`, `github_stars`, `github_forks`, `pypi_downloads_30d` |
+| `data/processed/dl_estimates.csv` | Annual deep-learning share and sample counts by package | `tool_id`, `year`, `population`, `n_sampled`, `n_dl`, `dl_fraction` |
+| `data/processed/domain_enrichment.csv` | Research-area keyword frequencies in package abstracts | `tool_id`, `domain`, `share`, `baseline`, `ratio` |
+| `data/processed/mentions_citations_yearly.csv` | Annual mentions, citations and uncited counts | `tool_id`, `year`, `named`, `cited`, `both`, `named_not_cited` |
+| `data/processed/methods_section_2025.csv` | Reporting audit counts in 2025 Methods sections | `tool_id`, `n_all`, `n_methods`, `share_methods` |
+| `data/processed/reach_any_yearly.csv` | Combined annual reach across tracked packages | `year`, `group`, `papers` |
+
 ## Validation data and ignored inputs
 
 The committed item and label CSVs under `data/validation/replicates/` are the released replicate record. Root-level validation CSVs preserve the earlier samples and reporting-audit labels, with their title and quoted-evidence columns removed. The `data/raw/annotation/batches*` paths are gitignored prompt batches, manifests, instructions and raw responses. Keep the collected CSV labels under `data/validation/replicates/` as the versioned analysis record.
@@ -211,3 +222,11 @@ Cite the archived release with the metadata in `CITATION.cff`. Zenodo DOI: https
 ## Licence
 
 The code (`census/`, `release/`, `tests/`, and the code cells of `notebooks/`) and configuration (`config/`) are licensed under MIT (`LICENSE`). The data in `data/` and the figures and text the notebooks produce are licensed under CC BY 4.0 (`LICENSE-DATA`). CC BY 4.0 covers the authors' own selection, labels and derived data; the factual and public-domain inputs it draws on (counts, identifiers, MEDLINE metadata) remain under their sources' terms above. `THIRD_PARTY_NOTICES.md` gives the licence of the copied scikit-learn stop-word list.
+
+## Contributing and issues
+
+Open an issue on GitHub (`https://github.com/HenriquesLab/mapping-bioimage-software/issues`) to report discrepancies, suggest package additions or ask questions about data reproduction.
+
+## AI assistance disclosure
+
+Language models supported code drafting, query formulation and blinded validation scoring. All code, analyses and findings were designed and verified by the authors.
