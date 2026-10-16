@@ -45,6 +45,7 @@ def test_every_publication_output_has_a_mapped_walkthrough():
 def test_drake_walkthrough_uses_processed_inputs_and_table_check():
     text = sources(notebooks()['SupplementaryTables'])
     assert '## drake' in text
+    assert 'The SI caption names six packages without an estimate and gives the reason for each.' in text
     assert '`data/processed/drake_2021_2025.csv`' in text
     assert '`data/processed/drake_yearly.csv`' in text
     assert 'census.validation.drake' in text

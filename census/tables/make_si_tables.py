@@ -427,27 +427,27 @@ def preprints() -> str:
 
 
 def drake() -> str:
-    """Downloads, citations and the Drake-equation ratios for selected packages."""
+    """Downloads, citations and Drake-equation ratios for estimable packages."""
     data = pd.read_csv(PROCESSED_DIR / "drake_2021_2025.csv")
+    data = data[data.estimable]
     names = pd.read_csv(PROCESSED_DIR / "tools.csv").set_index("tool_id")["name"]
-    columns = ["Package", "Download record", "Downloads", "Citations", "C",
-               "Downloads per citing paper", "Per paper mentioning or citing"]
+    columns = ["Package", "Source", "Downloads", "Citations", "C",
+               "Per citing paper", "Per mention or citation"]
     rows = []
     for r in data.itertuples(index=False):
         package = names[r.tool_id].replace(" / ", "/").replace(
             "ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"
         )
-        if r.estimable:
-            record = r.download_record
-            values = [
-                _n(r.downloads), _n(r.citations), f"{r.c_measured:.2f}",
-                f"{r.downloads_per_citing_paper:.1f}",
-                f"{r.downloads_per_mention_or_citation:.1f}",
-            ]
-        else:
-            record = r.reason
-            values = ["–"] * 5
-        rows.append(dict(zip(columns, [package, record, *values])))
+        source = "image.sc, 2020" if r.tool_id == "imagej" else r.download_record
+        rows.append({
+            "Package": package,
+            "Source": source,
+            "Downloads": _n(r.downloads),
+            "Citations": _n(r.citations),
+            "C": f"{r.c_measured:.2f}",
+            "Per citing paper": f"{r.downloads_per_citing_paper:.1f}",
+            "Per mention or citation": f"{r.downloads_per_mention_or_citation:.1f}",
+        })
     return _md(pd.DataFrame(rows, columns=columns))
 
 
