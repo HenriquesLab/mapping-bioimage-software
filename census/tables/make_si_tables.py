@@ -459,6 +459,9 @@ TABLES = {"registry": registry, "methods_micro": methods_micro, "literature": li
 
 
 def main() -> None:
+    if not SI.exists():
+        print(f"[skip] {SI} not found; SI tables are only built in the manuscript checkout.")
+        return
     text = SI.read_text()
     for key, fn in TABLES.items():
         pat = re.compile(rf"(<!-- TABLE:{key} START -->\n)(?:.*?\n)?(<!-- TABLE:{key} END -->)", re.S)

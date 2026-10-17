@@ -23,7 +23,7 @@ import argparse
 import subprocess
 import sys
 
-from census._paths import FIGURES_DIR, SCRIPTS_DIR
+from census._paths import FIGURES_DIR, REPO_ROOT, SCRIPTS_DIR
 
 def figure_scripts() -> list[str]:
     """Main then supplementary figure scripts, found by name (FigureN__*.py,
@@ -104,7 +104,11 @@ def main() -> None:
         subprocess.run([sys.executable, *command], check=True, cwd=SCRIPTS_DIR)
     if not args.lit_only and not args.no_figures:
         run_figures()
-        subprocess.run([sys.executable, "-m", "census.tables.make_si_tables"], check=True, cwd=SCRIPTS_DIR)
+        if (REPO_ROOT / "MANUSCRIPT" / "02_SUPPLEMENTARY_INFO.md").exists():
+            subprocess.run([sys.executable, "-m", "census.tables.make_si_tables"], check=True, cwd=SCRIPTS_DIR)
+        else:
+            print("MANUSCRIPT/02_SUPPLEMENTARY_INFO.md not found; skipping SI tables "
+                  "(only available in the manuscript checkout).")
     print("done.")
 
 
