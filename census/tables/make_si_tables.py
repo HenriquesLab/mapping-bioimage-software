@@ -3,8 +3,9 @@
 The reporting-audit and validation tables read pooled inputs. After collecting
 and committing the labels, run `python -m census.run_all --pool`.
 
-Each table sits between named markers in MANUSCRIPT/02_SUPPLEMENTARY_INFO.md.
-Writes go to that external manuscript file, not to this repository.
+In the manuscript checkout each table sits between named markers in
+MANUSCRIPT/02_SUPPLEMENTARY_INFO.md and is rewritten there. Standalone, all
+tables go to tables/output/supplementary_tables.md.
 
 Run from the pipeline root:
     python -m census.tables.make_si_tables
@@ -19,9 +20,10 @@ from pathlib import Path
 import pandas as pd
 import yaml
 
-from census._paths import PROCESSED_DIR, REPO_ROOT, TOOLS_YML  # noqa: E402
+from census._paths import PROCESSED_DIR, REPO_ROOT, SCRIPTS_DIR, TOOLS_YML  # noqa: E402
 
 SI = REPO_ROOT / "MANUSCRIPT" / "02_SUPPLEMENTARY_INFO.md"
+OUTPUT = SCRIPTS_DIR / "tables" / "output" / "supplementary_tables.md"
 YEARS = [2010, 2015, 2019, 2025]
 CATEGORY = {"general-platform": "open platform", "dl-model": "deep-learning method",
             "notebook": "notebook", "commercial": "commercial package",
@@ -458,7 +460,23 @@ TABLES = {"registry": registry, "methods_micro": methods_micro, "literature": li
           "preprints": preprints, "drake": drake}
 
 
+def write_standalone() -> None:
+    """Without the manuscript checkout, write every table to one local Markdown file."""
+    parts = []
+    for key, fn in TABLES.items():
+        try:
+            parts.append(f"## {key}\n\n{fn()}\n")
+        except (KeyError, AttributeError, FileNotFoundError) as exc:
+            print(f"[skip] {key}: {exc}")
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text("\n".join(parts))
+    print(f"[tables] {OUTPUT}")
+
+
 def main() -> None:
+    if not SI.is_file():
+        write_standalone()
+        return
     text = SI.read_text()
     for key, fn in TABLES.items():
         pat = re.compile(rf"(<!-- TABLE:{key} START -->\n)(?:.*?\n)?(<!-- TABLE:{key} END -->)", re.S)
@@ -477,6 +495,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     import argparse
-    argparse.ArgumentParser(description="Rewrite the table blocks in MANUSCRIPT/02_SUPPLEMENTARY_INFO.md "
+    argparse.ArgumentParser(description="Rewrite the table blocks in MANUSCRIPT/02_SUPPLEMENTARY_INFO.md, or write "
+                            "tables/output/supplementary_tables.md without the manuscript "
                             f"({', '.join(TABLES)}) from data/processed/.").parse_args()
     main()

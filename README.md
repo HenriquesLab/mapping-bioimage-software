@@ -76,7 +76,7 @@ Run the full pipeline from the repository root:
 python -m census.run_all
 ```
 
-The run rebuilds processed CSVs and, in the manuscript checkout, figures and Supplementary Information tables. API responses are cached under `data/raw/`. Missing cache entries can require live source requests. Use `--no-figures` to build data without figures or tables, or `--lit-only` for the literature tables.
+The run rebuilds processed CSVs and the Supplementary Information tables (written to `tables/output/supplementary_tables.md`; in the manuscript checkout, into its SI file), plus figures in the manuscript checkout. API responses are cached under `data/raw/`. Missing cache entries can require live source requests. Use `--no-figures` to build data without figures or tables, or `--lit-only` for the literature tables.
 
 ```bash
 python -m census.run_all --no-figures

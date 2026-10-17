@@ -5,8 +5,8 @@
     python -m census.run_all --replicates
     python -m census.run_all --pool
 
-The standard run builds processed data and, in the manuscript checkout, figures
-and Supplementary Information tables. `--replicates` runs the automated draw,
+The standard run builds processed data and the Supplementary Information tables,
+plus figures in the manuscript checkout. `--replicates` runs the automated draw,
 retrieval, audit, validation-item and summary stages. Annotation uses a manual
 hand-off through an external agent harness: run the `batches` and `collect`
 commands in `census.validation.label_replicates` and
