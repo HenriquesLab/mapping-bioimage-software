@@ -78,6 +78,8 @@ python -m census.run_all
 
 The run rebuilds processed CSVs and the Supplementary Information tables (written to `tables/output/supplementary_tables.md`; in the manuscript checkout, into its SI file), plus figures in the manuscript checkout. API responses are cached under `data/raw/`. Missing cache entries can require live source requests. Use `--no-figures` to build data without figures or tables, or `--lit-only` for the literature tables.
 
+Europe PMC counts shift slightly over time, so a rebuild from live sources can differ in the last digits from the committed `data/processed/` files (for example, a count off by one). These small changes are expected and do not affect the conclusions.
+
 ```bash
 python -m census.run_all --no-figures
 python -m census.run_all --lit-only
@@ -186,11 +188,7 @@ python release/refetch_identifiers.py --archive . --output data/processed/random
 python -m pytest -q -rs
 ```
 
-The two SI comparison tests require `../MANUSCRIPT/02_SUPPLEMENTARY_INFO.md` and
-run in the full manuscript checkout. The pooled audit comparison requires the
-private `data/raw/replicates/audit/*.json` records. The query-error row-count and
-wording tests require the `full_text` indicator in the private citation-validation
-CSV; the public data omit that column. These tests skip with reasons when their
+The pooled audit comparison requires the private `data/raw/replicates/audit/*.json` records. The query-error row-count and wording tests require the `full_text` indicator in the private citation-validation CSV; the public data omit that column. These tests skip with reasons when their
 inputs are absent. The wildcard-table and notebook-renderer checks still run
 in a fresh clone; notebook inspection needs no Jupyter installation. The frame-rebuild
 comparison also skips without local API caches; committed frames need no refetch.
