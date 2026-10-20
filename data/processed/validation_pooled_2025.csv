@@ -2,6 +2,9 @@ metric,r1,r2,r3,pooled
 alias_labelled,149,150,150,449
 alias_agreed,145,148,147,440
 alias_software,139,135,140,414
+alias_core_labelled,139,137,137,413
+alias_core_agreed,138,137,137,412
+alias_core_software,135,135,133,403
 acq_agreed,58,53,51,162
 acq_acquisition,28,17,23,68
 acq_analysis,29,34,27,90

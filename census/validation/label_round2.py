@@ -216,6 +216,10 @@ def pooled_validation():
         m.setdefault('alias_labelled', {})[r] = n
         m.setdefault('alias_agreed', {})[r] = len(g)
         m.setdefault('alias_software', {})[r] = int((g.sense == 'software').sum())
+        g, n = agreed('alias_precision_core_2025', 'sense', rep)
+        m.setdefault('alias_core_labelled', {})[r] = n
+        m.setdefault('alias_core_agreed', {})[r] = len(g)
+        m.setdefault('alias_core_software', {})[r] = int((g.sense == 'software').sum())
         u, _ = agreed('alias_precision_2025', 'use', rep)
         u = u[u.index.str.split('|').str[0].isin(acq) & (u.sense == 'software')]
         m.setdefault('acq_agreed', {})[r] = len(u)
