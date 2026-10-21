@@ -9,7 +9,10 @@ all other tools (open), so the reader sees prevalence as well as rank.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
 
 from . import style as fs
 from . import domains as dm
@@ -46,8 +49,15 @@ def build_figure(terms=None):
     return fig
 
 
+TERMS_TABLE = Path(__file__).resolve().parents[2] / "notebooks/data/sfigure2_terms.csv"
+
+
 def main(out_dir=None) -> None:
-    fs.save(build_figure(), "SFigure2__terms", out_dir=out_dir)
+    terms = None
+    # The article corpus is refetched locally (release/refetch_identifiers.py); a fresh clone uses the tracked term table.
+    if not (fs.PROCESSED / "random_sample_2021_2025.csv.gz").exists():
+        terms = pd.read_csv(TERMS_TABLE)
+    fs.save(build_figure(terms), "SFigure2__terms", out_dir=out_dir)
 
 
 if __name__ == "__main__":
