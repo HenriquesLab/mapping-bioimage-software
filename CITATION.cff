@@ -2,13 +2,13 @@ cff-version: 1.2.0
 message: "Please cite this software and its archived data."
 type: software
 title: "mapping-bioimage-software: data and code for Mapping bioimage-analysis software adoption in microscopy"
-version: "2026.10.20"
-date-released: "2026-10-20"
+version: "2026.10.23"
+date-released: "2026-10-21"
 repository-code: "https://github.com/HenriquesLab/mapping-bioimage-software"
-doi: "10.5281/zenodo.23395935"
+doi: "10.5281/zenodo.23528077"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.23395935"
+    value: "10.5281/zenodo.23528077"
 license:
   - MIT
   - CC-BY-4.0
@@ -24,11 +24,11 @@ authors:
   - given-names: Inês
     family-names: Cunha
     orcid: "https://orcid.org/0000-0002-1327-9018"
-    affiliation: "Department of Biochemistry and Biophysics and Science for Life Laboratory, Stockholm University, Solna, Sweden"
+    affiliation: "Science for Life Laboratory, Department of Biochemistry and Biophysics, Stockholm University, Solna, Sweden"
   - given-names: Caron
     family-names: Jacobs
     orcid: "https://orcid.org/0000-0002-8072-4433"
-    affiliation: "Advanced Microscopy and Imaging (AMI) Centre, University of Cape Town, Cape Town, South Africa; Department of Integrative Biomedical Sciences, Faculty of Health Sciences, University of Cape Town, Cape Town, South Africa"
+    affiliation: "Institute of Infectious Disease & Molecular Medicine and Department of Pathology, Faculty of Health Sciences, University of Cape Town, South Africa"
   - given-names: Guillaume
     family-names: Jacquemet
     orcid: "https://orcid.org/0000-0002-9286-920X"

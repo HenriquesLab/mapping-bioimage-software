@@ -20,7 +20,7 @@ from census._paths import RAW_DIR
 # OpenAlex "polite pool" and general contact identification.
 CONTACT_EMAIL = "r.henriques@itqb.unl.pt"
 USER_AGENT = (
-    f"mapping-bioimage-software/2026.10.20 (HenriquesLab; mailto:{CONTACT_EMAIL})"
+    f"mapping-bioimage-software/2026.10.23 (HenriquesLab; mailto:{CONTACT_EMAIL})"
 )
 
 _SESSION = requests.Session()

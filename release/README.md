@@ -7,8 +7,8 @@ The archive contains an exact copy of the committed repository tree plus five pr
 Install the repository requirements and `pytest`. Commit all source and data changes first, then run from the repository root:
 
 ```bash
-python release/make_release.py --version 2026.10.20
-python -B release/test_release.py --archive release/build/mapping-bioimage-software-2026.10.20
+python release/make_release.py --version 2026.10.23
+python -B release/test_release.py --archive release/build/mapping-bioimage-software-2026.10.23
 ```
 
 The builder refuses staged, unstaged or untracked changes, a failing `tests/test_no_article_text.py`, and an existing output directory. Ignored local caches and the refetched corpus may remain. Use a new `--output` directory to preserve an earlier build. `release/build/` is ignored. Commands run offline and do not upload, publish, push or change branches.
@@ -58,4 +58,4 @@ Use the corresponding alias, lexicon or domain frame for those draws. Historical
 
 ## Citation
 
-Use `CITATION.cff` and `.zenodo.json`. Version 2026.10.20 uses the reserved DOI https://doi.org/10.5281/zenodo.23395935. Building this local archive does not publish the record.
+Use `CITATION.cff` and `.zenodo.json`. Version 2026.10.23 uses the reserved DOI https://doi.org/10.5281/zenodo.23528077. Building this local archive does not publish the record.
