@@ -3,6 +3,7 @@
 import argparse
 import csv
 import json
+import re
 import shutil
 import subprocess
 import tempfile
@@ -40,7 +41,7 @@ def checks():
     doi = '10.5281/zenodo.23528077'
     assert citation['doi'] == zenodo['doi'] == doi
     assert {'type': 'doi', 'value': doi} in citation['identifiers']
-    assert citation['date-released'] == '2026-10-20'
+    assert citation['date-released'] == '2026-10-21'
     assert citation['version'] == zenodo['version'] == '2026.10.23'
     manuscript = release.ROOT.parent / 'MANUSCRIPT/00_CONFIG.yml'
     if manuscript.exists():
@@ -52,7 +53,9 @@ def checks():
         assert len(zenodo['creators']) == len(config['authors']) == 6
         for author, c, z in zip(config['authors'], citation['authors'], zenodo['creators']):
             assert c['orcid'] == 'https://orcid.org/' + author['orcid'] and z['orcid'] == author['orcid']
-            assert c['affiliation'] == z['affiliation'] == '; '.join(author['affiliations'])
+            # The config escapes & for LaTeX; citation metadata carries the plain character.
+            expected = '; '.join(re.sub(r'\\([&%_#$])', r'\1', a) for a in author['affiliations'])
+            assert c['affiliation'] == z['affiliation'] == expected
     print('PASS: environment and metadata' + (' (cffconvert)' if validator else ' (required-key fallback)'))
 
 
