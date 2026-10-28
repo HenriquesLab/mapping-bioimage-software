@@ -26,7 +26,7 @@ from pathlib import Path
 import pandas as pd
 
 from census._paths import PROCESSED_DIR, ensure_dirs  # noqa: E402
-from census._registry import load_registry  # noqa: E402
+from census._registry import build_boolean_query, load_registry  # noqa: E402
 from census.sources.europepmc import _hit_count  # noqa: E402
 
 METHODS_MICRO = '(METHODS:"microscopy" OR METHODS:"microscope")'
@@ -52,7 +52,7 @@ YEAR = 2025
 
 
 def _methods(tool) -> str:
-    return "(" + " OR ".join(tool.terms("METHODS:")) + ")"
+    return build_boolean_query(tool, "", field="METHODS:")
 
 
 def reference(reg) -> pd.DataFrame:

@@ -4,7 +4,7 @@ Europe PMC's index fuses a name with a citation number that follows it
 ("QuPath63"), so an exact query misses the paper; a trailing wildcard on
 single-word aliases catches it (and versions such as Cellpose3). The census uses
 exact names; this table reports what the wildcard changes in 2010, 2020 and 2025,
-including ImageJ/Fiji's share of mentions of the 22 analysis packages.
+including ImageJ/Fiji's share of mentions of the 24 analysis packages.
 Writes data/processed/wildcard_sensitivity.csv.
 """
 from __future__ import annotations

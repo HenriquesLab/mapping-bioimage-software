@@ -98,7 +98,7 @@ def main() -> None:
         # Second deep-learning estimator and the random corpus for Figure 5.
         for step in ("census.build.build_dataset_dl_in_tools", "census.build.random_corpus",
                      "census.build.build_hosts", "census.build.build_methods_check",
-                     "census.build.build_sensitivity"):
+                     "census.build.build_sensitivity", "census.build.build_history"):
             subprocess.run([sys.executable, "-m", step], check=True, cwd=SCRIPTS_DIR)
     for command in optional_commands(args.audit, args.draw_validation, args.validation_seed):
         subprocess.run([sys.executable, *command], check=True, cwd=SCRIPTS_DIR)

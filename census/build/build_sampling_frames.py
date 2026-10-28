@@ -131,8 +131,8 @@ def build(dest: Path = ROOT) -> dict:
     _, audits = read_csv(ROOT / 'data/processed/reporting_audit_2025.csv')
     for row in audits:
         tool, year = row['tool_id'], int(row['year'])
-        methods = ' OR '.join(reg.by_id(tool).terms('METHODS:'))
-        query = f'({methods}) AND ({reg.context_query}) AND OPEN_ACCESS:Y AND PUB_YEAR:{year}'
+        query = (f'{build_boolean_query(reg.by_id(tool), reg.context_query, field="METHODS:")} '
+                 f'AND OPEN_ACCESS:Y AND PUB_YEAR:{year}')
         rows, info = cache_frame(query, 'lite', cache)
         ids = sorted({r['pmcid'] for r in rows if r.get('pmcid')})
         relative = f'data/sampling_frames/reporting_audit/{tool}_{year}.csv'

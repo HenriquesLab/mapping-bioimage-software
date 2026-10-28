@@ -41,8 +41,7 @@ def build_queries(reg) -> dict:
             bases = {'corpus': f'({context})'}
             for tool in reg.tools:
                 if scope == 'methods':
-                    aliases = '(' + ' OR '.join(tool.terms('METHODS:')) + ')'
-                    bases[tool.id] = f'{aliases} AND ({context})'
+                    bases[tool.id] = build_boolean_query(tool, context, field='METHODS:')
                 else:
                     bases[tool.id] = build_boolean_query(tool, context)
             for tool_id, base in bases.items():

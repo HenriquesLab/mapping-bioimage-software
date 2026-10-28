@@ -36,6 +36,9 @@ class BlotTests(unittest.TestCase):
                              'densitometric', 'gel quantification'):
                     self.assertIn(f'"{term}"', blot)
         self.assertNotIn(('methods', 2020, 'imagej', 'all'), jobs)
+        nih_query = jobs[('methods', 2025, 'nihimage', 'all')]
+        self.assertIn('NOT', nih_query)
+        self.assertIn('METHODS:"ImageJ"', nih_query)
         query = jobs[('methods', 2025, 'imagej', 'with_blot')]
         for term in reg.by_id('imagej').terms('METHODS:'):
             self.assertIn(term, query)

@@ -47,7 +47,7 @@ import requests
 
 from census._http import USER_AGENT, get_json  # noqa: E402
 from census._paths import PROCESSED_DIR, RAW_DIR, ensure_dirs  # noqa: E402
-from census._registry import load_registry  # noqa: E402
+from census._registry import build_boolean_query, load_registry  # noqa: E402
 
 YEAR = 2025
 SEED = 20261006
@@ -63,8 +63,8 @@ OUT_RAW = RAW_DIR / "reporting_audit"
 
 
 def frame_query(tool, context: str) -> str:
-    methods = " OR ".join(tool.terms("METHODS:"))
-    return f"({methods}) AND {context} AND OPEN_ACCESS:Y AND PUB_YEAR:{YEAR}"
+    base = build_boolean_query(tool, context, field="METHODS:")
+    return f"{base} AND OPEN_ACCESS:Y AND PUB_YEAR:{YEAR}"
 
 
 def frame_pmcids(query: str) -> list[str]:

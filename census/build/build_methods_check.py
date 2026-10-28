@@ -15,14 +15,14 @@ from pathlib import Path
 import pandas as pd
 
 from census._paths import PROCESSED_DIR, ensure_dirs  # noqa: E402
-from census._registry import load_registry  # noqa: E402
+from census._registry import build_boolean_query, load_registry  # noqa: E402
 from census.sources.europepmc import _hit_count  # noqa: E402
 
 YEAR = 2025
 
 
 def _field(tool, field: str) -> str:
-    return "(" + " OR ".join(tool.terms(field)) + ")"
+    return build_boolean_query(tool, "", field=field)
 
 
 def main() -> None:

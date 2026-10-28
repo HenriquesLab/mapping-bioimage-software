@@ -1,6 +1,7 @@
 tool_id,name,category,implies_dl,in_aggregate,scope,homepage
 jupyter,Jupyter notebooks,notebook,False,False,core,https://jupyter.org
 imagej,ImageJ / Fiji,general-platform,False,True,core,https://imagej.net
+nihimage,NIH Image,general-platform,False,False,counts,https://imagej.nih.gov/nih-image/
 napari,napari,general-platform,False,True,core,https://napari.org
 cellprofiler,CellProfiler,general-platform,False,True,core,https://cellprofiler.org
 qupath,QuPath,general-platform,False,True,core,https://qupath.github.io
@@ -12,9 +13,11 @@ stardist,StarDist,dl-model,True,True,core,https://github.com/stardist/stardist
 deepimagej,deepImageJ,dl-model,True,True,core,https://deepimagej.github.io
 zerocostdl4mic,ZeroCostDL4Mic/DL4MicEverywhere,dl-model,True,True,core,https://github.com/HenriquesLab/ZeroCostDL4Mic
 matlab,MATLAB,commercial,False,False,core,https://www.mathworks.com
+photoshop,Adobe Photoshop,figure-preparation,False,False,counts,https://www.adobe.com/products/photoshop.html
 imaris,Imaris,commercial,False,True,core,https://imaris.oxinst.com
 arivis,arivis,commercial,False,True,core,https://www.arivis.com
 volocity,Volocity,commercial,False,True,counts,https://www.perkinelmer.com
+imagepro,Image-Pro,commercial,False,True,counts,https://www.media.cybernetics.com
 huygens,Huygens,commercial,False,True,counts,https://svi.nl
 amira,Amira/Avizo,commercial,False,True,counts,https://www.thermofisher.com/amira-avizo
 halo,HALO,commercial,False,True,counts,https://indicalab.com

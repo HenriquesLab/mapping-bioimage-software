@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 
 from census._paths import PROCESSED_DIR
-from census._registry import alias_clause, load_registry
+from census._registry import build_boolean_query, load_registry
 from census.sources.europepmc import _hit_count
 
 
@@ -27,12 +27,17 @@ def groups(reg) -> dict[str, list]:
             "microscope_control": list(agg[agg.category == "acquisition-suite"].index)}
 
 
+def group_clause(tools) -> str:
+    """OR package clauses while retaining each package's exclusion terms."""
+    return " OR ".join(build_boolean_query(tool, "") for tool in tools)
+
+
 def main() -> None:
     reg = load_registry()
     by_id = {t.id: t for t in reg.tools}
     jobs = {}
     for g, ids in groups(reg).items():
-        clause = " OR ".join(alias_clause(by_id[i]) for i in ids)
+        clause = group_clause(by_id[i] for i in ids)
         for y in reg.years:
             jobs[(y, g)] = f"({clause}) AND ({reg.context_query}) AND PUB_YEAR:{y}"
     with ThreadPoolExecutor(max_workers=6) as ex:
