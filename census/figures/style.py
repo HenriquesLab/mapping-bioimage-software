@@ -48,6 +48,7 @@ CATEGORY_COLOR = {
     "commercial": "#999999",
     "library": "#009E73",
     "acquisition-suite": "#8C6BB1",
+    "figure-preparation": "#CC79A7",
 }
 CATEGORY_LABEL = {
     "general-platform": "open platform",
@@ -56,6 +57,7 @@ CATEGORY_LABEL = {
     "library": "Python library",
     "commercial": "commercial package",
     "acquisition-suite": "microscope-control program",
+    "figure-preparation": "image-editing / figure-preparation software",
 }
 OPEN_CATEGORIES = ("general-platform", "dl-model", "notebook", "library")
 

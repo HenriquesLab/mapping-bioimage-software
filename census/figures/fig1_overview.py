@@ -2,7 +2,7 @@
 
 A schematic first figure in the lab's style (mAIcrobe, VLab4Mic), drawn as soft
 cards: (a) the microscopy literature and the package registry; (b) papers naming
-each of the 22 analysis packages in 2025, ranked on a log scale with every package
+each of the 23 analysis packages in 2025, ranked on a log scale with every package
 labelled; (c) for the six packages in the reporting audit, the share of papers naming each
 without citing its papers (2021-2025) and the share whose sentences naming it give no version,
 function or parameter (2025). Numbers and sizes come from the processed CSVs.
@@ -91,7 +91,7 @@ def build_figure():
     doc_icon(ax, 0.06, ya + 0.075)
     ax.text(0.19, ya + 0.135, "Europe PMC full text", fontsize=6.6, fontweight="bold", color=INK, va="center")
     ax.text(0.19, ya + 0.108, f"{int(corpus.loc[2025]):,} microscopy papers in 2025", fontsize=5.7, color=SUB, va="center")
-    n_tools = len(fs.load("tools.csv"))
+    n_tools = int((fs.load("tools.csv").tool_id != "nihimage").sum())  # NIH Image is plotted only in the history figure
     ax.text(0.19, ya + 0.086, f"papers mentioning {n_tools} packages, counted yearly", fontsize=5.7, color=SUB, va="center")
     sp = fig.add_axes((0.70, ya + 0.075, 0.25, 0.075))
     c = corpus.loc[2010:2025]

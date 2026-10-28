@@ -21,7 +21,7 @@ def build_figure():
     tools = fs.load("tools.csv").set_index("tool_id")
     counts = fs.europepmc_yearly()
     by_year = counts.set_index(["tool_id", "year"])["count"]
-    order = [t for t in tools.index if t in set(counts["tool_id"])]
+    order = [t for t in tools.index if t in set(counts["tool_id"]) and t != "nihimage"]
     order.sort(key=lambda t: (t not in fs.aggregate_tools(), -float(by_year.get((t, 2025), 0))))
 
     ncol = 5

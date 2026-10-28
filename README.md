@@ -8,7 +8,7 @@ This repository is the public home of the code and data for the paper *Mapping b
 
 Run pipeline modules from the repository root with `python -m census.<module>`. The `census/` package works in this repository and in the manuscript repository's `scripts/` checkout.
 
-The registry contains 30 packages: 22 analysis packages, six microscope-control programs, and MATLAB and Jupyter notebooks as references outside all aggregates. The deep-learning series uses 13 core analysis packages. Jupyter notebooks retain their aliases, notebook category and core scope. Frozen validation designs and labels retain the original 14-package calibration sample.
+The registry contains 33 entries: 23 analysis packages, six microscope-control programs, MATLAB and Jupyter notebooks as references, Adobe Photoshop for figure preparation and NIH Image for historical counts. The 29-package aggregate combines the 23 analysis packages with six microscope-control programs. References, Photoshop and NIH Image are excluded. After about 2000, many “NIH Image” mentions refer to ImageJ. The deep-learning series uses 13 core analysis packages. Jupyter notebooks retain their aliases, notebook category and core scope. The original 14-package calibration sample remains frozen. The three 2025 precision samples and the historical NIH Image sample are stored separately.
 
 ## What is measured and study limits
 
@@ -88,6 +88,8 @@ python -m census.build.classify_dl --tool cellpose --year 2025
 
 `--sample-cap` sets the fallback sample cap; per-tool caps in `config/tools.yml` take precedence. `--validation-seed` sets the recorded seed for fresh validation draws. `--audit` builds the reporting audit and draws its validation items. `--draw-validation` creates fresh identifier lists for selected validation sets. Both keep label collection as a separate step.
 
+To refresh selected abstract samples after adding registry entries, run `python -m census.build.random_corpus --tool imagepro --tool nihimage --tool photoshop`. This replaces only those package-year rows and rewrites the identifier-only CSV beside the local, gitignored text corpus. Run the module without `--tool` to rebuild every package.
+
 ## Replicate design
 
 Each random-sample frame produces three disjoint seeded draws. When a frame contains fewer than three times the requested sample size, the pipeline uses the whole frame and splits it at random into three balanced parts. Abstract tool-years also split any frame of at most 2,000 records, matching the census rule of the main estimates, so some census-split frames exceed three times the cap. The union of the parts covers the frame.
@@ -149,6 +151,8 @@ After reviewing and committing the label CSVs, run `python -m census.run_all --p
 | `data/processed/drake_yearly.csv` | Annual downloads, citations and downloads per citing paper for QuPath, Cellpose and StarDist | `tool_id`, `year`, `downloads`, `citations`, `downloads_per_citing_paper` |
 | `data/processed/methods_section_2025.csv` | Reporting audit counts in 2025 Methods sections | `tool_id`, `n_all`, `n_methods`, `share_methods` |
 | `data/processed/reach_any_yearly.csv` | Combined annual reach across tracked packages | `year`, `group`, `papers` |
+| `data/processed/historical_mentions_yearly.csv` | Europe PMC package hit counts for 1995-2009 | `tool_id`, `year`, `count` |
+| `data/processed/historical_corpus_yearly.csv` | Europe PMC microscopy-corpus counts for 1995-2009 | `year`, `microscopy_papers` |
 
 ## Validation data and ignored inputs
 
@@ -156,7 +160,7 @@ The committed item and label CSVs under `data/validation/replicates/` are the re
 
 ## Notebooks
 
-`notebooks/` contains walkthroughs for Figures 1–6 and Supplementary Figures 1–3. Install `requirements-notebooks.txt` after the base requirements to execute them.
+`notebooks/` contains walkthroughs for Figures 1–6 and Supplementary Figures 1–4. Install `requirements-notebooks.txt` after the base requirements to execute them.
 
 ## Release archive
 

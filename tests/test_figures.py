@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 MODULES = [
     "fig1_overview", "fig2_landscape", "fig3_citations", "fig4_reach", "fig5_domains",
     "fig6_deep_learning", "sfig1_trajectories", "sfig2_terms", "sfig3_triangulation",
+    "sfig4_history",
 ]
 
 
@@ -31,6 +32,28 @@ def test_build_figure(name):
         assert isinstance(fig, Figure)
         fig.canvas.draw()
         assert (csv.read_bytes(), csv.stat().st_mtime_ns) == before
+    finally:
+        plt.close(fig)
+
+
+def test_nihimage_is_plotted_only_in_the_historical_figure():
+    from census.figures import fig1_overview, fig2_landscape, sfig1_trajectories, sfig4_history
+
+    for module in (fig1_overview, fig2_landscape, sfig1_trajectories):
+        fig = module.build_figure()
+        try:
+            labels = [text.get_text() for ax in fig.axes for text in ax.texts]
+            labels.extend(ax.get_title(loc='left') for ax in fig.axes)
+            assert not any('NIH Image' in label for label in labels)
+            if module is fig1_overview:
+                assert any('papers mentioning 32 packages' in label for label in labels)
+        finally:
+            plt.close(fig)
+
+    fig = sfig4_history.build_figure()
+    try:
+        titles = [ax.get_title(loc='left') for ax in fig.axes]
+        assert any('NIH Image' in title for title in titles)
     finally:
         plt.close(fig)
 

@@ -1,6 +1,6 @@
 # Reproduce the paper figures and tables
 
-These ten notebooks render every panel of the nine publication figures and build all 15 supplementary tables from committed data. They run offline in a standalone clone and in the manuscript repository's `scripts/` checkout. They do not need article text or raw API caches. The main text contains no tables.
+These eleven notebooks render every panel of the ten publication figures and build all 15 supplementary tables from committed data. They run offline in a standalone clone and in the manuscript repository's `scripts/` checkout. They do not need article text or raw API caches. The main text contains no tables.
 
 ## Coverage map
 
@@ -14,9 +14,10 @@ Figure targets use the manuscript PNG stem. Each figure notebook ends with **Ren
 | Figure4__reach | [Figure4.ipynb](Figure4.ipynb) | Reconstruct panel quantities; Render all panels, a-b |
 | Figure5__domains | [Figure5.ipynb](Figure5.ipynb) | Reconstruct panel quantities; Render all panels, complete matrix |
 | Figure6__deep_learning | [Figure6.ipynb](Figure6.ipynb) | Reconstruct panel quantities; Render all panels, a-d |
-| SFigure1__trajectories | [SFigure1.ipynb](SFigure1.ipynb) | Reconstruct panel quantities; Render all panels, all 30 package trajectories |
+| SFigure1__trajectories | [SFigure1.ipynb](SFigure1.ipynb) | Reconstruct panel quantities; Render all panels, all 33 package trajectories |
 | SFigure2__terms | [SFigure2.ipynb](SFigure2.ipynb) | Reconstruct panel quantities; Render all panels, a-h |
 | SFigure3__triangulation | [SFigure3.ipynb](SFigure3.ipynb) | Reconstruct panel quantities; Render all panels, a-c and label column |
+| SFigure4__history | [SFigure4.ipynb](SFigure4.ipynb) | Reconstruct 1995-2025 corpus shares; Render all package panels and corpus size |
 | registry | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | registry |
 | literature | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | literature |
 | deep_learning | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | deep_learning |

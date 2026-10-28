@@ -29,7 +29,7 @@ def build_figure():
     counts = fs.europepmc_yearly()
     share = fs.share_of_total("analysis").set_index(["tool_id", "year"])["share"]
 
-    ids = [t for t in tools.index if t in set(counts["tool_id"])]
+    ids = [t for t in tools.index if t in set(counts["tool_id"]) and t != "nihimage"]
     by_year = counts.set_index(["tool_id", "year"])["count"]
     rows = []
     for t in ids:

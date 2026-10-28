@@ -1,7 +1,7 @@
 """Figure 4: reach and concentration.
 
 Panel a gives the share of full-text microscopy papers mentioning ImageJ/Fiji,
-any of the 22 analysis packages, any of the other 21, and any microscope-control
+any of the 24 analysis packages, any of the other 23, and any microscope-control
 program; grouped curves count each paper once (build_reach_any.py). Panel b shows concentration within the tracked registry, with
 and without microscope-control programs.
 """
