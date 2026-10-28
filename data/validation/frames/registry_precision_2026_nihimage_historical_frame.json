@@ -1,0 +1,16 @@
+{
+  "queries": {
+    "nihimage-1995": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:1995",
+    "nihimage-1996": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:1996",
+    "nihimage-1997": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:1997",
+    "nihimage-1998": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:1998",
+    "nihimage-1999": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:1999",
+    "nihimage-2000": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2000",
+    "nihimage-2001": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2001",
+    "nihimage-2002": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2002",
+    "nihimage-2003": "((\"NIH Image\") NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2003"
+  },
+  "registry_sha256": "130332bbe8b8f677bacebe386e8b77805a72c1c6bbb9937499c4d7057c5aa7af",
+  "frame_unit": "tool-pmcid within stratum",
+  "frame_sha256": "8e2dd4ba0c4098ac4578fb215a73830b3ac3e8fe82d24d9d1779e415b405586c"
+}

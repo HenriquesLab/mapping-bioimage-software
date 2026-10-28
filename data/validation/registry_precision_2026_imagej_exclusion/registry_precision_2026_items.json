@@ -1,0 +1,50 @@
+{
+  "command": "registry_precision",
+  "seed": "20261028-registry-precision-v1",
+  "historical_draw_recovered": false,
+  "frame": "data/validation/frames/registry_precision_2026_imagej_exclusion_frame.csv",
+  "frame_sha256": "cd3266d29f2aa38575165ae760b91348e062d94976081cd0937249496dbe99e4",
+  "drawing_code_sha256": "b41e2351b6d1339098be4dbb98be07839931f441f85bcfefd747d2ecd749d58a",
+  "design": [
+    {
+      "stratum": "imagepro",
+      "population": 2519,
+      "sampled": 40,
+      "sampling_fraction": 0.015879317189360857,
+      "seed": "20261028-registry-precision-v1-registry_precision-imagepro",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "nihimage",
+      "population": 144,
+      "sampled": 40,
+      "sampling_fraction": 0.2777777777777778,
+      "seed": "20261028-registry-precision-v1-registry_precision-nihimage",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "photoshop",
+      "population": 2902,
+      "sampled": 40,
+      "sampling_fraction": 0.013783597518952447,
+      "seed": "20261028-registry-precision-v1-registry_precision-photoshop",
+      "replacement": false,
+      "census": false
+    }
+  ],
+  "inputs": {
+    "queries": {
+      "imagepro": "(\"Image-Pro Premier\" OR \"Image-Pro Plus\" OR \"Image Pro Plus\" OR \"Image-Pro\" OR \"ImagePro\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "nihimage": "(\"NIH Image\" NOT (\"NIH ImageJ\" OR \"ImageJ\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "photoshop": "(\"Adobe Photoshop\" OR \"Photoshop\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025"
+    },
+    "registry_sha256": "b092d38f2b4af44d9353edba9ef372cd78e1801a8436145082bef2c7a188d444",
+    "frame_unit": "tool-pmcid within stratum",
+    "frame_sha256": "cd3266d29f2aa38575165ae760b91348e062d94976081cd0937249496dbe99e4",
+    "supersedes": "registry_precision_2026_frame.csv for NIH Image precision only",
+    "reason": "The NIH Image query now excludes ImageJ and NIH ImageJ after the initial precision sample identified frequent ImageJ-family matches."
+  },
+  "pooling": "No automatic pooling weights. Use frame N/n for stratum population inference; corpus tool-year weights are a separate stage."
+}

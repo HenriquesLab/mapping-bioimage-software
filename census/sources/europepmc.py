@@ -18,6 +18,8 @@ from __future__ import annotations
 import argparse
 import random
 import sys
+from collections.abc import Iterable
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from census._http import get_json  # noqa: E402
@@ -33,18 +35,22 @@ def _hit_count(query: str) -> int:
     return int(data.get("hitCount", 0))
 
 
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
-def yearly_counts(tool: Tool, reg) -> dict[int, int]:
-    base = build_boolean_query(tool, reg.context_query)
-    queries = [(y, f"{base} AND PUB_YEAR:{y}") for y in reg.years]
+def yearly_query_counts(base_query: str, years: Iterable[int]) -> dict[int, int]:
+    """Count one query across explicit publication years using cached hit-count calls."""
+    queries = [(year, f"{base_query} AND PUB_YEAR:{year}") for year in sorted(set(years))]
     counts: dict[int, int] = {}
     with ThreadPoolExecutor(max_workers=6) as ex:
-        futures = {ex.submit(_hit_count, q): y for y, q in queries}
-        for fut in as_completed(futures):
-            y = futures[fut]
-            counts[y] = fut.result()
-    return {y: counts[y] for y in sorted(counts)}
+        futures = {ex.submit(_hit_count, query): year for year, query in queries}
+        for future in as_completed(futures):
+            year = futures[future]
+            counts[year] = future.result()
+    return {year: counts[year] for year in sorted(counts)}
+
+
+def yearly_counts(tool: Tool, reg, years: Iterable[int] | None = None) -> dict[int, int]:
+    """Count a package by year, defaulting to the configured analysis window."""
+    base = build_boolean_query(tool, reg.context_query)
+    return yearly_query_counts(base, reg.years if years is None else years)
 
 
 def sample_works(tool: Tool, reg, year: int, max_records: int = 200) -> list[dict]:

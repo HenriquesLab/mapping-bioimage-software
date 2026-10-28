@@ -40,6 +40,8 @@ The root CSVs preserve the earlier validation draws, with title and quoted-evide
 | --- | --- | --- |
 | `alias_precision_2025.csv` | One sampled 2025 paper matched by a software name | `tool_id`, `pmcid`, `sense` (`software`, `other_sense`, `not_found`), `use` (`acquisition`, `analysis`, `unclear`, `na`) |
 | `alias_precision_2025_items.csv` | One sampled item | `stratum`, `tool_id`, `year`, `epmc_id`, `pmcid` |
+| `registry_precision_2026.csv` | One labelled match per package and sample | `tool_id`, `year`, `pmcid`, `label`, `use` (Photoshop context), `meaning` (NIH Image interpretation) |
+| `registry_precision_2026_items.csv`, `registry_precision_2026_nihimage_historical_items.csv` | One sampled paper | `stratum`, `tool_id`, `year`, `epmc_id`, `pmcid` |
 | `cellpose_workflow_2025.csv` | One sampled paper | `pmcid`, `workflow` |
 | `cellpose_workflow_2025_items.csv` | One sampled item | `stratum`, `tool_id`, `year`, `epmc_id`, `pmcid` |
 | `dl_lexicon_2021_2025.csv` | One sampled abstract | `stratum`, `tool_id`, `year`, `epmc_id`, `label` |
@@ -72,7 +74,7 @@ A label file may carry a round suffix. A bare name is the first round, `_v2` is 
 
 ### Frames
 
-`frames/<set>_frame.csv` holds the frozen draw frame for each of the four sets drawn from a literature frame: alias precision, Cellpose workflow, the deep-learning lexicon and research-area keywords. `frames/<set>_frame.json` records the queries, the frame unit, the registry digest and the frame digest, so a redraw can be checked against the released frame. The reporting audit draws its items from `data/processed/reporting_audit_papers_2025.csv`, so it has no frame file here.
+`frames/<set>_frame.csv` holds each frozen literature draw frame: alias precision, Cellpose workflow, the deep-learning lexicon, research-area keywords and registry precision. The registry-precision frames include the 2025 package draw, the NIH Image spelling-exclusion checks and a historical NIH Image draw covering 1995-2003. The corresponding JSON files record the queries, frame unit, registry digest and frame digest. The reporting audit draws its items from `data/processed/reporting_audit_papers_2025.csv`, so it has no frame file here.
 
 ## Pooled outputs
 

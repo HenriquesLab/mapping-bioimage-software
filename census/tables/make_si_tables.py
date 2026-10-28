@@ -27,7 +27,8 @@ OUTPUT = SCRIPTS_DIR / "tables" / "output" / "supplementary_tables.md"
 YEARS = [2010, 2015, 2019, 2025]
 CATEGORY = {"general-platform": "open platform", "dl-model": "deep-learning method",
             "notebook": "notebook", "commercial": "commercial package",
-            "library": "Python library", "acquisition-suite": "microscope control"}
+            "library": "Python library", "acquisition-suite": "microscope control",
+            "figure-preparation": "image-editing / figure-preparation software"}
 VALIDATION = PROCESSED_DIR.parent / "validation"
 
 
@@ -47,18 +48,21 @@ def _n(v) -> str:
     return f"{int(v):,}" if pd.notna(v) else ""
 
 
-# Notes the registry table carries after the alias list.
+# Notes the registry table carries beside package aliases.
 ALIAS_NOTE = {"zerocostdl4mic": " (every paper mentioning DL4MicEverywhere also matches these)"}
 
 
 def registry() -> str:
     raw = yaml.safe_load(TOOLS_YML.read_text())
+    aggregate = [t for t in raw["tools"] if t.get("in_aggregate", True)]
+    aggregate_total = len(aggregate)
     rows = [{"Package": t["name"].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
              "Category": CATEGORY.get(t["category"], t["category"]),
              "Query aliases (OR)": "; ".join(f"\"{a}\"" for a in t["aliases"]) + ALIAS_NOTE.get(t["id"], ""),
              "Counted in": ("neither" if t.get("in_aggregate", True) is False
-                            else "28-package total" if t["category"] == "acquisition-suite"
-                            else "both totals")}
+                            else f"{aggregate_total}-package total" if t["category"] == "acquisition-suite"
+                            else "both totals"),
+             "Caveat": t.get("caveat", "")}
             for t in raw["tools"]]
     return _md(pd.DataFrame(rows))
 
@@ -67,6 +71,7 @@ def literature() -> str:
     lit = pd.read_csv(PROCESSED_DIR / "literature_yearly.csv")
     names = pd.read_csv(PROCESSED_DIR / "tools.csv").set_index("tool_id")["name"]
     corpus = pd.read_csv(PROCESSED_DIR / "corpus_yearly.csv").set_index("year")["microscopy_papers"]
+    lit = lit[lit["tool_id"] != "nihimage"]
     ep = lit[lit["source"] == "europepmc"].pivot(index="tool_id", columns="year", values="count")
     oa = lit[lit["source"] == "openalex"].groupby("tool_id")["count"].sum()
     ep = ep.sort_values(2025, ascending=False)
@@ -131,6 +136,7 @@ def deep_learning() -> str:
 
 def methods_section() -> str:
     m = pd.read_csv(PROCESSED_DIR / "methods_section_2025.csv")
+    m = m[m["tool_id"] != "nihimage"]
     names = pd.read_csv(PROCESSED_DIR / "tools.csv").set_index("tool_id")["name"]
     m = m.sort_values("n_all", ascending=False)
     rows = [{"Package": names[r.tool_id].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
@@ -261,12 +267,13 @@ PRODUCT_VARIANTS = frozenset({
 # Packages whose query uses product phrases and vendor names, never the bare word.
 PRODUCT_PHRASE_QUERIES = frozenset({"icy", "halo", "huygens", "dragonfly", "zen", "lasx"})
 
-# Why the bare name cannot be searched: an ordinary word, a person, a place or a
-# general-purpose program. Every other registry package has a distinctive name.
+# Why a bare name can mislead: an ordinary word, a person, a place, general
+# software or a similar software name. Every other registry package is distinctive.
 NAME_TYPE = {"icy": "ordinary word", "halo": "ordinary word", "dragonfly": "ordinary word",
              "zen": "ordinary word", "metamorph": "ordinary word",
              "amira": "personal name", "huygens": "personal name",
-             "imagej": "country or place", "matlab": "general software"}
+             "imagej": "country or place", "matlab": "general software",
+             "nihimage": "similar software name"}
 
 SINGLE_WORD = re.compile(r"[A-Za-z][A-Za-z0-9]*")
 
@@ -326,8 +333,11 @@ def wildcard() -> str:
 
 
 def _alias_precision() -> dict[str, tuple[int, int]]:
-    """Per-package (names the software, agreed items) over the alias samples.
-    Only items both annotators gave the same sense enter the count."""
+    """Per-package counts of software labels and total labels.
+
+    Existing alias draws include only dual-annotator agreements; the new-package
+    samples use one AI annotation per paper, checked in an independent review.
+    """
     out: dict[str, tuple[int, int]] = {}
     # added packages (alias_precision_2025) and core packages (alias_precision_core_2025)
     for name, rep in ((n, r) for n in ("alias_precision_2025", "alias_precision_core_2025") for r in (1, 2, 3)):
@@ -341,18 +351,45 @@ def _alias_precision() -> dict[str, tuple[int, int]]:
         for item, sense in agreed.items():
             k, n = out.get(item.split("|")[0], (0, 0))
             out[item.split("|")[0]] = (k + int(sense == "software"), n + 1)
+    labels_path = VALIDATION / "registry_precision_2026.csv"
+    labels = pd.read_csv(labels_path, dtype=str)
+    required = {"tool_id", "year", "pmcid", "label", "use", "meaning"}
+    if not required.issubset(labels.columns):
+        raise ValueError(f"{labels_path.name}: missing columns {sorted(required - set(labels.columns))}")
+    labels = labels.fillna("")
+    if not labels["label"].isin({"software", "false_positive"}).all():
+        raise ValueError(f"{labels_path.name}: labels must be software or false_positive")
+    use_categories = {"figure-assembly", "image-processing-or-analysis", "illustration", "listed-only", "unclear"}
+    meaning_categories = {"nih-image-program", "imagej-meant", "derivative", "unclear"}
+    for tool_id, group in labels[labels.tool_id != "nihimage"].groupby("tool_id"):
+        if len(group) != 40 or group["pmcid"].nunique() != 40:
+            raise ValueError(f"{tool_id}: expected 40 unique full-text papers")
+        out[tool_id] = (int(group["label"].eq("software").sum()), len(group))
+    photoshop = labels[labels.tool_id == "photoshop"]
+    if len(photoshop) != 40 or not photoshop["use"].isin(use_categories).all():
+        raise ValueError("photoshop: expected a valid use label for all 40 matches")
+    nih = labels[labels.tool_id == "nihimage"]
+    recent = nih[nih.year.isin(["2024", "2025"])]
+    historical = nih[nih.year.isin([str(y) for y in range(1995, 2004)])]
+    if len(recent) != 40 or recent.pmcid.nunique() != 40:
+        raise ValueError("nihimage: expected 40 unique recent full-text matches")
+    if not 1 <= len(historical) <= 40 or historical.pmcid.nunique() != len(historical):
+        raise ValueError("nihimage: expected up to 40 unique historical full-text matches")
+    if not nih["meaning"].isin(meaning_categories).all():
+        raise ValueError("nihimage: every recent and historical match needs a meaning label")
+    out["nihimage"] = (int(historical["label"].eq("software").sum()), len(historical))
     return out
 
 
 def queryerrors() -> str:
     """Why each package's name is hard to query and what the loss costs.
 
-    One row per registry package, in registry order. Precision of matches is the
-    share of agreed alias-sample labels where the name refers to the software,
-    from the two independent annotators. Papers citing a package whose indexed
-    text never names it come from the citation counts (build_citations) for
-    2021-2025; the last column is the 2025 full-text check of those papers
-    (validate_citations). Packages with no world list entry hold no reference paper.
+    One row per registry package, in registry order. Precision is the share of labels
+    where the name refers to software; false-positive rates are reported separately.
+    Image-Pro and Photoshop use 40 open-access matches from 2025. NIH Image precision
+    uses the historical 1995-2003 sample; its 2024-2025 sample has separate meaning labels.
+    Citation omissions come from 2021-2025 counts; their last column is the 2025
+    full-text check. Packages with no world list entry hold no reference paper.
     """
     cfg = yaml.safe_load(TOOLS_YML.read_text())
     exact = frozenset(cfg["settings"]["exact_aliases"])
@@ -375,6 +412,8 @@ def queryerrors() -> str:
             query = "name"
         k, n = prec.get(t, (0, 0))
         cell = "not sampled" if n == 0 else f"{_pct(100 * k / n)}% ({k}/{n})" if n >= 5 else f"{k}/{n}"
+        false_positive = ("not sampled" if n == 0 else
+                          f"{100 * (n - k) / n:.1f}% ({n - k}/{n})" if n >= 5 else f"{n - k}/{n}")
         cited = ""
         if t in m.index:
             if m.loc[t, "cited"]:
@@ -386,6 +425,7 @@ def queryerrors() -> str:
             "Name type": NAME_TYPE.get(t, "distinctive"),
             "Query": query,
             "Precision of matches": cell,
+            "False-positive rate": false_positive,
             "Wildcard additions that are other words": _n(kinds.loc[t, "other"]) if t in kinds.index else "",
             "Citing papers without a name match, 2021-2025 (%)": cited,
             "Of those, mention in article text (k/n, 2025)":
@@ -397,7 +437,7 @@ def queryerrors() -> str:
 def citations() -> str:
     """Mentioning and citing per open-source package, 2021-2025, by how a citation was found."""
     y = pd.read_csv(PROCESSED_DIR / "mentions_citations_yearly.csv")
-    y = y[y.year.between(2021, 2025)]
+    y = y[y.year.between(2021, 2025) & y.tool_id.ne("nihimage")]
     t = y.groupby(["tool_id", "method"])[["named", "cited", "both"]].sum().reset_index()
     names = pd.read_csv(PROCESSED_DIR / "tools.csv").set_index("tool_id")["name"]
     t["union"] = t.named + t.cited - t.both
@@ -415,7 +455,7 @@ def preprints() -> str:
     """Mentioned, not cited share in preprints and journal papers with a parsed reference list, 2021-2025."""
     d = pd.read_csv(PROCESSED_DIR / "citations_by_source_2021_2025.csv")
     names = pd.read_csv(PROCESSED_DIR / "tools.csv").set_index("tool_id")["name"]
-    p = d[(d.reference_list == "parsed") & (d.tool_id != "microscopy")].copy()
+    p = d[(d.reference_list == "parsed") & ~d.tool_id.isin(["microscopy", "nihimage"])].copy()
     p["nnc"] = 100 * (p.named - p.both) / (p.named + p.cited - p.both)
     w = p.pivot(index="tool_id", columns="source", values=["named", "nnc"])
     w = w.sort_values(("named", "journal"), ascending=False)

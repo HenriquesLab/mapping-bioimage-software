@@ -285,7 +285,7 @@ def med_frame() -> pd.DataFrame:
     an exact (tool_id, year, epmc_id) join against the replicate response caches.
     """
     d = dm.load_corpus()
-    if len(fs.analysis_tools()) != 22 or {'jupyter', 'matlab'} & set(d.tool_id):
+    if len(fs.analysis_tools()) != 24 or {'jupyter', 'matlab'} & set(d.tool_id):
         raise ValueError('Figure 5 package set changed; the frozen sample no longer applies')
     ids = pd.read_csv(fs.PROCESSED / 'random_sample_2021_2025_ids.csv', dtype={'epmc_id': str})
     text_ids = pd.read_csv(fs.PROCESSED / 'random_sample_2021_2025.csv.gz',

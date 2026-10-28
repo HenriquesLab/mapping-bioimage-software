@@ -22,7 +22,12 @@ from census.build.build_reporting_audit import frame_pmcids
 from census.build.classify_dl import is_deep_learning, lexicon_version
 
 NAMES = {'cellpose': 'cellpose_workflow_2025', 'alias': 'alias_precision_2025',
-         'lexicon': 'dl_lexicon_2021_2025', 'domains': 'domain_keywords_2021_2025'}
+         'lexicon': 'dl_lexicon_2021_2025', 'domains': 'domain_keywords_2021_2025',
+         'registry_precision': 'registry_precision_2026',
+         'nihimage_historical': 'registry_precision_2026_nihimage_historical'}
+REGISTRY_PRECISION_TOOLS = ('imagepro', 'nihimage', 'photoshop')
+REGISTRY_PRECISION_YEARS = {'imagepro': (2025,), 'nihimage': (2024, 2025), 'photoshop': (2025,)}
+NIHIMAGE_HISTORICAL_YEARS = tuple(range(1995, 2004))
 COLUMNS = ['stratum', 'tool_id', 'year', 'epmc_id', 'pmcid']
 DEFAULT_SEED = '20261006-validation-redraw-v1'  # New draw, not a recovered seed.
 ALIAS_TOOLS = ['zen', 'lasx', 'amira', 'huygens', 'dragonfly', 'aivia', 'halo',
@@ -53,11 +58,21 @@ def validate_frame(frame: pd.DataFrame, command: str) -> None:
     d = normalise(frame)
     reg = load_registry()
     expected = ({'cellpose'} if command == 'cellpose' else set(ALIAS_TOOLS) if command == 'alias'
+                else set(REGISTRY_PRECISION_TOOLS) if command == 'registry_precision'
+                else {'nihimage_historical'} if command == 'nihimage_historical'
                 else {'lex_pos', 'lex_neg'} if command == 'lexicon'
                 else set(json.loads(PATTERNS.read_text())))
     if set(d.stratum) != expected:
         raise ValueError(f'{command}: frame strata differ from the specified design')
-    if command in ('cellpose', 'alias'):
+    if command == 'registry_precision':
+        year_ok = d.apply(lambda r: r['year'] in {str(y) for y in REGISTRY_PRECISION_YEARS[r['tool_id']]}, axis=1)
+        valid = ((d.tool_id == d.stratum) & year_ok & (d.epmc_id == '')
+                 & d.pmcid.str.fullmatch(r'PMC[0-9]+'))
+    elif command == 'nihimage_historical':
+        valid = (d.stratum.eq('nihimage_historical') & d.tool_id.eq('nihimage')
+                 & d.year.isin([str(y) for y in NIHIMAGE_HISTORICAL_YEARS])
+                 & (d.epmc_id == '') & d.pmcid.str.fullmatch(r'PMC[0-9]+'))
+    elif command in ('cellpose', 'alias'):
         valid = ((d.tool_id == d.stratum) & (d.year == '2025') & (d.epmc_id == '')
                  & d.pmcid.str.fullmatch(r'PMC[0-9]+'))
     else:
@@ -107,6 +122,32 @@ def build_frame(command: str) -> tuple[pd.DataFrame, dict]:
         q = (f'{build_boolean_query(reg.by_id("cellpose"), reg.context_query)} AND '
              f'{build_boolean_query(reg.by_id("imagej"), "")} AND OPEN_ACCESS:Y AND PUB_YEAR:2025')
         queries = {'cellpose': q}
+    elif command == 'registry_precision':
+        queries = {}
+        rows = []
+        for tool_id in REGISTRY_PRECISION_TOOLS:
+            for year in REGISTRY_PRECISION_YEARS[tool_id]:
+                query = (f'{build_boolean_query(reg.by_id(tool_id), reg.context_query)} '
+                         f'AND OPEN_ACCESS:Y AND PUB_YEAR:{year}')
+                queries[f'{tool_id}-{year}'] = query
+                for pmcid in frame_pmcids(query):
+                    rows.append(dict(stratum=tool_id, tool_id=tool_id, year=str(year), epmc_id='', pmcid=pmcid))
+        return normalise(pd.DataFrame(rows, columns=COLUMNS)), {'queries': queries,
+                    'registry_sha256': sha256(CONFIG_DIR / 'tools.yml'),
+                    'frame_unit': 'tool-pmcid within stratum'}
+    elif command == 'nihimage_historical':
+        queries = {}
+        rows = []
+        tool_id = 'nihimage'
+        for year in NIHIMAGE_HISTORICAL_YEARS:
+            query = (f'{build_boolean_query(reg.by_id(tool_id), reg.context_query)} '
+                     f'AND OPEN_ACCESS:Y AND PUB_YEAR:{year}')
+            queries[f'{tool_id}-{year}'] = query
+            for pmcid in frame_pmcids(query):
+                rows.append(dict(stratum=command, tool_id=tool_id, year=str(year), epmc_id='', pmcid=pmcid))
+        return normalise(pd.DataFrame(rows, columns=COLUMNS)), {'queries': queries,
+                    'registry_sha256': sha256(CONFIG_DIR / 'tools.yml'),
+                    'frame_unit': 'tool-pmcid within stratum'}
     else:
         # Fresh annotation frame explicitly requires OA and an available PMCID.
         queries = {t: f'{build_boolean_query(reg.by_id(t), reg.context_query)} AND OPEN_ACCESS:Y AND PUB_YEAR:2025'
@@ -151,6 +192,8 @@ def main(argv: list[str] | None = None) -> None:
                             'leave the single-draw outputs unchanged')
     a = ap.parse_args(argv)
     if a.replicates:
+        if a.command in ('registry_precision', 'nihimage_historical'):
+            raise ValueError(f'{a.command} uses one sample per stratum')
         from census.validation.replicates import validation
         validation(sets=[a.command])
         return
@@ -176,7 +219,8 @@ def main(argv: list[str] | None = None) -> None:
         frame_path.with_suffix('.json').write_text(json.dumps(extra, indent=2) + '\n')
     validate_frame(frame, a.command)
     sizes = {s: (80 if s == 'lex_pos' else 120) if a.command == 'lexicon'
-             else {'cellpose': 40, 'alias': 10, 'domains': 8}[a.command]
+             else {'cellpose': 40, 'registry_precision': 40, 'nihimage_historical': 40,
+                   'alias': 10, 'domains': 8}[a.command]
              for s in frame.stratum.unique()}
     if a.command == 'lexicon' and set(sizes) != {'lex_pos', 'lex_neg'}:
         raise ValueError('lexicon frame must contain both lex_pos and lex_neg only')

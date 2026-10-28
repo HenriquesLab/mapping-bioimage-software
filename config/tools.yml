@@ -9,7 +9,7 @@
 #   id            slug used as the join key across all datasets
 #   name          human-readable display label
 #   category      notebook | general-platform | dl-model | commercial |
-#                 library | acquisition-suite
+#                 figure-preparation | library | acquisition-suite
 #   implies_dl    whether the package is intrinsically a deep-learning method
 #                 (used only for the per-package DL view; the paper's headline
 #                 DL split is computed per-paper by classify_dl.py)
@@ -45,7 +45,7 @@ settings:
   # ordinary words, names or places stay exact; phrases are always exact.
   # Avizo and cellSens added after the 2025 wildcard check matched personal names
   # (Avizohar, Avizor) and other words (CellSensor, cellSense).
-  exact_aliases: ["Fiji", "FIJI", "MetaMorph", "Amira", "Avizo", "MATLAB", "cellSens"]
+  exact_aliases: ["Fiji", "FIJI", "MetaMorph", "Amira", "Avizo", "MATLAB", "cellSens", "ImagePro", "NIH Image", "Photoshop"]
   wildcard_aliases: false
 
 tools:
@@ -78,6 +78,17 @@ tools:
     caveat: >-
       "Fiji" also denotes the country; the context clause mitigates but does
       not remove this. ImageJ and Fiji are merged into one ecosystem.
+
+  - id: nihimage
+    name: NIH Image
+    category: general-platform
+    scope: counts
+    in_aggregate: false
+    implies_dl: false
+    aliases: ["NIH Image"]
+    exclude_aliases: ["NIH ImageJ", "ImageJ", "Image J", "Image-J", "ImageJ2", "Image J2"]
+    homepage: "https://imagej.nih.gov/nih-image/"
+    caveat: "After about 2000, many 'NIH Image' mentions refer to ImageJ. The modern sample does not estimate precision for the historical program."
 
   - id: napari
     name: napari
@@ -204,6 +215,15 @@ tools:
       count. Excluded from field-wide aggregates (DL share, category mix) so it
       does not dominate them; still tracked individually and in triangulation.
 
+  - id: photoshop
+    name: Adobe Photoshop
+    category: figure-preparation
+    scope: counts
+    in_aggregate: false
+    implies_dl: false
+    aliases: ["Adobe Photoshop", "Photoshop"]
+    homepage: "https://www.adobe.com/products/photoshop.html"
+
   - id: imaris
     name: Imaris
     category: commercial
@@ -236,6 +256,14 @@ tools:
     implies_dl: false
     aliases: ["Volocity"]
     homepage: "https://www.perkinelmer.com"
+
+  - id: imagepro
+    name: Image-Pro
+    category: commercial
+    scope: counts
+    implies_dl: false
+    aliases: ["Image-Pro", "Image-Pro Plus", "Image Pro Plus", "ImagePro", "Image-Pro Premier"]
+    homepage: "https://www.media.cybernetics.com"
 
   - id: huygens
     name: Huygens

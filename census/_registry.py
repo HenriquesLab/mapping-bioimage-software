@@ -10,7 +10,7 @@ import yaml
 from census._paths import TOOLS_YML
 
 VALID_CATEGORIES = {"notebook", "general-platform", "dl-model", "commercial",
-                    "library", "acquisition-suite"}
+                    "figure-preparation", "library", "acquisition-suite"}
 VALID_SCOPES = {"core", "counts"}
 
 
@@ -21,6 +21,7 @@ class Tool:
     category: str
     implies_dl: bool
     aliases: list[str]
+    exclude_aliases: list[str] = field(default_factory=list)
     scope: str = "core"
     in_aggregate: bool = True
     github: list[str] = field(default_factory=list)
@@ -94,6 +95,7 @@ def load_registry() -> Registry:
                 category=entry["category"],
                 implies_dl=bool(entry.get("implies_dl", False)),
                 aliases=list(entry["aliases"]),
+                exclude_aliases=list(entry.get("exclude_aliases", []) or []),
                 scope=entry.get("scope", "core"),
                 in_aggregate=bool(entry.get("in_aggregate", True)),
                 github=list(entry.get("github", []) or []),
@@ -131,16 +133,25 @@ def query_term(alias: str, exact: bool = False, field: str = "") -> str:
 
 
 def alias_clause(tool: Tool, field: str = "", wildcard: bool | None = None) -> str:
-    """The OR-ed alias terms, parenthesised when there are several."""
-    terms = tool.terms(field, wildcard, longest_first=True)
-    return terms[0] if len(terms) == 1 else f"({' OR '.join(terms)})"
+    """The OR-ed alias terms in registry order, parenthesised for stable queries."""
+    terms = tool.terms(field, wildcard)
+    return f"({' OR '.join(terms)})"
 
 
-def build_boolean_query(tool: Tool, context_query: str, wildcard: bool | None = None) -> str:
-    """Compose the OR-ed alias clause, optionally AND-ed with context.
+def build_boolean_query(
+    tool: Tool, context_query: str, wildcard: bool | None = None, field: str = ""
+) -> str:
+    """Compose an alias clause, exclusions and optional context.
+
+    ``field`` prefixes both aliases and exclusions, for section-specific queries.
     wildcard=None follows the registry setting; False keeps every alias exact
     (OpenAlex search has no wildcards)."""
-    clause = alias_clause(tool, wildcard=wildcard)
+    clause = alias_clause(tool, field=field, wildcard=wildcard)
+    if tool.exclude_aliases:
+        excluded = " OR ".join(
+            query_term(alias, exact=True, field=field) for alias in tool.exclude_aliases
+        )
+        clause = f"({clause} NOT ({excluded}))"
     if context_query:
         return f"{clause} AND ({context_query})"
     return clause

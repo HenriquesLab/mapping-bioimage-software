@@ -1,0 +1,13 @@
+{
+  "queries": {
+    "imagepro-2025": "(\"Image-Pro Premier\" OR \"Image-Pro Plus\" OR \"Image Pro Plus\" OR \"Image-Pro\" OR \"ImagePro\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "nihimage-2024": "(\"NIH Image\" NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2024",
+    "nihimage-2025": "(\"NIH Image\" NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "photoshop-2025": "(\"Adobe Photoshop\" OR \"Photoshop\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025"
+  },
+  "registry_sha256": "b9fd18fd86182c4b2ef2657c281aaa8d2014377c5ec2bae7e8fb35cabe94c0b6",
+  "frame_unit": "tool-pmcid within stratum",
+  "frame_sha256": "24437b027485075ff5866f2a6e5fcde19282e3a0a62d31e9be337701930b7006",
+  "supersedes": "registry_precision_2026_imagej_exclusion_frame.csv",
+  "reason": "Excluded ImageJ spelling variants after the revised sample still contained Image J and ImageJ2 matches; NIH Image uses a 2024\u20132025 frame because the 2025 candidate set has fewer than 40 PMCID papers."
+}

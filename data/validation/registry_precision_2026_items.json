@@ -1,0 +1,51 @@
+{
+  "command": "registry_precision",
+  "seed": "20261028-registry-precision-v1",
+  "historical_draw_recovered": false,
+  "frame": "data/validation/frames/registry_precision_2026_imagej_spelling_exclusion_frame.csv",
+  "frame_sha256": "24437b027485075ff5866f2a6e5fcde19282e3a0a62d31e9be337701930b7006",
+  "drawing_code_sha256": "1a4c65599ba06fd9170c53b8562528a8d54bc1aa061317cfc8922208a9993f63",
+  "design": [
+    {
+      "stratum": "imagepro",
+      "population": 2519,
+      "sampled": 40,
+      "sampling_fraction": 0.015879317189360857,
+      "seed": "20261028-registry-precision-v1-registry_precision-imagepro",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "nihimage",
+      "population": 56,
+      "sampled": 40,
+      "sampling_fraction": 0.7142857142857143,
+      "seed": "20261028-registry-precision-v1-registry_precision-nihimage",
+      "replacement": false,
+      "census": false
+    },
+    {
+      "stratum": "photoshop",
+      "population": 2902,
+      "sampled": 40,
+      "sampling_fraction": 0.013783597518952447,
+      "seed": "20261028-registry-precision-v1-registry_precision-photoshop",
+      "replacement": false,
+      "census": false
+    }
+  ],
+  "inputs": {
+    "queries": {
+      "imagepro-2025": "(\"Image-Pro Premier\" OR \"Image-Pro Plus\" OR \"Image Pro Plus\" OR \"Image-Pro\" OR \"ImagePro\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "nihimage-2024": "(\"NIH Image\" NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2024",
+      "nihimage-2025": "(\"NIH Image\" NOT (\"NIH ImageJ\" OR \"ImageJ\" OR \"Image J\" OR \"Image-J\" OR \"ImageJ2\" OR \"Image J2\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+      "photoshop-2025": "(\"Adobe Photoshop\" OR \"Photoshop\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025"
+    },
+    "registry_sha256": "b9fd18fd86182c4b2ef2657c281aaa8d2014377c5ec2bae7e8fb35cabe94c0b6",
+    "frame_unit": "tool-pmcid within stratum",
+    "frame_sha256": "24437b027485075ff5866f2a6e5fcde19282e3a0a62d31e9be337701930b7006",
+    "supersedes": "registry_precision_2026_imagej_exclusion_frame.csv",
+    "reason": "Excluded ImageJ spelling variants after the revised sample still contained Image J and ImageJ2 matches; NIH Image uses a 2024\u20132025 frame because the 2025 candidate set has fewer than 40 PMCID papers."
+  },
+  "pooling": "No automatic pooling weights. Use frame N/n for stratum population inference; corpus tool-year weights are a separate stage."
+}

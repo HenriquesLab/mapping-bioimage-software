@@ -1,0 +1,10 @@
+{
+  "queries": {
+    "imagepro": "(\"Image-Pro Premier\" OR \"Image-Pro Plus\" OR \"Image Pro Plus\" OR \"Image-Pro\" OR \"ImagePro\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "nihimage": "(\"NIH Image\" NOT (\"NIH ImageJ\")) AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025",
+    "photoshop": "(\"Adobe Photoshop\" OR \"Photoshop\") AND ((microscopy OR microscope) AND HAS_FT:Y) AND OPEN_ACCESS:Y AND PUB_YEAR:2025"
+  },
+  "registry_sha256": "54f878597a14b3c52ab4cb62e6856acf4525810ab68ebebed9a81762f1222551",
+  "frame_unit": "tool-pmcid within stratum",
+  "frame_sha256": "1e5518490f9ddb6961b017a72fc113d0584db2c31d957558714ef1d910e6c13b"
+}
