@@ -21,5 +21,5 @@
 <circle cx="276" cy="166" r="6" fill="#FFFFFF"/>
 <circle cx="276" cy="166" r="12" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="2,3"/>
 </g>
-<text x="256" y="448" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">MAPPING</text><text x="256" y="476" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#56B4E9" text-anchor="middle" letter-spacing="4">BIOIMAGE SOFTWARE</text>
+<text x="256" y="450" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="44" font-weight="900" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8" text-anchor="middle" letter-spacing="3">MAPPING</text><text x="256" y="495" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#56B4E9" text-anchor="middle" letter-spacing="4">BIOIMAGE SOFTWARE</text>
 </svg>
