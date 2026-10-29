@@ -3,7 +3,7 @@
 # release/make_release.py reads [project] version as its default version.
 [project]
 name = "mapping-bioimage-software"
-version = "2026.10.23"
+version = "2026.10.30"
 description = "Data and code for Mapping bioimage-analysis software adoption in microscopy."
 readme = "README.md"
 requires-python = ">=3.11"
