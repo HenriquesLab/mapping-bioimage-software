@@ -149,7 +149,7 @@ def build_figure(
         ax.grid(axis="y", color=fs.GRID, lw=0.45, zorder=0.5)
 
     present_categories = list(dict.fromkeys(tools.loc[tool_id, "category"] for tool_id in order))
-    short_labels = {"figure-preparation": "figure preparation"}
+    short_labels = {"figure-preparation": "image editing"}
     handles = [
         Line2D([0], [0], color=fs.CATEGORY_COLOR.get(category, fs.MUTED), lw=1.5,
                label=short_labels.get(category, fs.CATEGORY_LABEL.get(category, category)))

@@ -57,7 +57,7 @@ CATEGORY_LABEL = {
     "library": "Python library",
     "commercial": "commercial package",
     "acquisition-suite": "microscope-control program",
-    "figure-preparation": "image-editing / figure-preparation software",
+    "figure-preparation": "image-editing software",
 }
 OPEN_CATEGORIES = ("general-platform", "dl-model", "notebook", "library")
 

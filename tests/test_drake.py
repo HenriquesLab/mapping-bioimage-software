@@ -42,8 +42,8 @@ def test_si_table_keeps_only_estimable_rows_with_short_headers():
 
     table = make_si_tables.TABLES["drake"]()
     assert table.splitlines() == [
-        "| Package | Source | Downloads | Citations | C | Per citing paper | Per mention or citation |",
-        "|---|---|---|---|---|---|---|",
+        "| Package | Source | Downloads | Citations | C | Per citing paper | Per mention or cite |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
         "| QuPath | GitHub installers | 868,872 | 6,647 | 1.91 | 130.7 | 68.3 |",
         "| Cellpose | PyPI | 1,356,570 | 4,497 | 1.21 | 301.7 | 249.8 |",
         "| StarDist | PyPI | 507,840 | 1,603 | 1.35 | 316.8 | 235.5 |",

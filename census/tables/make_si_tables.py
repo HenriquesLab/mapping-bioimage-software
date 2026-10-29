@@ -28,7 +28,7 @@ YEARS = [2010, 2015, 2019, 2025]
 CATEGORY = {"general-platform": "open platform", "dl-model": "deep-learning method",
             "notebook": "notebook", "commercial": "commercial package",
             "library": "Python library", "acquisition-suite": "microscope control",
-            "figure-preparation": "image-editing / figure-preparation software"}
+            "figure-preparation": "image-editing software"}
 VALIDATION = PROCESSED_DIR.parent / "validation"
 
 
@@ -39,17 +39,14 @@ def _pct(v: float) -> str:
 
 def _md(df: pd.DataFrame) -> str:
     head = "| " + " | ".join(df.columns) + " |"
-    rule = "|" + "|".join("---" for _ in df.columns) + "|"
-    rows = ["| " + " | ".join(str(v) for v in r) + " |" for r in df.itertuples(index=False)]
+    rule = "| " + " | ".join("---" for _ in df.columns) + " |"
+    rows = ["| " + " | ".join("–" if pd.isna(v) or v == "" else str(v) for v in r) + " |"
+            for r in df.itertuples(index=False)]
     return "\n".join([head, rule, *rows])
 
 
 def _n(v) -> str:
     return f"{int(v):,}" if pd.notna(v) else ""
-
-
-# Notes the registry table carries beside package aliases.
-ALIAS_NOTE = {"zerocostdl4mic": " (every paper mentioning DL4MicEverywhere also matches these)"}
 
 
 def registry() -> str:
@@ -58,11 +55,10 @@ def registry() -> str:
     aggregate_total = len(aggregate)
     rows = [{"Package": t["name"].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
              "Category": CATEGORY.get(t["category"], t["category"]),
-             "Query aliases (OR)": "; ".join(f"\"{a}\"" for a in t["aliases"]) + ALIAS_NOTE.get(t["id"], ""),
+             "Query aliases (OR)": ", ".join(f"\"{a}\"" for a in t["aliases"]),
              "Counted in": ("neither" if t.get("in_aggregate", True) is False
-                            else f"{aggregate_total}-package total" if t["category"] == "acquisition-suite"
-                            else "both totals"),
-             "Caveat": t.get("caveat", "")}
+                            else f"{aggregate_total} only" if t["category"] == "acquisition-suite"
+                            else "both")}
             for t in raw["tools"]]
     return _md(pd.DataFrame(rows))
 
@@ -80,13 +76,13 @@ def literature() -> str:
         row = {"Package": names[t].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME")}
         for y in YEARS:
             row[str(y)] = _n(r[y])
-        row["% of microscopy papers, 2025"] = _pct(100 * r[2025] / corpus[2025])
-        row["Europe PMC, 2010-2025"] = _n(r.sum())
-        row["OpenAlex, 2010-2025"] = _n(oa.get(t))
+        row["2025 share (%)"] = _pct(100 * r[2025] / corpus[2025])
+        row["Europe PMC, 2010–2025"] = _n(r.sum())
+        row["OpenAlex, 2010–2025"] = _n(oa.get(t))
         rows.append(row)
     rows.append({"Package": "All microscopy papers", **{str(y): _n(corpus[y]) for y in YEARS},
-                 "% of microscopy papers, 2025": "100", "Europe PMC, 2010-2025": _n(corpus.sum()),
-                 "OpenAlex, 2010-2025": ""})
+                 "2025 share (%)": "100", "Europe PMC, 2010–2025": _n(corpus.sum()),
+                 "OpenAlex, 2010–2025": ""})
     return _md(pd.DataFrame(rows))
 
 
@@ -102,8 +98,8 @@ def adoption() -> str:
         rows.append({"Package": names[r.tool_id].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME") + REPO_NOTE.get(r.tool_id, ""),
                      "GitHub stars": _n(r.github_stars) if str(r.github_stars) != "nan" else "",
                      "GitHub forks": _n(r.github_forks) if str(r.github_forks) != "nan" else "",
-                     "Earliest repository": r.earliest_repo if isinstance(r.earliest_repo, str) else "",
-                     "PyPI downloads, 30 days": _n(r.pypi_downloads_30d)
+                     "Repo date": r.earliest_repo if isinstance(r.earliest_repo, str) else "",
+                     "PyPI downloads, 30 d": _n(r.pypi_downloads_30d)
                      if str(r.pypi_downloads_30d) not in ("nan", "") else "no package"})
     return _md(pd.DataFrame(rows))
 
@@ -127,9 +123,9 @@ def deep_learning() -> str:
         rows.append({
             "Package": names[r.tool_id].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
             "Matches, 2025": _n(pop),
-            "Sampled": _n(r.n_sampled),
-            "Labelled deep learning": _n(r.n_dl),
-            "Share (95% CI)": ci_str,
+            "Read (n)": _n(r.n_sampled),
+            "DL labels (n)": _n(r.n_dl),
+            "DL share (95% CI)": ci_str,
         })
     return _md(pd.DataFrame(rows))
 
@@ -141,9 +137,9 @@ def methods_section() -> str:
     m = m.sort_values("n_all", ascending=False)
     rows = [{"Package": names[r.tool_id].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
              "Matches, 2025": _n(r.n_all),
-             "Mentioned in Methods": _n(r.n_methods),
-             "Share in Methods": f"{_pct(100 * r.share_methods)}%" if pd.notna(r.share_methods) else "",
-             "In references, not in Methods": _n(r.n_refs_not_methods)}
+             "Methods matches": _n(r.n_methods),
+             "Methods share (%)": f"{_pct(100 * r.share_methods)}%" if pd.notna(r.share_methods) else "",
+             "Reference only, n": _n(r.n_refs_not_methods)}
             for r in m.itertuples(index=False)]
     return _md(pd.DataFrame(rows))
 
@@ -158,14 +154,14 @@ def reporting() -> str:
         return f"{_pct(row[ind + '_pct'])} ({_pct(row[ind + '_lo'])}-{_pct(row[ind + '_hi'])})"
 
     rows = [{"Package": row["name"].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
-             "Papers in frame": _n(row["frame"]),
-             "Papers analysed": _n(row["analysed"]),
-             "Version, %": ci(row, "version"),
-             "Named function, %": ci(row, "function"),
-             "Parameter, %": ci(row, "parameter"),
-             "Version and function or parameter, %": ci(row, "complete"),
-             "Name only, %": _pct(row["name_only_pct"]),
-             "Code shared, %": ci(row, "code")}
+             "Frame (n)": _n(row["frame"]),
+             "Read (n)": _n(row["analysed"]),
+             "Version (%)": ci(row, "version"),
+             "Named function (%)": ci(row, "function"),
+             "Parameter (%)": ci(row, "parameter"),
+             "Version, function or parameter (%)": ci(row, "complete"),
+             "Name only (%)": _pct(row["name_only_pct"]),
+             "Code shared (%)": ci(row, "code")}
             for _, row in r.iterrows()]
     return _md(pd.DataFrame(rows))
 
@@ -174,11 +170,11 @@ def mesh() -> str:
     """Keyword-positive papers with MeSH and sampling-adjusted agreement."""
     data = pd.read_csv(PROCESSED_DIR / 'mesh_check_2021_2025.csv')
     rows = [{'Area': r.area,
-             'Papers with MeSH, n': _n(r.n_keyword_with_mesh),
-             'Agreement with MeSH, % (95% CI)':
+             'Papers, n': _n(r.n_keyword_with_mesh),
+             'MeSH agreement (%, 95% CI)':
                  f'{_pct(100 * r.agreement_any)} '
                  f'({_pct(100 * r.agreement_any_wilson_lo)}-{_pct(100 * r.agreement_any_wilson_hi)})',
-             "Cohen's kappa": f'{r.kappa_any:.2f}'}
+             'Kappa': f'{r.kappa_any:.2f}'}
             for r in data.itertuples(index=False)]
     return _md(pd.DataFrame(rows))
 
@@ -194,9 +190,9 @@ def audit_area() -> str:
             return (f"{_pct(r[label + '_vocabulary_name_only_pct'])} "
                     f"({_n(r[label + '_vocabulary_name_only_n'])}/{_n(r[label + '_vocabulary_n'])})")
         rows.append({'Package': p.name.replace(' / ', '/'),
-                     'Papers with methods vocabulary, %': _pct(r.vocabulary_pct),
-                     'Name only without vocabulary, % (n)': cell('without'),
-                     'Name only with vocabulary, % (n)': cell('with')})
+                     'With methods vocabulary (%)': _pct(r.vocabulary_pct),
+                     'Name only, no vocabulary (%, n)': cell('without'),
+                     'Name only, vocabulary (%, n)': cell('with')})
     return _md(pd.DataFrame(rows))
 
 
@@ -208,29 +204,29 @@ def validation() -> str:
         return f"{_pct(min(vals))}-{_pct(max(vals))}%"
 
     rows = [
-        {"Check": "Aliases, 15 added packages",
-         "Sample": "3 x 150",
+        {"Validation check": "Aliases, 15 added packages",
+         "Sample and replicates": "3 × 150",
          "Result": f"{v.loc['alias_software', 'pooled']} of {v.loc['alias_agreed', 'pooled']} mention the software ({per('alias_software', 'alias_agreed')})"},
-        {"Check": "Aliases, 15 core packages",
-         "Sample": "3 x {}-{}".format(*sorted(v.loc['alias_core_labelled', ['r1', 'r2', 'r3']])[::2]),
+        {"Validation check": "Aliases, 15 core packages",
+         "Sample and replicates": "3 × {}-{}".format(*sorted(v.loc['alias_core_labelled', ['r1', 'r2', 'r3']])[::2]),
          "Result": f"{v.loc['alias_core_software', 'pooled']} of {v.loc['alias_core_agreed', 'pooled']} mention the software ({per('alias_core_software', 'alias_core_agreed')})"},
-        {"Check": "Microscope-control use, same matches",
-         "Sample": f"{v.loc['acq_agreed', 'pooled']} agreed",
+        {"Validation check": "Microscope-control use, same matches",
+         "Sample and replicates": f"{v.loc['acq_agreed', 'pooled']} agreed",
          "Result": f"acquisition {v.loc['acq_acquisition', 'pooled']}, analysis {v.loc['acq_analysis', 'pooled']}, unclear {v.loc['acq_unclear', 'pooled']}"},
-        {"Check": "Lexicon-positive abstracts",
-         "Sample": "3 x 80",
+        {"Validation check": "Lexicon-positive abstracts",
+         "Sample and replicates": "3 × 80",
          "Result": f"{v.loc['lex_pos_dl', 'pooled']} of {v.loc['lex_pos_agreed', 'pooled']} deep learning ({per('lex_pos_dl', 'lex_pos_agreed')})"},
-        {"Check": "Lexicon-negative abstracts",
-         "Sample": "3 x 120",
+        {"Validation check": "Lexicon-negative abstracts",
+         "Sample and replicates": "3 × 120",
          "Result": f"{v.loc['lex_neg_dl', 'pooled']} of {v.loc['lex_neg_agreed', 'pooled']} deep learning ({', '.join(str(v.loc['lex_neg_dl', r]) for r in ('r1', 'r2', 'r3'))})"},
-        {"Check": "Research-area keywords",
-         "Sample": "3 x 112",
+        {"Validation check": "Research-area keywords",
+         "Sample and replicates": "3 × 112",
          "Result": f"{v.loc['dom_in_area', 'pooled']} of {v.loc['dom_agreed', 'pooled']} in the area ({per('dom_in_area', 'dom_agreed')})"},
     ]
     for label, f in (("Cellpose", "cellpose_workflow_pooled_2025.csv"), ("StarDist", "stardist_workflow_2025_pooled.csv"),
                      ("ilastik", "ilastik_workflow_2025_pooled.csv")):
         c = pd.read_csv(PROCESSED_DIR / f).set_index("category")
-        rows.append({"Check": f"{label} workflow", "Sample": "3 x 40",
+        rows.append({"Validation check": f"{label} workflow", "Sample and replicates": "3 × 40",
                      "Result": (f"{c.loc['agreed', 'pooled']} agreed: {c.loc['separate', 'pooled']} own, {c.loc['inside_fiji', 'pooled']} in Fiji, "
                                 f"{c.loc['other_pipeline', 'pooled']} other, {c.loc['unclear', 'pooled']} not stated, "
                                 f"{c.loc['mention_only', 'pooled']} unused")})
@@ -246,9 +242,9 @@ def methods_micro() -> str:
     corpus = m.groupby("year")["methods_microscopy_papers"].first()
     p = p.sort_values(2025, ascending=False)
     rows = [{"Package": tools.loc[t, "name"].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"), "2010": _n(r[2010]), "2025": _n(r[2025]),
-             "% of papers, 2025": _pct(100 * r[2025] / corpus[2025])} for t, r in p.iterrows()]
+             "Share of papers, 2025 (%)": _pct(100 * r[2025] / corpus[2025])} for t, r in p.iterrows()]
     rows.append({"Package": "Papers whose Methods mention microscopy", "2010": _n(corpus[2010]),
-                 "2025": _n(corpus[2025]), "% of papers, 2025": "100"})
+                 "2025": _n(corpus[2025]), "Share of papers, 2025 (%)": "100"})
     return _md(pd.DataFrame(rows))
 
 
@@ -313,22 +309,22 @@ def wildcard() -> str:
         k = kinds.loc[r.tool_id] if r.tool_id in kinds.index else None
         rows.append({
             "Package": names[r.tool_id].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
-            "2025 exact": _n(r.exact),
-            "2025 wildcard": _n(r.wildcard),
+            "Exact 2025": _n(r.exact),
+            "Wildcard 2025": _n(r.wildcard),
             "Added (%)": f"{_pct(100 * (r.wildcard - r.exact) / r.exact)}%" if r.exact else "",
-            "Added papers checked (n)": _n(k.sum()) if k is not None else "",
-            "Fused name or number": _n(k["fused"]) if k is not None else "",
+            "Checked (n)": _n(k.sum()) if k is not None else "",
+            "Fused name/number": _n(k["fused"]) if k is not None else "",
             "Product variant": _n(k["variant"]) if k is not None else "",
             "Other word": _n(k["other"]) if k is not None else "",
-            "Not found in text": _n(k["absent"]) if k is not None else "",
+            "Not found": _n(k["absent"]) if k is not None else "",
         })
     ij = a[a["tool_id"] == "imagej"].set_index("year")
     share = {form: " / ".join(f"{100 * ij.loc[y, form] / a[a['year'] == y][form].sum():.1f}%"
                               for y in (2010, 2020, 2025)) for form in ("exact", "wildcard")}
-    rows.append({"Package": "ImageJ/Fiji share of analysis mentions", "2025 exact": share["exact"],
-                 "2025 wildcard": share["wildcard"], "Added (%)": "", "Added papers checked (n)": "",
-                 "Fused name or number": "", "Product variant": "", "Other word": "",
-                 "Not found in text": ""})
+    rows.append({"Package": "ImageJ/Fiji share of analysis mentions", "Exact 2025": share["exact"],
+                 "Wildcard 2025": share["wildcard"], "Added (%)": "", "Checked (n)": "",
+                 "Fused name/number": "", "Product variant": "", "Other word": "",
+                 "Not found": ""})
     return _md(pd.DataFrame(rows))
 
 
@@ -407,7 +403,7 @@ def queryerrors() -> str:
         if t in PRODUCT_PHRASE_QUERIES:
             query = "product phrases"
         elif any(SINGLE_WORD.fullmatch(a) and a not in exact for a in aliases[t]):
-            query = "name (wildcard in citation analysis)"  # the census is exact; Figure 3 and the wildcard table add a trailing *
+            query = "name + wildcard"  # the census is exact; Figure 3 and the wildcard table add a trailing *
         else:
             query = "name"
         k, n = prec.get(t, (0, 0))
@@ -423,12 +419,12 @@ def queryerrors() -> str:
         rows.append({
             "Package": packages.loc[packages["tool_id"] == t, "name"].iloc[0].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
             "Name type": NAME_TYPE.get(t, "distinctive"),
-            "Query": query,
-            "Precision of matches": cell,
-            "False-positive rate": false_positive,
-            "Wildcard additions that are other words": _n(kinds.loc[t, "other"]) if t in kinds.index else "",
-            "Citing papers without a name match, 2021-2025 (%)": cited,
-            "Of those, mention in article text (k/n, 2025)":
+            "Query form": query,
+            "Precision (%)": cell,
+            "False positives (%)": false_positive,
+            "Other-word additions": _n(kinds.loc[t, "other"]) if t in kinds.index else "",
+            "Citing, no name match (%)": cited,
+            "Citing-text matches, 2025 (k/n)":
                 f"{found.loc[t, 'k']}/{found.loc[t, 'n']}" if t in found.index else "",
         })
     return _md(pd.DataFrame(rows))
@@ -445,8 +441,8 @@ def citations() -> str:
     rows = [{"Package": names[r.tool_id].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
              "Citation found by": "link to own paper" if r.method == "links" else "reference title",
              "Mentioned": _n(r.named), "Cited": _n(r.cited), "Both": _n(r.both),
-             "Mentioned, not cited (%)": _pct(100 * (r.named - r.both) / r.union),
-             "Cited, not mentioned (%)": _pct(100 * (r.cited - r.both) / r.union)}
+             "Mentioned only (%)": _pct(100 * (r.named - r.both) / r.union),
+             "Cited only (%)": _pct(100 * (r.cited - r.both) / r.union)}
             for r in t.itertuples()]
     return _md(pd.DataFrame(rows))
 
@@ -461,13 +457,13 @@ def preprints() -> str:
     w = w.sort_values(("named", "journal"), ascending=False)
     # three columns: rxiv-maker gives tables of five columns one stretching column, which crushes this one
     rows = [{"Package": names[t].replace(" / ", "/").replace("ZeroCostDL4Mic/DL4MicEverywhere", "ZCDL4M/DL4ME"),
-             "Preprints, n (not cited, %)": f"{_n(r[('named', 'preprint')])} ({_pct(r[('nnc', 'preprint')])})",
-             "Journal papers, n (not cited, %)": f"{_n(r[('named', 'journal')])} ({_pct(r[('nnc', 'journal')])})"}
+             "Preprints (n; uncited %)": f"{_n(r[('named', 'preprint')])} ({_pct(r[('nnc', 'preprint')])})",
+             "Journal papers (n; uncited %)": f"{_n(r[('named', 'journal')])} ({_pct(r[('nnc', 'journal')])})"}
             for t, r in w.iterrows()]
     c = d[d.tool_id == "microscopy"].set_index(["source", "reference_list"])["named"]
     rows.append({"Package": "Parsed reference lists (%)",
-                 "Preprints, n (not cited, %)": _pct(100 * c[("preprint", "parsed")] / c[("preprint", "all")]),
-                 "Journal papers, n (not cited, %)": _pct(100 * c[("journal", "parsed")] / c[("journal", "all")])})
+                 "Preprints (n; uncited %)": _pct(100 * c[("preprint", "parsed")] / c[("preprint", "all")]),
+                 "Journal papers (n; uncited %)": _pct(100 * c[("journal", "parsed")] / c[("journal", "all")])})
     return _md(pd.DataFrame(rows))
 
 
@@ -477,7 +473,7 @@ def drake() -> str:
     data = data[data.estimable]
     names = pd.read_csv(PROCESSED_DIR / "tools.csv").set_index("tool_id")["name"]
     columns = ["Package", "Source", "Downloads", "Citations", "C",
-               "Per citing paper", "Per mention or citation"]
+               "Per citing paper", "Per mention or cite"]
     rows = []
     for r in data.itertuples(index=False):
         package = names[r.tool_id].replace(" / ", "/").replace(
@@ -491,7 +487,7 @@ def drake() -> str:
             "Citations": _n(r.citations),
             "C": f"{r.c_measured:.2f}",
             "Per citing paper": f"{r.downloads_per_citing_paper:.1f}",
-            "Per mention or citation": f"{r.downloads_per_mention_or_citation:.1f}",
+            "Per mention or cite": f"{r.downloads_per_mention_or_citation:.1f}",
         })
     return _md(pd.DataFrame(rows, columns=columns))
 

@@ -12,7 +12,7 @@ class WildcardTableTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.body = si.wildcard()
-        cls.rows = [r for r in cls.body.splitlines() if r.startswith("| ")][1:]
+        cls.rows = [r for r in cls.body.splitlines() if r.startswith("| ") and not r.startswith("| ---")][1:]
 
     def test_row_count(self):
         tools = pd.read_csv(si.PROCESSED_DIR / "tools.csv")
@@ -39,13 +39,13 @@ class QueryErrorsTableTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.body = si.queryerrors()
-        cls.rows = [r for r in cls.body.splitlines() if r.startswith("| ")][1:]
+        cls.rows = [r for r in cls.body.splitlines() if r.startswith("| ") and not r.startswith("| ---")][1:]
 
     def test_row_count(self):
         self.assertEqual(len(self.rows), len(pd.read_csv(si.PROCESSED_DIR / "tools.csv")))
 
     def test_false_positive_rates_are_reported(self):
-        self.assertIn('False-positive rate', self.body)
+        self.assertIn('False positives (%)', self.body)
         for rate in ('2.5% (1/40)', '45.0% (18/40)', '0.0% (0/40)', '55% (22/40)', '100% (40/40)'):
             self.assertIn(rate, self.body)
 
@@ -60,15 +60,16 @@ class NoToolWordTests(unittest.TestCase):
 
 def test_registry_table_uses_current_aggregate_total():
     body = si.registry()
-    rows = [line for line in body.splitlines() if line.startswith("| ")]
+    rows = [line for line in body.splitlines() if line.startswith("| ") and not line.startswith("| ---")]
     assert len(rows) - 1 == 33
-    assert "29-package total" in body
-    assert "30-package total" not in body
+    assert "| 29 only |" in body
+    assert "| 30 only |" not in body
     assert "28-package total" not in body
     assert "| Image-Pro | commercial package |" in body
     assert "| NIH Image | open platform |" in body
-    assert "after about 2000" in body.lower()
-    assert "| Adobe Photoshop | image-editing / figure-preparation software |" in body
+    if si.SI.is_file():  # caveats sit in the note under the table
+        assert "post-2000 “NIH Image” matches refer to ImageJ" in si.SI.read_text()
+    assert "| Adobe Photoshop | image-editing software |" in body
     assert "| neither |" in next(line for line in rows if line.startswith("| NIH Image |"))
     assert "| neither |" in next(line for line in rows if line.startswith("| Adobe Photoshop |"))
     assert "| NIH Image |" not in si.literature()

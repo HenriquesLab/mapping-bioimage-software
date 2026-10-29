@@ -30,6 +30,9 @@ def allowed_field(relative, keys):
             name in {'data/processed/replicates/abstract_designs.json',
                      'data/processed/replicates/deviation_summary.csv'}):
         return True
+    # Sample deviation reasons are our notes on how a frame was drawn.
+    if keys[-1] == 'reason' and relative.name.startswith('registry_precision_'):
+        return True
     # Alias queries are our search expressions.
     if relative.name.startswith('alias_precision_') and (
             keys[:1] == ('queries',) or keys[:2] == ('inputs', 'queries')):
@@ -138,6 +141,8 @@ def test_scanner_rejects_nested_text_keys_even_when_empty(tmp_path, key):
     ('data/validation/frames/alias_precision_2025_frame.json', 'queries'),
     ('data/validation/alias_precision_2025_items.json', 'inputs.queries'),
     ('data/example.csv', 'venue'),
+    ('data/validation/registry_precision_2026_items.json', 'inputs.reason'),
+    ('data/validation/frames/registry_precision_2026_imagej_spelling_exclusion_frame.json', 'reason'),
     ('data/validation/replicates/cellpose_workflow_2025_human_r1.csv', 'methods_or_fulltext_details'),
     ('data/validation/replicates/cellpose_workflow_2025_human_r1.csv', 'external_context_details'),
 ])
