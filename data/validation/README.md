@@ -41,6 +41,7 @@ The root CSVs preserve the earlier validation draws, with title and quoted-evide
 | `alias_precision_2025.csv` | One sampled 2025 paper matched by a software name | `tool_id`, `pmcid`, `sense` (`software`, `other_sense`, `not_found`), `use` (`acquisition`, `analysis`, `unclear`, `na`) |
 | `alias_precision_2025_items.csv` | One sampled item | `stratum`, `tool_id`, `year`, `epmc_id`, `pmcid` |
 | `registry_precision_2026.csv` | One labelled match per package and sample | `tool_id`, `year`, `pmcid`, `label`, `use` (Photoshop context), `meaning` (NIH Image interpretation) |
+| `photoshop_use_2025.csv` | One 2025 paper that used Photoshop on image data, re-labelled by two annotators | `pmcid`, `label_spark_glm`, `label_codex`, `label` (adjustment, measurement, unclear; authors resolved one disagreement), `evidence` |
 | `registry_precision_2026_items.csv`, `registry_precision_2026_nihimage_historical_items.csv` | One sampled paper | `stratum`, `tool_id`, `year`, `epmc_id`, `pmcid` |
 | `cellpose_workflow_2025.csv` | One sampled paper | `pmcid`, `workflow` |
 | `cellpose_workflow_2025_items.csv` | One sampled item | `stratum`, `tool_id`, `year`, `epmc_id`, `pmcid` |
