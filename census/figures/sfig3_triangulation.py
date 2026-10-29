@@ -72,10 +72,9 @@ def build_figure():
         if valid.any():
             ax.set_xlim(values[valid].min() / 3, values[valid].max() * 60)
             fs.sparse_log_ticks(ax, values[valid].tolist(), n=2)
-        fs.panel_label(ax, letter, x=-0.08, y=1.16)
+        fs.panel_label(ax, letter, x=-0.08, y=1.04)
     metric_axes[0].set_ylim(y.min() - 0.7, y.max() + 0.9)
 
-    fig.suptitle("Papers, GitHub stars and downloads rank the same packages differently", x=0.02, ha="left", fontsize=8.5, y=1.12)
     with warnings.catch_warnings():
         warnings.filterwarnings(
             'ignore', category=UserWarning,

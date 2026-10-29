@@ -19,6 +19,7 @@ from . import domains as dm
 import matplotlib.pyplot as plt  # noqa: E402
 
 TOOLS = ["imagej", "imaris", "qupath", "cellprofiler", "cellpose", "stardist", "napari", "arivis"]
+DISPLAY_WORD = {"specie": "species", "inhibit": "inhibition"}
 
 
 def build_figure(terms=None):
@@ -34,7 +35,7 @@ def build_figure(terms=None):
         ax.hlines(y, x["base_pct"], x["tool_pct"], color="#cccccc", lw=1.2)
         ax.scatter(x["base_pct"], y, s=16, facecolor="white", edgecolor="#777777", lw=0.8, zorder=3)
         ax.scatter(x["tool_pct"], y, s=18, color=colour, zorder=4)
-        ax.set_yticks(y, x["word"], fontsize=6.4)
+        ax.set_yticks(y, [DISPLAY_WORD.get(word, word) for word in x["word"]], fontsize=6.4)
         ax.set_xlim(0, max(30, float(x["tool_pct"].max()) * 1.1))
         ax.tick_params(axis="x", labelsize=6)
         ax.tick_params(axis="y", length=0)
@@ -44,7 +45,6 @@ def build_figure(terms=None):
         ax.set_title(fs.tool_label(tools.loc[t, "name"]), loc="left", fontsize=7.2, pad=2)
         fs.panel_label(ax, "abcdefgh"[k], x=-0.42, y=1.02)
     fig.supxlabel("Abstracts containing the word (%): package (filled) and all other packages (open)", fontsize=7)
-    fig.suptitle("Words most over-represented in each package's papers, with how often they appear", x=0.02, ha="left", fontsize=8.5)
     fig.tight_layout(h_pad=1.0, w_pad=0.8)
     return fig
 

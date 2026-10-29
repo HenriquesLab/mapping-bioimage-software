@@ -82,7 +82,7 @@ def build_figure(
 
     ncols = min(MAX_COLUMNS, len(order))
     nrows = math.ceil(len(order) / ncols)
-    fig = plt.figure(figsize=(7.1, 1.35 + 1.12 * nrows))
+    fig = plt.figure(figsize=(7.1, (1.35 + 1.12 * nrows) * 0.92))
     grid = fig.add_gridspec(
         nrows + 1,
         ncols,
@@ -159,11 +159,7 @@ def build_figure(
                frameon=False, fontsize=5.7, columnspacing=1.1, handlelength=1.3,
                bbox_to_anchor=(0.52, 0.005))
     fig.supylabel("Package mentions as share of corpus (%)", x=0.01, fontsize=6.5)
-    fig.suptitle(
-        "Package mentions as a share of full-text microscopy papers, 1995–2025",
-        x=0.02, y=0.995, ha="left", fontsize=8.5, fontweight="bold",
-    )
-    fig.subplots_adjust(left=0.07, right=0.995, top=0.965, bottom=0.055)
+    fig.subplots_adjust(left=0.10, right=0.995, top=0.985, bottom=0.055)
     return fig
 
 

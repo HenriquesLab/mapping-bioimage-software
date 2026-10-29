@@ -46,8 +46,8 @@ def title(ax, x, y, letter, text, colour=INK):
     ax.text(x + 0.045, y, text, fontsize=7.8, fontweight="bold", color=INK, ha="left", va="center", zorder=4)
 
 
-def pill(ax, x, y, text, colour, size=5.0, k=0.84):
-    w = 0.018 + 0.0094 * len(text)
+def pill(ax, x, y, text, colour, size=6.0, k=0.84):
+    w = 0.018 + 0.0115 * len(text)
     ax.add_patch(FancyBboxPatch((x, y - 0.0125), w, 0.025, boxstyle="round,pad=0,rounding_size=0.0125",
                                 facecolor=tint(colour, k), edgecolor="none", zorder=3))
     ax.text(x + w / 2, y, text, fontsize=size, color=colour, fontweight="bold", ha="center", va="center", zorder=4)
@@ -90,9 +90,9 @@ def build_figure():
     title(ax, 0.045, ya + ha - 0.028, "a", "Microscopy literature, 2010-2025", SLATE)
     doc_icon(ax, 0.06, ya + 0.075)
     ax.text(0.19, ya + 0.135, "Europe PMC full text", fontsize=6.6, fontweight="bold", color=INK, va="center")
-    ax.text(0.19, ya + 0.108, f"{int(corpus.loc[2025]):,} microscopy papers in 2025", fontsize=5.7, color=SUB, va="center")
+    ax.text(0.19, ya + 0.108, f"{int(corpus.loc[2025]):,} microscopy papers in 2025", fontsize=6.0, color=SUB, va="center")
     n_tools = int((fs.load("tools.csv").tool_id != "nihimage").sum())  # NIH Image is plotted only in the history figure
-    ax.text(0.19, ya + 0.086, f"papers mentioning {n_tools} packages, counted yearly", fontsize=5.7, color=SUB, va="center")
+    ax.text(0.19, ya + 0.086, f"papers mentioning {n_tools} packages, counted yearly", fontsize=6.0, color=SUB, va="center")
     sp = fig.add_axes((0.70, ya + 0.075, 0.25, 0.075))
     c = corpus.loc[2010:2025]
     sp.fill_between(c.index, 0, c.values, color=tint(SLATE, 0.82), lw=0)
@@ -100,18 +100,18 @@ def build_figure():
     sp.set_xlim(2010, 2025)
     sp.set_ylim(0, c.max() * 1.45)
     sp.axis("off")
-    ax.text(0.70, ya + 0.163, "Microscopy papers per year", fontsize=5.0, color=SUB, va="center")
+    ax.text(0.70, ya + 0.163, "Microscopy papers per year", fontsize=6.0, color=SUB, va="center")
     # Label both ends with their counts and years, so the growth reads directly.
     for yr, ha in ((2010, "left"), (2025, "right")):
         v = c.loc[yr]
         sp.plot([yr], [v], "o", ms=2.2, color=SLATE, clip_on=False, zorder=5)
-        sp.text(yr, v + c.max() * 0.13, f"{v / 1000:.0f}k", fontsize=5.0, fontweight="bold", color=INK, ha=ha, va="bottom")
-        sp.text(yr, -c.max() * 0.07, str(yr), fontsize=4.6, color=SUB, ha=ha, va="top", clip_on=False)
+        sp.text(yr, v + c.max() * 0.13, f"{v / 1000:.0f}k", fontsize=6.0, fontweight="bold", color=INK, ha=ha, va="bottom")
+        sp.text(yr, -c.max() * 0.07, str(yr), fontsize=6.0, color=SUB, ha=ha, va="top", clip_on=False)
     tools = [("ImageJ/Fiji", BLUE), ("QuPath", BLUE), ("CellProfiler", BLUE), ("napari", BLUE),
              ("Imaris", GREY_C), ("Cellpose", BLUE), ("StarDist", BLUE), (f"+{n_tools - 7} more", SLATE)]
     x = 0.045
     for name, col in tools:
-        x += pill(ax, x, ya + 0.034, name, col, size=4.8) + 0.007
+        x += pill(ax, x, ya + 0.034, name, col, size=6.0) + 0.007
     link(ax, (0.5, ya - 0.004), (0.5, ya - 0.024), SUB, lw=1.0)
 
     # (b) papers naming each analysis package, ranked ------------------------
@@ -136,12 +136,12 @@ def build_figure():
     s.set_xlim(0.3, len(d) + 0.7)
     # Every package is labelled vertically: below its dot where the log axis leaves room, else above.
     axis_pt = box[3] * H * 72
-    fsz = 4.6
+    fsz = 6.0
     for r, (t, row) in zip(rank, d.iterrows()):
         v = max(row["n"], 1)
         if t == "imagej":
             s.annotate(f"ImageJ/Fiji  {v:,} papers ({fs.pct(fs.reach(['imagej']).loc[2025])} of microscopy papers)",
-                       (r, v), xytext=(5, 0), textcoords="offset points", fontsize=5.2, fontweight="bold",
+                       (r, v), xytext=(5, 0), textcoords="offset points", fontsize=6.0, fontweight="bold",
                        color=INK, va="center", ha="left")
             continue
         label = f"{row['name']}  {v:,}"
@@ -151,15 +151,11 @@ def build_figure():
         s.annotate(label, (r, v), xytext=(0, -gap if below else gap), textcoords="offset points", fontsize=fsz,
                    color=INK, rotation=90, ha="center", va="top" if below else "bottom")
     s.set_xticks([1, 5, 10, 15, 20, len(d)])
-    s.tick_params(labelsize=4.8, length=2)
-    s.set_xlabel("rank", fontsize=5.0, color=SUB, labelpad=1)
-    s.set_ylabel("papers (log scale)", fontsize=5.0, color=SUB, labelpad=1)
+    s.tick_params(labelsize=6.0, length=2)
+    s.set_xlabel("rank", fontsize=6.0, color=SUB, labelpad=1)
+    s.set_ylabel("papers (log scale)", fontsize=6.0, color=SUB, labelpad=4)
     for side in ("top", "right"):
         s.spines[side].set_visible(False)
-    s.legend(handles=[plt.Line2D([], [], ls="", marker="o", ms=3, mew=0, color=fs.licence_colour(k), label=lab)
-                      for k, lab in (("library", "open source"), ("commercial", "commercial"))]
-             + [plt.Line2D([], [], ls="", marker="o", ms=5, mfc="none", mec=INK, mew=0.6, label="deep-learning method")], loc="upper right", fontsize=4.8, frameon=False, handletextpad=0.1,
-             borderaxespad=0.2, labelspacing=0.3)
     link(ax, (0.5, yb - 0.004), (0.5, yb - 0.024), SUB, lw=1.0)
 
     # (c) named without citation or detail ---------------------------------------
@@ -188,18 +184,19 @@ def build_figure():
                 if t == "titles":
                     b.barh(r_, p[col].iloc[r_], height=0.68, color="none", edgecolor="white", hatch="//////", lw=0, zorder=3)
         for r_, v in zip(rows, p[col]):
-            b.text(v + 2, r_, f"{v:.0f}%", fontsize=4.6, color=INK, va="center")
+            pad = 6 if v < 30 else 2
+            b.text(v + pad, r_, f"{v:.0f}%", fontsize=6.0, color=INK, va="center", ha="left")
         b.set_xlim(0, 100)
         b.set_ylim(-0.6, len(p) - 0.4)
         b.set_yticks(rows, p.label if k == 0 else [""] * len(p))
-        b.tick_params(axis="y", length=0, labelsize=4.8, pad=2)
+        b.tick_params(axis="y", length=0, labelsize=6.0, pad=2)
         b.set_xticks([])
         for side in ("top", "right", "bottom"):
             b.spines[side].set_visible(False)
         b.spines["left"].set_linewidth(0.5)
-        b.set_title(head, fontsize=5.0, color=SUB, loc="left", pad=2, linespacing=1.1)
-    ax.text(0.20, yc + 0.022, "hatched: citation matched by reference title; outlined: deep-learning method",
-            fontsize=4.4, color=SUB, va="center")
+        b.set_title(head, fontsize=6.0, color=SUB, loc="left", pad=2, linespacing=1.1)
+    ax.text(0.07, yc + 0.022, "hatched: citation matched by reference title; outlined: deep-learning method",
+            fontsize=6.0, color=SUB, va="center")
     return fig
 
 

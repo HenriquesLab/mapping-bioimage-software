@@ -77,7 +77,7 @@ def build_figure(first_years=None):
     fs.set_style()
     u = union(table()).sort_values('no_pct', ascending=False)  # rows ordered by the named, not cited share
     fig = plt.figure(figsize=(7.1, 4.4))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.45, 1], wspace=0.42, left=0.2, right=0.9, top=0.86, bottom=0.12)
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.45, 1], wspace=0.42, left=0.2, right=0.9, top=0.92, bottom=0.12)
     ax = fig.add_subplot(gs[0])
     rows = np.arange(len(u))[::-1]
     left = np.zeros(len(u))
@@ -99,7 +99,7 @@ def build_figure(first_years=None):
         ax.spines[side].set_visible(False)
     ax.legend(loc='lower left', bbox_to_anchor=(0.0, 1.0), ncol=3, fontsize=6.4, frameon=False,
               handlelength=1.2, columnspacing=1.0, borderaxespad=0.2)
-    fs.panel_label(ax, 'a', x=-0.33, y=1.1)
+    fs.panel_label(ax, 'a', x=-0.33, y=1.04)
     # (b) change in the named, not cited share, 2020 (or first eligible year) to 2025, rows as in panel a
     ch = change(first_years=first_years)
     bx = fig.add_subplot(gs[1], sharey=ax)
@@ -113,7 +113,8 @@ def build_figure(first_years=None):
                     mutation_scale=7, shrinkA=2, shrinkB=0))
         bx.plot([a], [yi], 'o', ms=3.6, mfc='white', mec=NAMED_ONLY, mew=1.1, zorder=3)
         note = f"{a:.0f} → {b:.0f}" + (f" (from {y0})" if y0 != 2020 else "")
-        bx.text(max(a, b) + 3, yi, note, fontsize=5.8, va='center', color=fs.INK)
+        bx.annotate(note, (max(a, b), yi), xytext=(8, 0), textcoords='offset points',
+                    fontsize=5.8, va='center', ha='left', color=fs.INK)
     bx.set_xlim(0, 100)
     bx.set_xlabel('Mentioned, not cited (%): 2020 (circle) to 2025 (arrow)', fontsize=6.6)
     bx.tick_params(axis='y', left=False, labelleft=False)
@@ -122,7 +123,7 @@ def build_figure(first_years=None):
         bx.spines[side].set_visible(False)
     bx.grid(axis='x', color=fs.GRID, lw=0.5)
     bx.set_axisbelow(True)
-    fs.panel_label(bx, 'b', x=-0.25, y=1.1)
+    fs.panel_label(bx, 'b', x=-0.25, y=1.04)
     return fig
 
 def main(out_dir=None) -> None:

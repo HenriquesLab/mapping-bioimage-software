@@ -95,7 +95,8 @@ def build_figure():
             ax_share.scatter([1.0], [yi], s=20, facecolor="white", edgecolor="#999999", lw=0.8, ls="--", zorder=3)
             if ring:
                 ax_share.scatter([1.0], [yi], s=60, facecolor="none", edgecolor=e, lw=0.7, zorder=5)
-            ax_share.text(1.3 if ring else 1.15, yi, f"no papers in {GROWTH_FROM}", fontsize=5.6, color="#888888", ha="left", va="center")
+            ax_share.annotate(f"no papers in {GROWTH_FROM}", (1.0, yi), xytext=(8, 0),
+                              textcoords="offset points", fontsize=5.6, color="#777777", ha="left", va="center")
             continue
         fragile = r["base"] < FRAGILE
         ax_share.plot([1.0, g], [yi, yi], color="#E3E3E3" if fragile else "#CCCCCC", lw=1.2, zorder=1)
@@ -107,13 +108,13 @@ def build_figure():
             ax_share.scatter([g], [yi], s=60, facecolor="none", edgecolor=e, lw=0.7, zorder=5)
         pad = 1.4 if ring else 1.22
         ax_share.text(max(g, 1.0) * pad if g >= 1 else pad, yi, f"{g:.0f}× (from {int(r['base']):,})" if g >= 10 else f"{g:.1f}× (from {int(r['base']):,})",
-                      fontsize=5.3, color="#AAAAAA" if r["base"] < FRAGILE else "#555555", ha="left", va="center")
+                      fontsize=5.3, color="#777777" if r["base"] < FRAGILE else "#555555", ha="left", va="center")
     ax_share.axvline(1.0, color="#666666", lw=0.8, ls="--", zorder=2)
     ax_share.set_xscale("log")
     grown = [r for r in rows if r["tool_id"] in in_agg and not np.isnan(r["growth"])]
     top = max((r for r in grown if r["base"] >= FRAGILE), key=lambda r: r["growth"], default=max(grown, key=lambda r: r["growth"]))
-    ax_share.set_xlim(min(0.8, min(r["growth"] for r in grown) * 0.7), max(r["growth"] for r in grown) * 6)
-    ax_share.set_title(f"{fs.tool_label(top['name'])} grew fastest ({top['growth']:.0f}x) of packages\nwith {FRAGILE}+ papers in {GROWTH_FROM}", loc="left", fontsize=8)
+    ax_share.set_xlim(min(0.8, min(r["growth"] for r in grown) * 0.7), max(r["growth"] for r in grown) * 12)
+    ax_share.set_title(f"{fs.tool_label(top['name'])} grew fastest ({top['growth']:.0f}×) of packages\nwith {FRAGILE}+ papers in {GROWTH_FROM}", loc="left", fontsize=8)
     ax_share.set_xlabel(f"Fold change, {LAST} against {GROWTH_FROM} (log scale)", fontsize=7.5)
     ax_share.xaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
 
@@ -131,13 +132,13 @@ def build_figure():
                               ("acquisition-suite", "microscope-control program"))]
     handles.append(plt.Line2D([], [], marker="o", ls="", mfc="none", mec="#1F2933", mew=0.7, markersize=7,
                               label="deep-learning method"))
-    ax_count.legend(handles=handles, loc="lower right", ncol=1, fontsize=6.2, frameon=False,
-                    bbox_to_anchor=(1.04, 0.1), handletextpad=0.2, labelspacing=0.35)
     with warnings.catch_warnings():
         warnings.filterwarnings(
             'ignore', category=UserWarning,
             message='This figure includes Axes that are not compatible with tight_layout, so results might be incorrect[.]')
         fig.tight_layout()
+    fig.legend(handles=handles, loc="upper center", ncol=4, fontsize=6.2, frameon=False,
+               bbox_to_anchor=(0.5, -0.06), handletextpad=0.2, columnspacing=0.7, borderaxespad=0.1)
     return fig
 
 

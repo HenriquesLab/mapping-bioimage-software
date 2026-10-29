@@ -65,7 +65,7 @@ def build_figure():
                 ax.scatter(x, yi, s=SIZE(r.share), color=cmap(norm(np.log2(np.clip(r.ratio, 0.25, 4)))), lw=0, zorder=3)
             else:
                 ax.scatter(x, yi, s=6, color=DOT, lw=0, zorder=2)
-    ax.set_xticks(xs, [SHORT.get(c, c) for c in cols], fontsize=6.6, rotation=40, ha="left", rotation_mode="anchor")
+    ax.set_xticks(xs, [SHORT.get(c, c) for c in cols], fontsize=6.6, rotation=60, ha="left", rotation_mode="anchor")
     ax.xaxis.tick_top()
     ax.set_yticks(range(len(rows)), [fs.tool_label(tools.loc[t, "name"]) for t in rows][::-1], fontsize=7)
     ax.set_xlim(xs[0] - 0.6, xs[-1] + 0.6)
@@ -87,12 +87,10 @@ def build_figure():
     ax.add_artist(leg)
     size_handles = [ax.scatter([], [], s=SIZE(v), color="#9a9a9a", lw=0) for v in (10, 25, 50)]
     leg = ax.legend(size_handles, ["10%", "25%", "50%"], title="Papers mentioning the\nsoftware that\nmention the area",
-                    loc="upper left", bbox_to_anchor=(1.01, 0.44), fontsize=6.5, title_fontsize=6.8,
+                    loc="upper left", bbox_to_anchor=(1.01, 0.30), fontsize=6.5, title_fontsize=6.8,
                     labelspacing=1.3, handletextpad=1.4, frameon=False)
     leg._legend_box.align = "left"
-    fig.suptitle("Research areas over- and under-represented among papers mentioning each program (2021-2025)",
-                 x=0.02, ha="left", fontsize=8.5)
-    fig.subplots_adjust(left=0.14, right=0.80, bottom=0.03, top=0.79)
+    fig.subplots_adjust(left=0.14, right=0.80, bottom=0.03, top=0.82)
     return fig
 
 def main(out_dir=None) -> None:

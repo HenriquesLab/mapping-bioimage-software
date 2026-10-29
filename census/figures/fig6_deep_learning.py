@@ -54,7 +54,7 @@ def build_figure():
     two = lit.loc[YEAR, ["cellpose", "stardist"]].sum() / lit.loc[YEAR, fs.NAMED_DL].sum()
     ax_a.fill_between(named.index, named.values, color=DL, alpha=0.12, lw=0)
     ax_a.plot(named.index, named.values, marker="o", ms=2.8, color=DL, lw=1.4)
-    ax_a.annotate(f"{named.loc[YEAR]:.0f} per 1,000", xy=(YEAR, named.loc[YEAR]), xytext=(-4, 6),
+    ax_a.annotate(f"{named.loc[YEAR]:.0f} per 1,000", xy=(YEAR, named.loc[YEAR]), xytext=(-4, 10),
                   textcoords="offset points", ha="right", fontsize=6.4, color=DL)
     # three short lines in the empty top-left corner, clear of the curve
     ax_a.text(2015.3, named.max() * 1.15, f"Cellpose and StarDist:\n{100 * two:.0f}% of matches for the four\ntracked deep-learning methods ({YEAR})",
@@ -78,7 +78,8 @@ def build_figure():
     ax_b.hlines(y, est["lo"], est["hi"], color=MEASURE, lw=1.1, alpha=0.45)
     ax_b.scatter(est["p"], y, s=20, color=cols, zorder=5)
     for yi, v in zip(y, est["p"]):
-        ax_b.text(v + 0.8, yi, fs.pct(v), fontsize=5.8, color="#555555", va="center")
+        ax_b.annotate(fs.pct(v), (v, yi), xytext=(8, 0), textcoords="offset points",
+                      fontsize=5.8, color="#555555", ha="left", va="center", zorder=6)
     ax_b.set_yticks(y, [fs.tool_label(names[t]) for t in est["tool_id"]], fontsize=6.6)
     ax_b.set_xlabel("Titles/abstracts matching deep-learning vocabulary (%)", fontsize=6.8)
     ax_b.set_xlim(-0.5, max(25, float(est["hi"].max()) + 4))
@@ -98,11 +99,11 @@ def build_figure():
         bars = ax_c.bar(x + (i - 0.5) * w, vals, w, color=col, zorder=3,
                         label=f"{lab} (n = {int(sub['n_dl'].iloc[0]):,})")
         for b, v in zip(bars, vals):
-            ax_c.text(b.get_x() + b.get_width() / 2, v + 1.5, fs.pct(v), ha="center", va="bottom", fontsize=6.0)
+            ax_c.text(b.get_x() + b.get_width() / 2, v + 1.5, fs.pct(v), ha="center", va="bottom", fontsize=6.4)
     ax_c.set_xticks(x, [n for _, n in HOSTS], fontsize=7)
     ax_c.set_ylim(0, 100)
     ax_c.set_ylabel("Papers that also mention the host (%)", fontsize=6.8)
-    ax_c.legend(fontsize=6.0, frameon=False, loc="upper right")
+    ax_c.legend(fontsize=6.4, frameon=False, loc="upper right")
     ax_c.set_title(f"Cellpose and StarDist papers also mention\nImageJ/Fiji, QuPath or napari ({YEAR})", loc="left", fontsize=7.6)
     _style(ax_c)
 
@@ -115,17 +116,17 @@ def build_figure():
             w = 100 * n[k] / n["agreed"]
             ax_d.barh(yi, w, left=left, color=colour, height=0.62, zorder=3)
             if w >= 8:
-                ax_d.text(left + w / 2, yi, f"{w:.0f}", fontsize=6.0, ha="center", va="center",
+                ax_d.text(left + w / 2, yi, f"{w:.0f}", fontsize=6.4, ha="center", va="center",
                           color="white" if colour in (MEASURE, DL) else fs.INK, zorder=4)
             left += w
-        ax_d.text(101, yi, f"{int(n['agreed'])}/{int(n['labelled'])}", fontsize=5.8, va="center", color="#5F6B7A")
-    ax_d.set_yticks(rows, [l for l, _ in POOLED], fontsize=6.4)
+        ax_d.text(101, yi, f"{int(n['agreed'])}/{int(n['labelled'])}", fontsize=6.2, va="center", color="#5F6B7A")
+    ax_d.set_yticks(rows, [l for l, _ in POOLED], fontsize=6.8)
     ax_d.set_xlim(0, 100)
-    ax_d.set_xlabel("Papers with agreed labels (%)", fontsize=6.4)
+    ax_d.set_xlabel("Papers with agreed labels (%)", fontsize=6.8)
     ax_d.spines["left"].set_visible(False)
     ax_d.tick_params(axis="y", length=0)
     ax_d.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=c) for _, _, c in WORKFLOW], labels=[t for _, t, _ in WORKFLOW],
-                fontsize=5.8, frameon=False, ncol=3, loc="upper left", bbox_to_anchor=(-0.02, -0.2),
+                fontsize=6.2, frameon=False, ncol=3, loc="upper left", bbox_to_anchor=(-0.02, -0.2),
                 handlelength=1.0, columnspacing=0.8)
     ax_d.set_title(f"How each method was run in papers\nthat also mention ImageJ/Fiji ({YEAR})", loc="left", fontsize=7.6)
     _style(ax_d, "x")

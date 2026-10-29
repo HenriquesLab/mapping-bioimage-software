@@ -26,7 +26,7 @@ def build_figure():
 
     ncol = 5
     nrow = -(-len(order) // ncol)
-    fig, axes = plt.subplots(nrow, ncol, figsize=(7.1, 1.25 * nrow + 0.5))
+    fig, axes = plt.subplots(nrow, ncol, figsize=(7.1, (1.25 * nrow + 0.5) * 0.95))
     for i, (ax, tool) in enumerate(zip(axes.flat, order)):
         s = fs.reach([tool])
         colour = fs.licence_colour(tools.loc[tool, "category"])
@@ -48,7 +48,6 @@ def build_figure():
     for ax in list(axes.flat)[len(order):]:
         ax.axis("off")
     fig.supylabel("Full-text microscopy papers mentioning the package (%)", fontsize=7)
-    fig.suptitle("Each package's share of full-text microscopy papers, 2010-2025 (each panel has its own scale)", x=0.02, ha="left", fontsize=8.5)
     fig.tight_layout(h_pad=1.2, w_pad=0.6)
     return fig
 

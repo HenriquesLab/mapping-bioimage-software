@@ -36,10 +36,11 @@ def build_figure():
     for s, c, lab in series:
         ax_a.plot(s.index, s.values, marker="o", ms=2.3, color=c, lw=1.2,
                   ls="--" if c == VENDOR else ":" if c == ANY else "-", label=lab.replace("\n", " "))
-        ax_a.annotate(fs.pct(s.iloc[-1]), xy=(s.index[-1], s.iloc[-1]), xytext=(3, {ANY: 4, IJ: -3, VENDOR: 2, OTHER: -2}[c]),
+        ax_a.annotate(fs.pct(s.iloc[-1]), xy=(s.index[-1], s.iloc[-1]), xytext=(3, {ANY: 12, IJ: 4, VENDOR: -12, OTHER: 12}[c]),
                       textcoords="offset points", fontsize=6.2, color=c, va="center")
-        ax_a.annotate(fs.pct(s.iloc[0]), xy=(s.index[0], s.iloc[0]), xytext=(-3, {ANY: 6, IJ: 0, VENDOR: -6, OTHER: -3}[c]),
-                      textcoords="offset points", fontsize=6.2, color=c, ha="right", va="center")
+        ax_a.annotate(fs.pct(s.iloc[0]), xy=(s.index[0], s.iloc[0]), xytext=(8, {ANY: 12, IJ: 2, VENDOR: -4, OTHER: -10}[c]),
+                      textcoords="offset points", fontsize=6.2, color=c, ha="left", va="center",
+                      bbox=dict(facecolor="white", edgecolor="none", pad=0.2))
     r_any = series[0][0]
     ax_a.legend(loc="upper left", fontsize=5.8, handlelength=1.8, labelspacing=0.3, borderaxespad=0.1)
     ax_a.set_ylim(0, r_any.max() * 1.45)
@@ -50,7 +51,7 @@ def build_figure():
     # b: concentration, ImageJ/Fiji share of package mentions
     shares = {}
     for group, ls, lab in [("analysis", "-", f"{len(analysis)} analysis packages"),
-                           ("all", "--", "including microscope-control\nsoftware (ZEN, NIS-Elements, LAS X...)")]:
+                           ("all", "--", "including microscope-control\nsoftware (ZEN, NIS-Elements,\nLAS X...)")]:
         sh = fs.share_of_total(group)
         sh = sh[sh["tool_id"] == "imagej"].set_index("year")["share"]
         ax_b.plot(sh.index, sh.values, marker="o", ms=2.3, color=IJ, lw=1.2, ls=ls,
@@ -61,7 +62,7 @@ def build_figure():
         ax_b.annotate(fs.pct(sh.iloc[-1]), xy=(sh.index[-1], sh.iloc[-1]), xytext=(3, 0),
                       textcoords="offset points", fontsize=6.2, color=IJ, va="center")
         ax_b.text(2017.5 if ls == "-" else 2019.5, sh.loc[2017] + 6 if ls == "-" else sh.loc[2019] - 20, "among " + lab if ls == "-" else lab,
-                  fontsize=6.0, color=IJ, ha="center")
+                  fontsize=6.4, color=IJ, ha="center")
     ax_b.set_ylim(0, 100)
     ax_b.set_xlim(2008.6, 2027)
     ax_b.set_ylabel("ImageJ/Fiji share of\npackage mentions (%)", fontsize=7)
