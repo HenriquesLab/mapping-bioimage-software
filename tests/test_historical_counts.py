@@ -83,7 +83,7 @@ def test_historical_builder_writes_package_and_corpus_years(monkeypatch, tmp_pat
 def test_history_figure_covers_1995_to_2025_with_corpus_panel():
     import pandas as pd
     import matplotlib.pyplot as plt
-    from census.figures import sfig4_history
+    from census.figures import sfig1_history
 
     years = list(range(1995, 2026))
     counts = pd.DataFrame([
@@ -97,14 +97,14 @@ def test_history_figure_covers_1995_to_2025_with_corpus_panel():
         {"tool_id": "photoshop", "name": "Photoshop", "category": "figure-preparation", "in_aggregate": False},
     ]).set_index("tool_id")
 
-    fig = sfig4_history.build_figure(counts=counts, corpus=corpus, tools=tools)
+    fig = sfig1_history.build_figure(counts=counts, corpus=corpus, tools=tools)
     try:
         assert len(fig.axes) == 3
         assert tuple(fig.axes[0].get_xlim()) == (1995, 2025)
         assert fig.axes[0].get_yscale() == "log"
         metamorph_ax = next(ax for ax in fig.axes[1:] if "MetaMorph" in ax.get_title(loc="left"))
         assert tuple(metamorph_ax.lines[0].get_xdata()) == tuple(years)
-        assert metamorph_ax.lines[0].get_color() == sfig4_history.fs.CATEGORY_COLOR["commercial"]
+        assert metamorph_ax.lines[0].get_color() == sfig1_history.fs.CATEGORY_COLOR["commercial"]
         assert metamorph_ax.patches
     finally:
         plt.close(fig)

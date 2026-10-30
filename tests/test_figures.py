@@ -14,8 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 MODULES = [
     "fig1_overview", "fig2_landscape", "fig3_citations", "fig4_reach", "fig5_domains",
-    "fig6_deep_learning", "sfig1_trajectories", "sfig2_terms", "sfig3_triangulation",
-    "sfig4_history",
+    "fig6_deep_learning", "sfig1_history", "sfig2_terms", "sfig3_triangulation",
 ]
 
 
@@ -37,9 +36,9 @@ def test_build_figure(name):
 
 
 def test_nihimage_is_plotted_only_in_the_historical_figure():
-    from census.figures import fig1_overview, fig2_landscape, sfig1_trajectories, sfig4_history
+    from census.figures import fig1_overview, fig2_landscape, sfig1_history
 
-    for module in (fig1_overview, fig2_landscape, sfig1_trajectories):
+    for module in (fig1_overview, fig2_landscape):
         fig = module.build_figure()
         try:
             labels = [text.get_text() for ax in fig.axes for text in ax.texts]
@@ -50,7 +49,7 @@ def test_nihimage_is_plotted_only_in_the_historical_figure():
         finally:
             plt.close(fig)
 
-    fig = sfig4_history.build_figure()
+    fig = sfig1_history.build_figure()
     try:
         titles = [ax.get_title(loc='left') for ax in fig.axes]
         assert any('NIH Image' in title for title in titles)

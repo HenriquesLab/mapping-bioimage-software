@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FIGURES = [
     'Figure1__overview', 'Figure2__landscape', 'Figure3__citations',
     'Figure4__reach', 'Figure5__domains', 'Figure6__deep_learning',
-    'SFigure1__trajectories', 'SFigure2__terms', 'SFigure3__triangulation', 'SFigure4__history',
+    'SFigure1__history', 'SFigure2__terms', 'SFigure3__triangulation',
 ]
 
 
@@ -39,7 +39,7 @@ def test_every_publication_output_has_a_mapped_walkthrough():
     for target in sorted(figures | set(TABLES)):
         assert target in readme, f'{target}: missing coverage map entry'
         assert target in content, f'{target}: missing notebook coverage'
-    assert len(notebooks()) == 11
+    assert len(notebooks()) == 10
 
 
 def test_drake_walkthrough_uses_processed_inputs_and_table_check():

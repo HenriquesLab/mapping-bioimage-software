@@ -14,10 +14,9 @@ Figure targets use the manuscript PNG stem. Each figure notebook ends with **Ren
 | Figure4__reach | [Figure4.ipynb](Figure4.ipynb) | Reconstruct panel quantities; Render all panels, a-b |
 | Figure5__domains | [Figure5.ipynb](Figure5.ipynb) | Reconstruct panel quantities; Render all panels, complete matrix |
 | Figure6__deep_learning | [Figure6.ipynb](Figure6.ipynb) | Reconstruct panel quantities; Render all panels, a-d |
-| SFigure1__trajectories | [SFigure1.ipynb](SFigure1.ipynb) | Reconstruct panel quantities; Render all panels, all 33 package trajectories |
+| SFigure1__history | [SFigure1.ipynb](SFigure1.ipynb) | Reconstruct 1995-2025 corpus shares; Render all package panels and corpus size |
 | SFigure2__terms | [SFigure2.ipynb](SFigure2.ipynb) | Reconstruct panel quantities; Render all panels, a-h |
 | SFigure3__triangulation | [SFigure3.ipynb](SFigure3.ipynb) | Reconstruct panel quantities; Render all panels, a-c and label column |
-| SFigure4__history | [SFigure4.ipynb](SFigure4.ipynb) | Reconstruct 1995-2025 corpus shares; Render all package panels and corpus size |
 | registry | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | registry |
 | literature | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | literature |
 | deep_learning | [SupplementaryTables.ipynb](SupplementaryTables.ipynb) | deep_learning |

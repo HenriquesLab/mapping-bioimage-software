@@ -1,4 +1,4 @@
-"""Supplementary Figure 4: package mentions across the 1995-2025 corpus.
+"""Supplementary Figure 1: package mentions across the 1995-2025 corpus.
 
 Each package appears in its own panel, coloured by registry category. The top
 panel shows the yearly Europe PMC microscopy-corpus size; the shaded early years
@@ -164,7 +164,7 @@ def build_figure(
 
 
 def main(out_dir=None) -> None:
-    fs.save(build_figure(), "SFigure4__history", out_dir=out_dir)
+    fs.save(build_figure(), "SFigure1__history", out_dir=out_dir)
 
 
 if __name__ == "__main__":
