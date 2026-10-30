@@ -34,15 +34,15 @@ def checks():
         data = yaml.safe_load(cff.read_text())
         assert {'cff-version', 'message', 'title', 'authors', 'type', 'license', 'version'} <= data.keys()
         assert data['cff-version'] == '1.2.0' and data['type'] == 'software'
-        assert data['license'] == ['MIT', 'CC-BY-4.0'] and data['version'] == '2026.10.30'
+        assert data['license'] == ['MIT', 'CC-BY-4.0'] and data['version'] == '2026.10.31'
         assert len(data['authors']) == 6
     citation = yaml.safe_load(cff.read_text())
     zenodo = json.loads((release.ROOT / '.zenodo.json').read_text())
-    doi = '10.5281/zenodo.23785133'
+    doi = '10.5281/zenodo.23822247'
     assert citation['doi'] == zenodo['doi'] == doi
     assert {'type': 'doi', 'value': doi} in citation['identifiers']
     assert citation['date-released'] == '2026-10-30'
-    assert citation['version'] == zenodo['version'] == '2026.10.30'
+    assert citation['version'] == zenodo['version'] == '2026.10.31'
     manuscript = release.ROOT.parent / 'MANUSCRIPT/00_CONFIG.yml'
     if manuscript.exists():
         config = yaml.safe_load(manuscript.read_text())
