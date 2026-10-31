@@ -159,7 +159,7 @@ def reporting() -> str:
              "Version (%)": ci(row, "version"),
              "Named function (%)": ci(row, "function"),
              "Parameter (%)": ci(row, "parameter"),
-             "Version, function or parameter (%)": ci(row, "complete"),
+             "Version and (function or parameter) (%)": ci(row, "complete"),
              "Name only (%)": _pct(row["name_only_pct"]),
              "Code shared (%)": ci(row, "code")}
             for _, row in r.iterrows()]
@@ -313,7 +313,7 @@ def wildcard() -> str:
             "Wildcard 2025": _n(r.wildcard),
             "Added (%)": f"{_pct(100 * (r.wildcard - r.exact) / r.exact)}%" if r.exact else "",
             "Checked (n)": _n(k.sum()) if k is not None else "",
-            "Fused name/number": _n(k["fused"]) if k is not None else "",
+            "Fused to number": _n(k["fused"]) if k is not None else "",
             "Product variant": _n(k["variant"]) if k is not None else "",
             "Other word": _n(k["other"]) if k is not None else "",
             "Not found": _n(k["absent"]) if k is not None else "",
@@ -323,7 +323,7 @@ def wildcard() -> str:
                               for y in (2010, 2020, 2025)) for form in ("exact", "wildcard")}
     rows.append({"Package": "ImageJ/Fiji share of analysis mentions", "Exact 2025": share["exact"],
                  "Wildcard 2025": share["wildcard"], "Added (%)": "", "Checked (n)": "",
-                 "Fused name/number": "", "Product variant": "", "Other word": "",
+                 "Fused to number": "", "Product variant": "", "Other word": "",
                  "Not found": ""})
     return _md(pd.DataFrame(rows))
 
