@@ -100,6 +100,9 @@ def main() -> None:
                      "census.build.build_hosts", "census.build.build_methods_check",
                      "census.build.build_sensitivity", "census.build.build_history"):
             subprocess.run([sys.executable, "-m", step], check=True, cwd=SCRIPTS_DIR)
+        from census.figures.domains import build_enrichment, build_control_enrichment
+        build_enrichment()
+        build_control_enrichment()
     for command in optional_commands(args.audit, args.draw_validation, args.validation_seed):
         subprocess.run([sys.executable, *command], check=True, cwd=SCRIPTS_DIR)
     if not args.lit_only and not args.no_figures:

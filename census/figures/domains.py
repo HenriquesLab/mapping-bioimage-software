@@ -103,9 +103,10 @@ TAG = re.compile(r"<[^>]+>")
 MIN_PAPERS = 300
 
 
-def load_corpus() -> pd.DataFrame:
+def load_corpus(tools=None) -> pd.DataFrame:
+    """Prepare sampled rows, defaulting to the unchanged analysis-package corpus."""
     d = fs.load("random_sample_2021_2025.csv.gz").fillna("")
-    d = d[d["tool_id"].isin(fs.analysis_tools())].copy()
+    d = d[d["tool_id"].isin(fs.analysis_tools() if tools is None else tools)].copy()
     d["text"] = (d["title"] + " " + d["abstract"]).map(lambda s: TAG.sub(" ", s).lower())
     d["w"] = d["population"] / d["n_sampled"].where(d["n_sampled"] > 0, 1)
     for k, p in DOMAINS.items():
@@ -163,6 +164,29 @@ def enrichment(d: pd.DataFrame, n_boot: int = 500, seed: int = 1) -> pd.DataFram
                          "lo": np.nanpercentile(r, 2.5), "hi": np.nanpercentile(r, 97.5),
                          "n": int((d["tool_id"] == t).sum())})
     return pd.DataFrame(rows)
+
+
+def control_enrichment(n_boot: int = 500, seed: int = 1) -> pd.DataFrame:
+    """Compare each microscope-control program with the analysis corpus alone.
+
+    Add one control at a time so its leave-one-out baseline never includes
+    another control. Shared papers retain enrichment's paper-level bootstrap.
+    """
+    registry = fs.load("tools.csv")
+    controls = registry.loc[registry["category"] == "acquisition-suite", "tool_id"]
+    analysis_tools = fs.analysis_tools()
+    corpus = load_corpus([*analysis_tools, *controls])
+    analysis = corpus[corpus["tool_id"].isin(analysis_tools)]
+    results = []
+    for tool in controls:
+        rows = corpus[corpus["tool_id"] == tool]
+        if len(rows) < MIN_PAPERS:
+            continue
+        combined = pd.concat([analysis, rows], ignore_index=True)
+        result = enrichment(combined, n_boot=n_boot, seed=seed)
+        results.append(result[result["tool_id"] == tool])
+    return pd.concat(results, ignore_index=True) if results else pd.DataFrame(
+        columns=["tool_id", "domain", "share", "baseline", "ratio", "lo", "hi", "n"])
 
 
 PHRASES = [(r"\bdeep[\s-]+learning\b", "deep-learning"), (r"\bmachine[\s-]+learning\b", "machine-learning"),
@@ -233,5 +257,13 @@ def build_enrichment(out_path=None, n_boot: int = 500, seed: int = 1) -> pd.Data
     """
     out_path = fs.PROCESSED / "domain_enrichment.csv" if out_path is None else out_path
     result = enrichment(load_corpus(), n_boot=n_boot, seed=seed)
+    result.to_csv(out_path, index=False)
+    return result
+
+
+def build_control_enrichment(out_path=None, n_boot: int = 500, seed: int = 1) -> pd.DataFrame:
+    """Write microscope-control contrasts without changing the analysis table."""
+    out_path = fs.PROCESSED / "domain_enrichment_control.csv" if out_path is None else out_path
+    result = control_enrichment(n_boot=n_boot, seed=seed)
     result.to_csv(out_path, index=False)
     return result

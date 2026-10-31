@@ -10,6 +10,7 @@ contribute to several packages; keywords do not identify the task performed.
 from __future__ import annotations
 
 import numpy as np
+import pandas as pd
 
 from . import style as fs
 from . import domains as dm
@@ -41,7 +42,12 @@ def build_figure():
     prec = fs.load("domain_precision_2025.csv").set_index("area")
     counts = fs.europepmc_yearly()
     last = counts[counts["year"] == 2025].set_index("tool_id")["count"]
-    rows = sorted(e["tool_id"].unique(), key=lambda t: -float(last.get(t, 0)))
+    analysis_rows = sorted(e["tool_id"].unique(), key=lambda t: -float(last.get(t, 0)))
+    control = fs.load("domain_enrichment_control.csv")
+    control_rows = sorted(control["tool_id"].unique(), key=lambda t: -float(last.get(t, 0)))
+    rows = analysis_rows + control_rows
+    ys = list(range(len(analysis_rows) - 1, -1, -1)) + [-3 - i for i in range(len(control_rows))]
+    e = pd.concat([e, control], ignore_index=True)
     cols, xs, x = [], [], -1.0
     for group in GROUPS:
         shown = [a for a in group if prec.loc[a, "shown"]]
@@ -56,9 +62,11 @@ def build_figure():
     norm = TwoSlopeNorm(0, -2, 2)
     cmap = plt.get_cmap("BrBG")
 
-    fig, ax = plt.subplots(figsize=(7.1, 4.9))
-    for i, t in enumerate(rows):
-        yi = len(rows) - 1 - i
+    # Keep the analysis row spacing and top margin in physical units unchanged.
+    extra_rows = len(control_rows) + 2
+    height = 4.9 + extra_rows * (4.9 * 0.79) / (len(analysis_rows) + 0.2)
+    fig, ax = plt.subplots(figsize=(7.1, height))
+    for t, yi in zip(rows, ys):
         for x, c in zip(xs, cols):
             r = e.loc[(t, c)]
             if (r.lo > 1 or r.hi < 1) and (r.ratio >= MIN_FOLD or r.ratio <= 1 / MIN_FOLD):
@@ -67,9 +75,11 @@ def build_figure():
                 ax.scatter(x, yi, s=6, color=DOT, lw=0, zorder=2)
     ax.set_xticks(xs, [SHORT.get(c, c) for c in cols], fontsize=6.6, rotation=60, ha="left", rotation_mode="anchor")
     ax.xaxis.tick_top()
-    ax.set_yticks(range(len(rows)), [fs.tool_label(tools.loc[t, "name"]) for t in rows][::-1], fontsize=7)
+    ax.set_yticks(ys, [fs.tool_label(tools.loc[t, "name"]) for t in rows], fontsize=7)
+    ax.text(xs[0] - 0.6, -1.5, "Microscope-control programs",
+            fontsize=7, fontweight="bold", va="center")
     ax.set_xlim(xs[0] - 0.6, xs[-1] + 0.6)
-    ax.set_ylim(-0.6, len(rows) - 0.4)
+    ax.set_ylim(-extra_rows - 0.6, len(analysis_rows) - 0.4)
     ax.tick_params(length=0)
     ax.grid(False)
     for s in ax.spines.values():
@@ -90,7 +100,8 @@ def build_figure():
                     loc="upper left", bbox_to_anchor=(1.01, 0.30), fontsize=6.5, title_fontsize=6.8,
                     labelspacing=1.3, handletextpad=1.4, frameon=False)
     leg._legend_box.align = "left"
-    fig.subplots_adjust(left=0.14, right=0.80, bottom=0.03, top=0.82)
+    fig.subplots_adjust(left=0.14, right=0.80, bottom=0.03 * 4.9 / height,
+                        top=1 - 0.18 * 4.9 / height)
     return fig
 
 def main(out_dir=None) -> None:

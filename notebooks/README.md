@@ -12,7 +12,7 @@ Figure targets use the manuscript PNG stem. Each figure notebook ends with **Ren
 | Figure2__landscape | [Figure2.ipynb](Figure2.ipynb) | Reconstruct panel quantities; Render all panels, all three columns |
 | Figure3__citations | [Figure3.ipynb](Figure3.ipynb) | Citation queries for panels a-b; Reconstruct panel quantities; Render all panels, a-b |
 | Figure4__reach | [Figure4.ipynb](Figure4.ipynb) | Reconstruct panel quantities; Render all panels, a-b |
-| Figure5__domains | [Figure5.ipynb](Figure5.ipynb) | Reconstruct panel quantities; Render all panels, complete matrix |
+| Figure5__domains | [Figure5.ipynb](Figure5.ipynb) | Reconstruct panel quantities; Microscope-control programs; Render all panels, complete matrix |
 | Figure6__deep_learning | [Figure6.ipynb](Figure6.ipynb) | Reconstruct panel quantities; Render all panels, a-d |
 | SFigure1__history | [SFigure1.ipynb](SFigure1.ipynb) | Reconstruct 1995-2025 corpus shares; Render all package panels and corpus size |
 | SFigure2__terms | [SFigure2.ipynb](SFigure2.ipynb) | Reconstruct panel quantities; Render all panels, a-h |
@@ -69,6 +69,8 @@ The table notebook calls the same `census.tables.make_si_tables.TABLES` function
 Every notebook includes a title and summary, an **Inputs** table with file contents and producer modules, panel or table explanations before code, **Rebuilding from scratch**, and a closing manuscript check.
 
 Figure 3 uses `data/citation_reference_metadata.json` for indexed reference identifiers and publication years. S2 uses `data/sfigure2_terms.csv` for its 64 aggregate term rows. Figures 5 and 6 use committed area and vocabulary estimates. These inputs contain no article text. Their notebook rebuild notes explain the relevant producer functions.
+
+Figure 5 also lists `data/processed/domain_enrichment_control.csv`, produced by `census.figures.domains.build_control_enrichment(n_boot=500, seed=1)`. The six microscope-control programs are each contrasted independently with the weighted analysis-only corpus. The CSV has the same eight columns as `domain_enrichment.csv`.
 
 Rebuilding sampled text requires network access through `python release/refetch_identifiers.py`. Classification, term aggregation, validation pooling and plotting can then run locally. Source-count collectors need network access when raw caches are absent. The default notebook cells never run those collectors. Repository-star and download snapshots describe their original collection date.
 

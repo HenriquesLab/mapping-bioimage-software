@@ -42,6 +42,19 @@ def test_every_publication_output_has_a_mapped_walkthrough():
     assert len(notebooks()) == 10
 
 
+def test_figure5_documents_control_enrichment_rows():
+    nb = notebooks()['Figure5']
+    text = sources(nb)
+    assert '`data/processed/domain_enrichment_control.csv`' in text
+    readme = (ROOT / 'notebooks/README.md').read_text()
+    assert 'Microscope-control programs' in readme
+    for name in ('Figure1', 'Figure5'):
+        assert '`data/processed/domain_enrichment_control.csv`' in sources(notebooks()[name])
+    assert 'build_control_enrichment(n_boot=500, seed=1)' in text
+    assert 'Microscope-control programs' in text
+    assert "control_domains.loc[control_domains.tool_id.eq('zen')]" in text
+
+
 def test_drake_walkthrough_uses_processed_inputs_and_table_check():
     text = sources(notebooks()['SupplementaryTables'])
     assert '## drake' in text

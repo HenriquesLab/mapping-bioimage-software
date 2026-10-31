@@ -145,7 +145,8 @@ After reviewing and committing the label CSVs, run `python -m census.run_all --p
 | --- | --- | --- |
 | `data/processed/adoption_snapshot.csv` | Cross-sectional adoption metrics across packages | `tool_id`, `category`, `github_stars`, `github_forks`, `pypi_downloads_30d` |
 | `data/processed/dl_estimates.csv` | Annual deep-learning share and sample counts by package | `tool_id`, `year`, `population`, `n_sampled`, `n_dl`, `dl_fraction` |
-| `data/processed/domain_enrichment.csv` | Research-area keyword frequencies in package abstracts | `tool_id`, `domain`, `share`, `baseline`, `ratio` |
+| `data/processed/domain_enrichment.csv` | Research-area enrichment for analysis packages | `tool_id`, `domain`, `share`, `baseline`, `ratio`, `lo`, `hi`, `n` |
+| `data/processed/domain_enrichment_control.csv` | Six microscope-control programs contrasted independently with the weighted analysis-only corpus | `tool_id`, `domain`, `share`, `baseline`, `ratio`, `lo`, `hi`, `n` |
 | `data/processed/mentions_citations_yearly.csv` | Annual mentions, citations and uncited counts | `tool_id`, `year`, `named`, `cited`, `both`, `named_not_cited` |
 | `data/processed/drake_2021_2025.csv` | Pooled downloads, citations and ratios for 2021–2025, plus ImageJ/Fiji's 2020 report | `tool_id`, `downloads`, `citations`, `c_measured`, `estimable` |
 | `data/processed/drake_yearly.csv` | Annual downloads, citations and downloads per citing paper for QuPath, Cellpose and StarDist | `tool_id`, `year`, `downloads`, `citations`, `downloads_per_citing_paper` |
@@ -153,6 +154,8 @@ After reviewing and committing the label CSVs, run `python -m census.run_all --p
 | `data/processed/reach_any_yearly.csv` | Combined annual reach across tracked packages | `year`, `group`, `papers` |
 | `data/processed/historical_mentions_yearly.csv` | Europe PMC package hit counts for 1995-2009 | `tool_id`, `year`, `count` |
 | `data/processed/historical_corpus_yearly.csv` | Europe PMC microscopy-corpus counts for 1995-2009 | `year`, `microscopy_papers` |
+
+Rebuild the control table with `census.figures.domains.build_control_enrichment(n_boot=500, seed=1)`.
 
 ## Validation data and ignored inputs
 
@@ -199,7 +202,7 @@ comparison also skips without local API caches; committed frames need no refetch
 
 ## Article text
 
-The repository and archive contain identifiers and derived data, with no source-article titles, abstracts or full text. Redistribution rights vary by record. `data/processed/random_sample_2021_2025_ids.csv` records the sampled abstracts by identifier; the text file the deep-learning, research-area and term analyses read (`random_sample_2021_2025.csv.gz`) is gitignored. Rebuild it locally from Europe PMC with `release/refetch_identifiers.py` (see `release/README.md`); the committed results (`dl_estimates.csv`, `domain_enrichment.csv` and the figures) need no refetch. See `release/README.md` for the archive contents, reproduction steps and environment record.
+The repository and archive contain identifiers and derived data, with no source-article titles, abstracts or full text. Redistribution rights vary by record. `data/processed/random_sample_2021_2025_ids.csv` records the sampled abstracts by identifier; the text file the deep-learning, research-area and term analyses read (`random_sample_2021_2025.csv.gz`) is gitignored. Rebuild it locally from Europe PMC with `release/refetch_identifiers.py` (see `release/README.md`); the committed results (`dl_estimates.csv`, `domain_enrichment.csv`, `domain_enrichment_control.csv` and the figures) need no refetch. See `release/README.md` for the archive contents, reproduction steps and environment record.
 
 ## Data sources and terms
 
