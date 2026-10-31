@@ -172,8 +172,8 @@ The committed item and label CSVs under `data/validation/replicates/` are the re
 Commit changes, then build and check offline:
 
 ```bash
-python release/make_release.py --version 2026.10.31.1
-python -B release/test_release.py --archive release/build/mapping-bioimage-software-2026.10.31.1
+python release/make_release.py --version 2026.10.31.2
+python -B release/test_release.py --archive release/build/mapping-bioimage-software-2026.10.31.2
 ```
 
 The builder refuses an existing output directory; use `--output` for another copy. The checker verifies the exact file set and hashes. See `release/README.md` for provenance and frame-rebuild commands.
@@ -228,7 +228,7 @@ The repository contains no source-article titles, abstracts or full text; articl
 
 ## Citing
 
-Cite the archived release with the metadata in `CITATION.cff`. Zenodo DOI: https://doi.org/10.5281/zenodo.23834350.
+Cite the archived release with the metadata in `CITATION.cff`. Zenodo DOI: https://doi.org/10.5281/zenodo.23844634.
 
 ## Licence
 

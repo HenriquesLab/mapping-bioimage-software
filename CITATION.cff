@@ -2,13 +2,13 @@ cff-version: 1.2.0
 message: "Please cite this software and its archived data."
 type: software
 title: "mapping-bioimage-software: data and code for Mapping bioimage-analysis software adoption in microscopy"
-version: "2026.10.31.1"
+version: "2026.10.31.2"
 date-released: "2026-10-31"
 repository-code: "https://github.com/HenriquesLab/mapping-bioimage-software"
-doi: "10.5281/zenodo.23834350"
+doi: "10.5281/zenodo.23844634"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.23834350"
+    value: "10.5281/zenodo.23844634"
 license:
   - MIT
   - CC-BY-4.0
