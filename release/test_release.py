@@ -41,7 +41,7 @@ def checks():
     doi = '10.5281/zenodo.23834350'
     assert citation['doi'] == zenodo['doi'] == doi
     assert {'type': 'doi', 'value': doi} in citation['identifiers']
-    assert citation['date-released'] == '2026-10-30'
+    assert citation['date-released'] == '2026-10-31'
     assert citation['version'] == zenodo['version'] == '2026.10.31.1'
     manuscript = release.ROOT.parent / 'MANUSCRIPT/00_CONFIG.yml'
     if manuscript.exists():
