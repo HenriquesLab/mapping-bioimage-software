@@ -45,7 +45,7 @@ def test_nihimage_is_plotted_only_in_the_historical_figure():
             labels.extend(ax.get_title(loc='left') for ax in fig.axes)
             assert not any('NIH Image' in label for label in labels)
             if module is fig1_overview:
-                assert any('papers mentioning 32 packages' in label for label in labels)
+                assert any('mentions of 32 packages' in label for label in labels)
         finally:
             plt.close(fig)
 

@@ -92,7 +92,7 @@ def build_figure():
     ax.text(0.19, ya + 0.135, "Europe PMC full text", fontsize=6.6, fontweight="bold", color=INK, va="center")
     ax.text(0.19, ya + 0.108, f"{int(corpus.loc[2025]):,} microscopy papers in 2025", fontsize=6.0, color=SUB, va="center")
     n_tools = int((fs.load("tools.csv").tool_id != "nihimage").sum())  # NIH Image is plotted only in the history figure
-    ax.text(0.19, ya + 0.086, f"papers mentioning {n_tools} packages, counted yearly", fontsize=6.0, color=SUB, va="center")
+    ax.text(0.19, ya + 0.086, f"mentions of {n_tools} packages, by year", fontsize=6.0, color=SUB, va="center")
     sp = fig.add_axes((0.70, ya + 0.075, 0.25, 0.075))
     c = corpus.loc[2010:2025]
     sp.fill_between(c.index, 0, c.values, color=tint(SLATE, 0.82), lw=0)
@@ -100,7 +100,7 @@ def build_figure():
     sp.set_xlim(2010, 2025)
     sp.set_ylim(0, c.max() * 1.45)
     sp.axis("off")
-    ax.text(0.70, ya + 0.163, "Microscopy papers per year", fontsize=6.0, color=SUB, va="center")
+    ax.text(0.95, ya + 0.163, "Microscopy papers per year", fontsize=6.0, color=SUB, va="center", ha="right")
     # Label both ends with their counts and years, so the growth reads directly.
     for yr, ha in ((2010, "left"), (2025, "right")):
         v = c.loc[yr]
@@ -111,7 +111,7 @@ def build_figure():
              ("Imaris", GREY_C), ("Cellpose", BLUE), ("StarDist", BLUE), (f"+{n_tools - 7} more", SLATE)]
     x = 0.045
     for name, col in tools:
-        x += pill(ax, x, ya + 0.034, name, col, size=6.0) + 0.007
+        x += pill(ax, x, ya + 0.034, name, col, size=6.0) + 0.004
     link(ax, (0.5, ya - 0.004), (0.5, ya - 0.024), SUB, lw=1.0)
 
     # (b) papers naming each analysis package, ranked ------------------------
@@ -169,23 +169,19 @@ def build_figure():
     p = mc.set_index("tool_id").loc[audit.index, ["nnc", "method"]]
     p["name_only"] = audit["name_only_pct"]
     p["label"] = [fs.tool_label(audit.loc[t, "name"]) for t in p.index]
+    # citations of napari and StarDist are matched by reference title (no indexed own paper)
+    p.loc[p.method.eq("titles"), "label"] += "†"
     p["dl"] = reg.loc[p.index, "category"].eq("dl-model")
     p = p.sort_values("nnc")
     rows = np.arange(len(p))
     for k, (col, head) in enumerate((("nnc", "mentioned, not cited\n(2021-2025)"),
-                                     ("name_only", "mentioned without version, function\nor parameter (2025)"))):
+                                     ("name_only", "mentioned without version,\nfunction or parameter (2025)"))):
         b = fig.add_axes((0.20 + k * 0.40, yc + 0.040, 0.33, 0.098))
         b.set_facecolor("none")
         b.barh(rows, p[col], height=0.68, color=BLUE, edgecolor=np.where(p.dl, INK, "none"), lw=0.6,
                hatch=None, zorder=2)
-        if col == "nnc":
-            # citations of napari and StarDist are matched by reference title (no indexed own paper)
-            for r_, t in zip(rows, p.method):
-                if t == "titles":
-                    b.barh(r_, p[col].iloc[r_], height=0.68, color="none", edgecolor="white", hatch="//////", lw=0, zorder=3)
         for r_, v in zip(rows, p[col]):
-            pad = 6 if v < 30 else 2
-            b.text(v + pad, r_, f"{v:.0f}%", fontsize=6.0, color=INK, va="center", ha="left")
+            b.text(v + 2, r_, f"{v:.0f}%", fontsize=6.0, color=INK, va="center", ha="left")
         b.set_xlim(0, 100)
         b.set_ylim(-0.6, len(p) - 0.4)
         b.set_yticks(rows, p.label if k == 0 else [""] * len(p))
@@ -195,7 +191,7 @@ def build_figure():
             b.spines[side].set_visible(False)
         b.spines["left"].set_linewidth(0.5)
         b.set_title(head, fontsize=6.0, color=SUB, loc="left", pad=2, linespacing=1.1)
-    ax.text(0.07, yc + 0.022, "hatched: citation matched by reference title; outlined: deep-learning method",
+    ax.text(0.07, yc + 0.022, "† citation matched by name in reference titles; outlined: deep-learning method",
             fontsize=6.0, color=SUB, va="center")
     return fig
 

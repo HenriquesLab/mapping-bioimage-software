@@ -83,7 +83,7 @@ def build_figure():
     ax_count.set_xscale("log")
     analysis = set(fs.analysis_tools())
     lead = sorted((r for r in rows if r["tool_id"] in analysis), key=lambda r: -r["last"])
-    ax_count.set_title("Papers mentioning each analysis\npackage (2025)", loc="left", fontsize=8)
+    ax_count.set_title("Papers mentioning each package\n(2025)", loc="left", fontsize=8)
     ax_count.set_xlabel("Papers mentioning the package (log scale)", fontsize=7.5)
     ax_count.xaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:,.0f}"))
     fs.sparse_log_ticks(ax_count, [r["last"] for r in rows], n=4)
@@ -106,7 +106,7 @@ def build_figure():
             ax_share.scatter([g], [yi], s=26, color=c, zorder=4)
         if ring:
             ax_share.scatter([g], [yi], s=60, facecolor="none", edgecolor=e, lw=0.7, zorder=5)
-        pad = 1.4 if ring else 1.22
+        pad = 1.45 if ring else 1.3
         ax_share.text(max(g, 1.0) * pad if g >= 1 else pad, yi, f"{g:.0f}× (from {int(r['base']):,})" if g >= 10 else f"{g:.1f}× (from {int(r['base']):,})",
                       fontsize=5.3, color="#777777" if r["base"] < FRAGILE else "#555555", ha="left", va="center")
     ax_share.axvline(1.0, color="#666666", lw=0.8, ls="--", zorder=2)
@@ -138,7 +138,7 @@ def build_figure():
             message='This figure includes Axes that are not compatible with tight_layout, so results might be incorrect[.]')
         fig.tight_layout()
     fig.legend(handles=handles, loc="upper center", ncol=4, fontsize=6.2, frameon=False,
-               bbox_to_anchor=(0.5, -0.06), handletextpad=0.2, columnspacing=0.7, borderaxespad=0.1)
+               bbox_to_anchor=(0.5, 0.0), handletextpad=0.2, columnspacing=0.7, borderaxespad=0.1)
     return fig
 
 

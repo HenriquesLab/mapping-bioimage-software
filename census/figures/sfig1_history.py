@@ -104,10 +104,10 @@ def build_figure(
              if corpus_ax.get_ylim()[0] <= value <= corpus_ax.get_ylim()[1]]
     if ticks:
         corpus_ax.set_yticks(ticks, [f"{value / 1000:g}k" for value in ticks])
-    corpus_ax.set_ylabel("Microscopy papers (log scale)", fontsize=6.5)
+    corpus_ax.set_ylabel("Papers\n(log scale)", fontsize=6.5)
     corpus_ax.set_title("Europe PMC microscopy corpus", loc="left", fontsize=7, pad=3)
     corpus_ax.set_xticks(TICKS, TICK_LABELS)
-    corpus_ax.tick_params(labelbottom=False, labelsize=5.8, length=1.5)
+    corpus_ax.tick_params(labelsize=5.8, length=1.5)
     corpus_ax.grid(axis="y", color=fs.GRID, lw=0.5, zorder=0.5)
     corpus_ax.text(
         START_YEAR + 0.4, 0.92, "early corpus, archive-limited",

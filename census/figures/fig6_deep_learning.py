@@ -61,7 +61,7 @@ def build_figure():
               fontsize=6.2, color="#555555", va="top")
     ax_a.set_xlim(2014.6, 2025.6)
     ax_a.set_ylim(0, named.max() * 1.25)
-    ax_a.set_ylabel("Deep-learning method mentions\nper 1,000 core-package mentions", fontsize=6.8)
+    ax_a.set_ylabel("Mentions per 1,000 mentions of\nthe 13 core analysis packages", fontsize=6.8)
     ax_a.set_title(f"Deep-learning method mentions rose from\n{named.loc[2020]:.0f} to {named.loc[YEAR]:.0f} per 1,000 ({2020}-{YEAR})", loc="left", fontsize=7.6)
     fs.format_year_ticks(ax_a, max_ticks=5)
     _style(ax_a)
@@ -77,8 +77,8 @@ def build_figure():
     cols = [DL if names[t] in ("Cellpose", "StarDist") else MEASURE for t in est["tool_id"]]
     ax_b.hlines(y, est["lo"], est["hi"], color=MEASURE, lw=1.1, alpha=0.45)
     ax_b.scatter(est["p"], y, s=20, color=cols, zorder=5)
-    for yi, v in zip(y, est["p"]):
-        ax_b.annotate(fs.pct(v), (v, yi), xytext=(8, 0), textcoords="offset points",
+    for yi, v, h in zip(y, est["p"], est["hi"].fillna(est["p"])):
+        ax_b.annotate(fs.pct(v), (max(v, h), yi), xytext=(8, 0), textcoords="offset points",
                       fontsize=5.8, color="#555555", ha="left", va="center", zorder=6)
     ax_b.set_yticks(y, [fs.tool_label(names[t]) for t in est["tool_id"]], fontsize=6.6)
     ax_b.set_xlabel("Titles/abstracts matching deep-learning vocabulary (%)", fontsize=6.8)
@@ -128,7 +128,7 @@ def build_figure():
     ax_d.legend(handles=[plt.Rectangle((0, 0), 1, 1, color=c) for _, _, c in WORKFLOW], labels=[t for _, t, _ in WORKFLOW],
                 fontsize=6.2, frameon=False, ncol=3, loc="upper left", bbox_to_anchor=(-0.02, -0.2),
                 handlelength=1.0, columnspacing=0.8)
-    ax_d.set_title(f"How each method was run in papers\nthat also mention ImageJ/Fiji ({YEAR})", loc="left", fontsize=7.6)
+    ax_d.set_title(f"In sampled papers, StarDist often ran inside\nFiji and Cellpose on its own ({YEAR})", loc="left", fontsize=7.6)
     _style(ax_d, "x")
 
     for ax, letter, xo in [(ax_a, "a", -0.3), (ax_b, "b", -0.36), (ax_c, "c", -0.3), (ax_d, "d", -0.3)]:

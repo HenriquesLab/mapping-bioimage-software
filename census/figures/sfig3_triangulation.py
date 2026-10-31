@@ -23,7 +23,7 @@ TOOLS = ["imagej", "qupath", "cellprofiler", "ilastik", "napari",
 METRICS = [
     ("Papers mentioning\nthe package, 2010-2025", "Papers", "#0072B2"),
     ("GitHub stars\n(developer interest)", "Stars", "#E69F00"),
-    ("Python package downloads,\n30 days", "Downloads", "#009E73"),
+    ("Python package\ndownloads, 30 days", "Downloads", "#009E73"),
 ]
 
 
@@ -56,7 +56,7 @@ def build_figure():
         for yi, tool, v in zip(y, TOOLS, values):
             if v > 0:
                 lab = f"{int(v):,}" + (" (pyimagej)" if col == "pypi" and tool == "imagej" else "")
-                ax.text(v * 1.6, yi, lab, fontsize=5.8, color="#555555", ha="left", va="center")
+                ax.annotate(lab, (v, yi), xytext=(6, 0), textcoords="offset points", fontsize=5.8, color="#555555", ha="left", va="center")
             else:
                 ax.text(0.5, yi, "no package", transform=ax.get_yaxis_transform(),
                         fontsize=6, color="#999999", ha="center", va="center")
